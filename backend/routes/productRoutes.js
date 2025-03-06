@@ -15,8 +15,8 @@ router.get("/", async (req, res) => {
 // Thêm sản phẩm mới
 router.post("/", async (req, res) => {
   const newProduct = new Product({
-    name: req.body.name,
-    price: req.body.price,
+    prod_name: req.body.prod_name,
+    prod_price: req.body.prod_price,
   });
 
   try {

@@ -1,5 +1,6 @@
-Cài đặt: Hướng dẫn từng bước để thiết lập backend bằng Node.js, Express và MongoDB
-MONGODB
+Thursday, March 6, 2025
+
+I. Cài đặt MONGODB : https://cloud.mongodb.com/
 npm install express mongoose dotenv cors multer jsonwebtoken bcryptjs
 🔹 express: Framework backend
 🔹 mongoose: Kết nối MongoDB
@@ -33,8 +34,41 @@ Nhấp vào một Collection để xem dữ liệu bên trong.
 - Chạy lệnh: node server.js
 - Truy cập trình duyệt: http://localhost:5000/
 =>  MongoDB đã kết nối thành công!
+- chạy thử API: kiểm tra lại các files:
+ + server.js
+ + routes/productRoutes.js
+ + models/productModel.js
+
+Kiểm tra lại API
+- node server.js
+- http://localhost:5000/api/products
 
 
+II. Thao tác với Postman: 
+https://solar-comet-219090.postman.co/workspace/My-Workspace~80d81272-e467-4c22-89e0-433ef940fb50/request/create?requestId=a583b040-9707-4e6c-a4a0-3cc8415907a2
+- Nhấn + (Chọn GET/POST):
+ + GET: (Select)
+  VD1: postman-echo.com/get
+  VD2: http://localhost:5000/api/products (sussecfully)
+ + POST (Insert)Thêm sản phẩm mới (POST)
+URL: http://localhost:5000/api/products
+Body (JSON - chọn "raw" + "JSON"):
+{
+    "prod_name": "Đầm nữ Sexy Ntree",
+    "prod_price": 150000
+}
+
+[
+    {
+        "_id": "67c96525460e41ab7912b816",
+        "prod_name": "Đầm nữ Sexy Ntree",
+        "prod_price": 150000,
+        "__v": 0
+    }
+]
+
+LƯU Ý: tên đặt khi sd POST phải trùng với tên trong các files:
+productModel.js, routes/productRoutes.js
 
 BACKEND
 1. Khởi tạo Nodejs :
