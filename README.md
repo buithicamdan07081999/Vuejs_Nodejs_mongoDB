@@ -69,6 +69,14 @@ Body (JSON - chọn "raw" + "JSON"):
 
 LƯU Ý: tên đặt khi sd POST phải trùng với tên trong các files:
 productModel.js, routes/productRoutes.js
+=> Tiếp tujcc tạo các productModel.js, routes/productRoutes.js tương tự cho 
+Tạo nhiều file trong thư mục models/, ví dụ:
+User.js (người dùng)
+Product.js (sản phẩm)
+Order.js (đơn hàng)
+Cart.js (giỏ hàng)
+Payment.js (thanh toán)
+
 
 BACKEND
 1. Khởi tạo Nodejs :
