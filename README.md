@@ -1,3 +1,13 @@
+Account MongoDB btcdan789/7892388
+
+Các bước : 
+Tạo: Tạo kết nối -> tạo fule model -> tạo fule router
+🔹 Tạo file models để thiết kế database sản phẩm.
+🔹 Tạo file routes để định nghĩa API.
+🔹 Viết API CRUD cho products.
+
+- Run: node server.js kết nối DB, Router, Model
+
 Thursday, March 6, 2025
 
 I. Cài đặt MONGODB : https://cloud.mongodb.com/
@@ -43,8 +53,29 @@ Kiểm tra lại API
 - node server.js
 - http://localhost:5000/api/products
 
+BACKEND
+1. Khởi tạo Nodejs :
+    mkdir backend && cd backend
+    npm init -y
+2. Cài Package
+    npm install express mongoose dotenv cors body-parser morgan jsonwebtoken bcryptjs multer
+3. Cài nodemon: npm install --save-dev nodemon
+4. Tạo cấu trúc thư mục:
+    - Backend:  
+    mkdir config models routes controllers middleware uploads
+5. Tạo file .env:
+    touch server.js .env (sai)
+    echo "" > server.js
+    echo "" > .env
+6. Thêm các file .env config/db.js , cd .. server.js , thêm vào file package.json 
+"scripts": {
+  "start": "node server.js",
+  "dev": "nodemon server.js"
+}
+7. Chạy npm run dev
 
 II. Thao tác với Postman: 
+<!-- Format https://jsonformatter.curiousconcept.com/# -->
 https://solar-comet-219090.postman.co/workspace/My-Workspace~80d81272-e467-4c22-89e0-433ef940fb50/request/create?requestId=a583b040-9707-4e6c-a4a0-3cc8415907a2
 - Nhấn + (Chọn GET/POST):
  + GET: (Select)
@@ -69,7 +100,7 @@ Body (JSON - chọn "raw" + "JSON"):
 
 LƯU Ý: tên đặt khi sd POST phải trùng với tên trong các files:
 productModel.js, routes/productRoutes.js
-=> Tiếp tujcc tạo các productModel.js, routes/productRoutes.js tương tự cho 
+=> Tiếp tục tạo các productModel.js, routes/productRoutes.js tương tự cho 
 Tạo nhiều file trong thư mục models/, ví dụ:
 User.js (người dùng)
 Product.js (sản phẩm)
@@ -77,11 +108,27 @@ Order.js (đơn hàng)
 Cart.js (giỏ hàng)
 Payment.js (thanh toán)
 
+Friday, March 7, 2025
+FRONTEND 
+1. Khởi tạo thư mục frontend :
+tại thư mục frontend
+npm create vue@latest frontend -> làm theo hướng dẫn 
+cd frontend
+npm install
+npm run format
+npm run dev (node backend/server.js)
+2. Cài TailwindCSS
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p (lỗi)
+- khắc phục lỗi:
+bật cmd: cd C:\Users\WIN10UOF\Desktop\KDBD
+rmdir /s /q node_modules
+del package-lock.json
+npm install
 
-BACKEND
-1. Khởi tạo Nodejs :
-    mkdir backend && cd backend
-    npm init -y
+
+
+
 2. Cài Package
     npm install express mongoose dotenv cors body-parser morgan jsonwebtoken bcryptjs multer
 3. Cài nodemon: npm install --save-dev nodemon

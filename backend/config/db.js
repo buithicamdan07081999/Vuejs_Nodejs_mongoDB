@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const dotenv = require("dotenv"); // Đọc các biến môi trường từ file .env
 
-dotenv.config();
+dotenv.config(); //Load biến môi trường từ .env
 
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
       serverSelectionTimeoutMS: 5000, // Chờ 5 giây nếu không tìm thấy server
     });
     console.log(`MongoDB Connected: ${conn.connection.host}`);
