@@ -22,8 +22,13 @@
     "eslint-plugin-vue": "^9.32.0",
     "postcss": "^8.5.3",
     "prettier": "^3.5.1",
-    "tailwindcss": "^4.0.11",
+    "tailwindcss": "^4.0.12",
     "vite": "^6.1.0",
     "vite-plugin-vue-devtools": "^7.7.2"
-  }
+  },
+  "description": "This template should help get you started developing with Vue 3 in Vite.",
+  "main": "eslint.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

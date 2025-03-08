@@ -121,27 +121,30 @@ npm run dev (node backend/server.js)
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p (lỗi)
 - khắc phục lỗi:
-bật cmd: cd C:\Users\WIN10UOF\Desktop\KDBD
-rmdir /s /q node_modules
-del package-lock.json
-npm install
 
-
-
-
-2. Cài Package
-    npm install express mongoose dotenv cors body-parser morgan jsonwebtoken bcryptjs multer
-3. Cài nodemon: npm install --save-dev nodemon
-4. Tạo cấu trúc thư mục:
-    - Backend:  
-    mkdir config models routes controllers middleware uploads
-5. Tạo file .env:
-    touch server.js .env (sai)
-    echo "" > server.js
-    echo "" > .env
-6. Thêm các file .env config/db.js , cd .. server.js , thêm vào file package.json 
-"scripts": {
-  "start": "node server.js",
-  "dev": "nodemon server.js"
-}
-7. Chạy npm run dev
+Saturday, March 8, 2025
+download (nvm-setup.exe) + xóa nodejs 
+- Cài lại: nvm và Nodejs
+*** Cài nvm
+1. Mở Environment Variables và xóa cacs Path cũ
+2. Vào link tải nvm và cài đặt
+https://github.com/coreybutler/nvm-windows/releases
+3. Cài đặt (Cont): Chọn các thư mục như bên dưới
+C:\nvm4w\
+C:\nvm4w\nodejs\
+4. Set Path tương ứng với đường dẫn trên 
+5. Kiểm tra: nvm version (done)
+*** Cài Nodejs
+1. Cài đặt
+nvm list available
+nvm install 20.11.1
+nvm use 20.11.1
+2. Kiểm tra: 
+node -v
+npm -v
+3. Tiếp tục ở Shell: gõ ls C:\Users\$env:USERNAME để đi vào thư mục dự án
+*** Cài TailwinCSS
+1. cd frontend
+2. npm init -y
+3. npm install -D tailwindcss postcss autoprefixer
+4. tạo file cấu hình Tailwind
