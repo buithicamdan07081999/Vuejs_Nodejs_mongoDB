@@ -15,6 +15,11 @@ const app = express();
 app.use(cors()); //Giúp frontend có thể gửi request đến backend mà không bị lỗi CORS
 app.use(express.json()); //Cho phép server đọc dữ liệu JSON từ req.body
 app.use(morgan("dev")); //Log thông tin request (phương thức, URL, response time...).
+  
+//Tạo route chính 
+app.get('/test', (req, res) => {
+  res.json({ message: 'API hoạt động, kết nối thành công backend với frontend!' });
+});
 
 //Tạo route chính 
 app.get("/", (req, res) => {

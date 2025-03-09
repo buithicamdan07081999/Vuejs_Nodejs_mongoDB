@@ -132,7 +132,7 @@ https://github.com/coreybutler/nvm-windows/releases
 3. Cài đặt (Cont): Chọn các thư mục như bên dưới
 C:\nvm4w\
 C:\nvm4w\nodejs\
-4. Set Path tương ứng với đường dẫn trên 
+4. Set Path tương ứng với đường dẫn trên
 5. Kiểm tra: nvm version (done)
 *** Cài Nodejs
 1. Cài đặt
@@ -140,11 +140,41 @@ nvm list available
 nvm install 20.11.1
 nvm use 20.11.1
 2. Kiểm tra: 
-node -v
-npm -v
+node -v v20.11.1    
+npm -v  10.2.4
 3. Tiếp tục ở Shell: gõ ls C:\Users\$env:USERNAME để đi vào thư mục dự án
 *** Cài TailwinCSS
 1. cd frontend
 2. npm init -y
-3. npm install -D tailwindcss postcss autoprefixer
+3. npm install -D tailwindcss postcss autoprefixer (lỗi)
+
+Sunday, March 9, 2025
+https://github.com/tailwindlabs/tailwindcss/discussions/15820 (đường dẫn sửa lỗi)
+$ npm install -D tailwindcss@3 postcss autoprefixer (fix)
 4. tạo file cấu hình Tailwind
+$ npx tailwindcss init -p
+Cấu hình
+1. Tạo file tailwind.config.js
+2. Tạo file src/main.js / Nội dung: import './style.css';
+3. Kết nối Frontend và Backend
+Chạy Backend(cont): node server.js
+Chạy Frontend(cont): npm run dev
+-Tạo file api.js
+4. Test
+ a. Mở file server.js trong thư mục backend
+ b. Kiểm tra xem bạn có API nào chưa, nếu chưa thì thêm API này vào server.js
+ Nội dung: 
+ const express = require('express');
+const cors = require('cors');
+
+const app = express();
+app.use(cors()); // Cho phép frontend gọi API
+
+app.get('/test', (req, res) => {
+  res.json({ message: 'API hoạt động tốt!' });
+});
+
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
