@@ -163,18 +163,68 @@ Chạy Frontend(cont): npm run dev
 4. Test
  a. Mở file server.js trong thư mục backend
  b. Kiểm tra xem bạn có API nào chưa, nếu chưa thì thêm API này vào server.js
- Nội dung: 
- const express = require('express');
-const cors = require('cors');
-
-const app = express();
-app.use(cors()); // Cho phép frontend gọi API
-
+Nội dung: 
 app.get('/test', (req, res) => {
   res.json({ message: 'API hoạt động tốt!' });
 });
 
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+Monday, March 10, 2025
+1. Cài đặt Vue Router
+    a. npm install vue-router@4
+2. Tạo cấu trúc thư mục
+    a. Tạo src/router/index.js
+    b. Tạo layout
+    /frontend
+ ├── /public
+ ├── /src
+ │   ├── /components
+ │   │   ├── Header.vue
+ │   │   ├── Footer.vue
+ │   │   ├── Sidebar.vue
+ │   ├── /views
+ │   │   ├── HomeView.vue
+ │   │   ├── ProductsView.vue
+ │   ├── /router
+ │   │   ├── index.js
+ │   ├── App.vue
+ │   ├── main.js
+ ├── package.json
+ ├── vite.config.js
+3. Tùy chỉnh nội dung của các thư mục:
+        *** (Cập nhật App.vue để chứa Header, Sidebar, Footer)
+         - src/App.vue 
+         - src/components/Header.vue
+         - src/components/Sidebar.vue
+         - src/components/Footer.vue
+        *** Sua main.js
+
+4. Tao trang giao dien
+   1.  Tải ảnh: https://unsplash.com/t/food-drink
+   2.  frontend/src/views/HomeView.vue (sua duong dan ten anh trong homeview)
+5. Sua loi giao dien:
+   1. File main.css: 
+    #app {
+    /* cách này chia giao diện thành 2 cột bằng nhau */
+    /* display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem; */ 
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  ---- Giai doan 2: (sau khi tao layout thanh cong)
+    1. Thiet ke giao dien trang san pham
+       1. Tao trang src/views/ProductsView.vue
+       2. Cap nhat Router router/index.js
+
+
+📅 10/3: Thiết kế trang danh sách sản phẩm
+Chức năng chính:
+✅ Hiển thị danh sách sản phẩm theo danh mục
+✅ Bộ lọc giá
+✅ Thanh tìm kiếm
+
+mkdir src/components/products
+touch src/components/products/ProductList.vue src/components/products/ProductItem.vue
+touch src/views/ProductsView.vue

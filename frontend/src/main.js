@@ -1,7 +1,12 @@
 import './assets/main.css'
 import './style.css';
+import router from './router'; // Import Vue Router
 
 import { createApp } from 'vue'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+
+const app = createApp(App);
+
+app.use(router); // Dùng Vue Router trong ứng dụng
+app.mount('#app');
