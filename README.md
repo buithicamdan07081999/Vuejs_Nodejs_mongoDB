@@ -178,9 +178,9 @@ Monday, March 10, 2025
  ├── /public
  ├── /src
  │   ├── /components
- │   │   ├── Header.vue
- │   │   ├── Footer.vue
- │   │   ├── Sidebar.vue
+ │   │   ├── AppHeader.vue
+ │   │   ├── AppFooter.vue
+ │   │   ├── AppSidebar.vue
  │   ├── /views
  │   │   ├── HomeView.vue
  │   │   ├── ProductsView.vue
@@ -190,18 +190,18 @@ Monday, March 10, 2025
  │   ├── main.js
  ├── package.json
  ├── vite.config.js
-3. Tùy chỉnh nội dung của các thư mục:
+1. Tùy chỉnh nội dung của các thư mục:
         *** (Cập nhật App.vue để chứa Header, Sidebar, Footer)
          - src/App.vue 
-         - src/components/Header.vue
-         - src/components/Sidebar.vue
-         - src/components/Footer.vue
+         - src/components/AppHeader.vue
+         - src/components/AppSidebar.vue
+         - src/components/AppFooter.vue
         *** Sua main.js
 
-4. Tao trang giao dien
+2. Tao trang giao dien
    1.  Tải ảnh: https://unsplash.com/t/food-drink
    2.  frontend/src/views/HomeView.vue (sua duong dan ten anh trong homeview)
-5. Sua loi giao dien:
+3. Sua loi giao dien:
    1. File main.css: 
     #app {
     /* cách này chia giao diện thành 2 cột bằng nhau */
@@ -220,10 +220,6 @@ Monday, March 10, 2025
 
 
 📅 10/3: Thiết kế trang danh sách sản phẩm
-Chức năng chính:
-✅ Hiển thị danh sách sản phẩm theo danh mục
-✅ Bộ lọc giá
-✅ Thanh tìm kiếm
 
 mkdir src/components/products
 touch src/components/products/ProductList.vue src/components/products/ProductItem.vue
@@ -233,3 +229,22 @@ touch src/views/ProductsView.vue
 Tuesday, March 11, 2025
 
 npm run lint (Kiem tra loi)
+Tiep tuc trang Chi tiet san pham
+1. Cau truc du an
+src/
+ ├── components/
+ │   ├── products/
+ │   │   ├── ProductItem.vue   // khung cua từng sản phẩm 
+ │   │   ├── ProductList.vue   // Component danh sách sản phẩm
+ │   │   ├── ProductFilter.vue // Component bộ lọc
+ ├── views/
+ │   ├── ProductListView.vue   // Trang danh sách sản phẩm
+ │   ├── ProductDetailView.vue // Trang chi tiết sản phẩm
+ ├── router/
+ │   ├── index.js              // File cấu hình route
+
+ 1. Tạo file: src/views/ProductListView.vue (Tao giao dien)
+ 2. src/components/products/ProductItem.vue ( Tạo component sản phẩm)
+ 3. Tạo file: src/components/products/ProductFilter.vue
+ 4. Tạo file: src/views/ProductDetailView.vue
+ 5. Cập nhật file: src/router/index.js

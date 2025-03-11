@@ -31,11 +31,11 @@
 import { ref } from 'vue'
 
 const categories = ref([
-  { id: 1, name: 'Bánh Donut', image: '../../public/images/donut.avif' },
-  { id: 2, name: 'Pizza', image: '../../public/images/pizza.avif' },
-  { id: 3, name: 'Thịt nguội', image: '../../public/images/thitnguoi.avif' },
-  { id: 4, name: 'Trứng', image: '../../public/images/egg.avif' }
-])
+  { id: 1, name: "Donut", category: "Dersert", price: 200000, image: "../../public/images/donut.avif" },
+  { id: 2, name: "Pizza", category: "Fastfood", price: 1500000, image: "../../public/images/pizza.avif" },
+  { id: 3, name: "Ham", category: "Fastfood", price: 500000, image: "../../public/images/thitnguoi.avif" },
+  { id: 4, name: "Egg", category: "Fastfood", price: 1200000, image: "../../public/images/egg.avif" }
+]);
 
 </script>
 

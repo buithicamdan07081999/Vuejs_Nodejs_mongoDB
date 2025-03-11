@@ -3,22 +3,23 @@
 import { ref, computed } from 'vue';
 
 // Danh sách sản phẩm giả lập
-const products = ref([
-  { id: 1, name: "Áo thun", category: "Quần áo", price: 200000, image: "../../public/images/donut.avif" },
-  { id: 2, name: "Giày Nike", category: "Giày dép", price: 1500000, image: "../../public/images/pizza.avif" },
-  { id: 3, name: "Túi xách", category: "Phụ kiện", price: 500000, image: "../../public/images/thitnguoi.avif" },
-  { id: 4, name: "Tai nghe Bluetooth", category: "Thiết bị điện tử", price: 1200000, image: "../../public/images/egg.avif" }
+  // Fake data sản phẩm
+  const products = ref([
+  { id: 1, name: "Donut", category: "Dersert", price: 200000, image: "../../../public/images/donut.avif" },
+  { id: 2, name: "Pizza", category: "Fastfood", price: 1500000, image: "../../../public/images/pizza.avif" },
+  { id: 3, name: "Ham", category: "Fastfood", price: 500000, image: "../../../public/images/thitnguoi.avif" },
+  { id: 4, name: "Egg", category: "Fastfood", price: 1200000, image: "../../../public/images/egg.avif" }
 ]);
 
 // Danh sách danh mục
-const categories = ref(["Tất cả", "Quần áo", "Giày dép", "Phụ kiện", "Thiết bị điện tử"]);
-const selectedCategory = ref("Tất cả");
+const categories = ref(["All", "Donut", "Pizza", "Ham", "Egg"]);
+const selectedCategory = ref("All");
 const searchQuery = ref("");
 
 // Lọc sản phẩm theo danh mục và tìm kiếm
 const filteredProducts = computed(() => {
   return products.value.filter(product => {
-    const matchCategory = selectedCategory.value === "Tất cả" || product.category === selectedCategory.value;
+    const matchCategory = selectedCategory.value === "All" || product.category === selectedCategory.value;
     const matchSearch = product.name.toLowerCase().includes(searchQuery.value.toLowerCase());
     return matchCategory && matchSearch;
   });

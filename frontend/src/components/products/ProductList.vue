@@ -1,7 +1,5 @@
 <template>
     <div>
-      <h2 class="text-xl font-bold mb-4">Danh sách sản phẩm</h2>
-  
       <!-- Search -->
       <input
         v-model="searchQuery"
@@ -38,10 +36,11 @@
   
   // Fake data sản phẩm
   const products = ref([
-    { id: 1, name: "Áo thun nam", price: 300000, category: "Clothing", image: "https://via.placeholder.com/150" },
-    { id: 2, name: "Giày thể thao", price: 1200000, category: "Shoes", image: "https://via.placeholder.com/150" },
-    { id: 3, name: "Túi xách nữ", price: 800000, category: "Bags", image: "https://via.placeholder.com/150" },
-  ]);
+  { id: 1, name: "Donut", category: "Dersert", price: 200000, image: "../../../public/images/donut.avif" },
+  { id: 2, name: "Pizza", category: "Fastfood", price: 1500000, image: "../../../public/images/pizza.avif" },
+  { id: 3, name: "Ham", category: "Fastfood", price: 500000, image: "../../../public/images/thitnguoi.avif" },
+  { id: 4, name: "Egg", category: "Fastfood", price: 1200000, image: "../../../public/images/egg.avif" }
+]);
   
   const searchQuery = ref("");
   const selectedPrice = ref("");
