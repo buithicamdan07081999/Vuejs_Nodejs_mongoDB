@@ -228,3 +228,6 @@ Chức năng chính:
 mkdir src/components/products
 touch src/components/products/ProductList.vue src/components/products/ProductItem.vue
 touch src/views/ProductsView.vue
+
+
+npm run lint (Kiem tra loi)
