@@ -9,10 +9,11 @@ const products = ref([
   { id: 2, name: "Pizza", category: "Fastfood", price: 1500000, image: "../../../public/images/pizza.avif" },
   { id: 3, name: "Ham", category: "Fastfood", price: 500000, image: "../../../public/images/thitnguoi.avif" },
   { id: 4, name: "Egg", category: "Fastfood", price: 1200000, image: "../../../public/images/egg.avif" },
-  { id: 4, name: "Burger", category: "Fastfood", price: 200000, image: "../../../public/images/donut.avif" },
-  { id: 5, name: "Spaghetti", category: "Fastfood", price: 1500000, image: "../../../public/images/pizza.avif" },
-  { id: 6, name: "Pasta", category: "Fastfood", price: 500000, image: "../../../public/images/thitnguoi.avif" },
-  { id: 7, name: "Pancake", category: "Fastfood", price: 1200000, image: "../../../public/images/egg.avif" }
+  { id: 5, name: "Burger", category: "Fastfood", price: 200000, image: "../../../public/images/donut.avif" },
+  { id: 6, name: "Spaghetti", category: "Fastfood", price: 1500000, image: "../../../public/images/pizza.avif" },
+  { id: 7, name: "Pasta", category: "Fastfood", price: 500000, image: "../../../public/images/thitnguoi.avif" },
+  { id: 8, name: "Pancake", category: "Dersert", price: 1200000, image: "../../../public/images/egg.avif" },
+  { id: 9, name: "Ice Cream", category: "Dersert", price: 1200000, image: "../../../public/images/egg.avif" },
 ]);
 
 // Category Search / Search theo danh muc
@@ -25,6 +26,7 @@ const searchQuery = ref("");
 const filteredProducts = computed(() => {
   return products.value.filter(product => {
 
+    const productname = product.name;
     const productcategory = product.category;
     const selectedValue = selectedCategory.value;
 
@@ -32,10 +34,9 @@ const filteredProducts = computed(() => {
     // const matchCategory = selectedCategory.value === "All" || productcategory === selectedCategory.value;
     const matchSearch = product.name.toLowerCase().includes(searchQuery.value.toLowerCase());
 
-
-    console.log("Bộ lọc đã chọn: ", productcategory, "Type:", typeof product.category);
-    console.log("Giá trị đã chọn:", selectedValue);
-    console.log("Có khớp danh mục không?: ", matchCategory);
+    if (selectedValue != "All" && matchCategory) {
+      console.log(product.id, ".Tên sản phẩm: ", productname, " | Tên danh mục: ", productcategory,  " | Kiểu dữ liệu:", typeof product.category);
+    }
 
     return matchCategory && matchSearch;
   });
