@@ -9,7 +9,7 @@ import ProductDetailView from "@/views/ProductDetailView.vue";
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
   { path: '/products', name: 'Products', component: ProductsView },
-  { path: "/products2", component: ProductDetailView }
+  { path: '/products/:id', name: 'ProductDetail', component: ProductDetailView }
 ];
 
 const router = createRouter({

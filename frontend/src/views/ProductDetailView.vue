@@ -1,45 +1,54 @@
 <template>
   <MainLayout>
-    <div class="p-4">
-      <h1 class="text-2xl font-bold mb-4">Danh sách sản phẩm</h1>
-      
-      <!-- Bộ lọc và tìm kiếm -->
-      <ProductFilter @updateFilter="updateFilter" />
+    <div v-if="product" class="p-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Ảnh sản phẩm -->
+        <div>
+          <img :src="product.image" alt="Product Image" class="w-full h-80 object-cover" />
+        </div>
 
-      <!-- Danh sách sản phẩm -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-        <ProductItem v-for="product in filteredProducts" :key="product.id" :product="product" />
+        <!-- Thông tin sản phẩm -->
+        <div>
+          <h2 class="text-2xl font-bold">{{ product.name }}</h2>
+          <p class="text-gray-600 mt-2">{{ product.description }}</p>
+          <p class="text-xl font-semibold mt-4">{{ formatPrice(product.price) }}</p>
+          <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Thêm vào giỏ hàng</button>
+        </div>
       </div>
+    </div>
+    <div v-else>
+      <p class="text-center">Sản phẩm không tồn tại!</p>
     </div>
   </MainLayout>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import ProductItem from "@/components/products/ProductItem.vue";
-import ProductFilter from "@/components/products/ProductFilter.vue";
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
 
-// Danh sách sản phẩm giả định
-// Fake data sản phẩm
-const products = ref([
-{ id: 1, name: "Donut", category: "Dersert", price: 200000, image: "../../../public/images/donut.avif" },
-{ id: 2, name: "Pizza", category: "Fastfood", price: 1500000, image: "../../../public/images/pizza.avif" },
-{ id: 3, name: "Ham", category: "Fastfood", price: 500000, image: "../../../public/images/thitnguoi.avif" },
-{ id: 4, name: "Egg", category: "Fastfood", price: 1200000, image: "../../../public/images/egg.avif" }
-]);
+const route = useRoute();
+const product = ref(null);
 
-const filter = ref({ search: "", category: "All" });
 
-// Cập nhật bộ lọc
-const updateFilter = (newFilter) => {
-  filter.value = newFilter;
-};
+const products = [
+  { id: 1, name: "Donut", price: 200000, description: "Áo thun chất lượng cao", image: "../../../public/images/donut.avif" },
+  { id: 2, name: "Pizza", price: 1500000, description: "Áo thun chất lượng cao", image: "../../../public/images/pizza.avif" },
+  { id: 3, name: "Ham", price: 500000, description: "Áo thun chất lượng cao", image: "../../../public/images/thitnguoi.avif" },
+  { id: 4, name: "Egg", price: 1200000, description: "Áo thun chất lượng cao", image: "../../../public/images/egg.avif" },
+];
 
-// Lọc sản phẩm theo bộ lọc
-const filteredProducts = computed(() => {
-  return products.value.filter(product => {
-    return (filter.value.category === "All" || product.category === filter.value.category) &&
-           product.name.toLowerCase().includes(filter.value.search.toLowerCase());
-  });
+
+onMounted(() => {
+  console.log("Route ID:", route.params.id, "Type:", typeof route.params.id);
+  console.log("Products:", products);
+
+  const productId = parseInt(route.params.id);
+  product.value = products.find((p) => p.id === productId);
+  
+  console.log("Found Product:", product.value);
 });
+
+const formatPrice = (price) => {
+  return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price);
+};
 </script>
