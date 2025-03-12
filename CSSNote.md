@@ -12,3 +12,5 @@ text-2xl, text-3xl,... → Cực lớn
 lex space-x-4:
     - flex: Sử dụng Flexbox để sắp xếp các phần tử theo chiều ngang.
     - space-x-4: Tạo khoảng cách ngang giữa các phần tử
+  
+<router-link to="/" class="block px-4 py-2 text-black hover:bg-gray-700 hover:text-white rounded-lg transition">🏠 Trang chủ</router-link> 

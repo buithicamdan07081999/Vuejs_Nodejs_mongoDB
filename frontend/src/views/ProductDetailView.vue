@@ -1,5 +1,4 @@
 <template>
-  <MainLayout>
     <div v-if="product" class="p-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Ảnh sản phẩm -->
@@ -19,7 +18,6 @@
     <div v-else>
       <p class="text-center">Sản phẩm không tồn tại!</p>
     </div>
-  </MainLayout>
 </template>
 
 <script setup>
@@ -39,15 +37,13 @@ const products = [
 
 
 onMounted(() => {
-  console.log("Route ID:", route.params.id, "Type:", typeof route.params.id);
-  console.log("Products:", products);
-
   const productId = parseInt(route.params.id);
   product.value = products.find((p) => p.id === productId);
-  
+
+  console.log("Route ID:", route.params.id, "Type:", typeof route.params.id);
+  console.log("Products:", products);
   console.log("Found Product:", product.value);
 });
-
 const formatPrice = (price) => {
   return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price);
 };

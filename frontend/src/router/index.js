@@ -8,7 +8,7 @@ import ProductDetailView from "@/views/ProductDetailView.vue";
 // B2: Tạo đường dẫn
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
-  { path: '/products', name: 'Products', component: ProductsView },
+  { path: '/products', name: 'ProductsView', component: ProductsView },
   { path: '/products/:id', name: 'ProductDetail', component: ProductDetailView }
 ];
 

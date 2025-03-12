@@ -248,3 +248,8 @@ src/
  3. Tạo file: src/components/products/ProductFilter.vue
  4. Tạo file: src/views/ProductDetailView.vue
  5. Cập nhật file: src/router/index.js
+
+
+- Cach hoat dong:
+1. Chay App.vue trc
+2. <RouterView /> se goi cac router tuong ung (theo duong dan) (routers/index.js)
