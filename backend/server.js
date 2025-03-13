@@ -9,13 +9,17 @@ const connectDB = require("./config/db"); //Ghi log request để dễ debug.
 dotenv.config(); //Load biến môi trường từ .env
 connectDB(); //Gọi hàm để kết nối MongoDB
 
+const authRoutes = require("./routes/authRoutes");
+
+
 //Khởi tạo app và dùng middleware
 const app = express();
 
 app.use(cors()); //Giúp frontend có thể gửi request đến backend mà không bị lỗi CORS
 app.use(express.json()); //Cho phép server đọc dữ liệu JSON từ req.body
 app.use(morgan("dev")); //Log thông tin request (phương thức, URL, response time...).
-  
+app.use("/api/auth", authRoutes);
+
 //Tạo route chính 
 app.get('/test', (req, res) => {
   res.json({ message: 'API hoạt động, kết nối thành công backend với frontend!' });
