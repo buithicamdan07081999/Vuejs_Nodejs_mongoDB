@@ -15,7 +15,8 @@ import Sidebar from '@/components/AppSidebar.vue';
     <div class=" flex-1 flex flex-col w-4/5">
       <Header style="background-color: #1a1a1a;" class="h-16 text-white flex items-center justify-between px-4" />
       <!-- Header cố định chiều cao h-16 (~64px), màu nền xanh (bg-blue-500), căn giữa nội dung -->
-      <main class="flex-1 p-4">
+      <main class="flex-1 p-4 overflow-auto">
+        <!-- <main class="flex-1 p-4 overflow-auto"> -->
         <RouterView />
         <!-- dùng <RouterView /> để hiển thị nội dung động theo đường dẫn -->
         <!-- 📌 Cách hoạt động:

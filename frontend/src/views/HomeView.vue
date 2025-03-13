@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-
     <div class="p-4">
       <section style="background-color: #1a1a1a;" class="text-white text-center p-10 rounded-lg">
         <h1 class="text-4xl font-bold">Wellcome to KDBD Chanel</h1>
@@ -9,10 +8,16 @@
     </div>
 
     <!-- Banner -->
-    <div class="banner">
-      <img src="../../public/images/banner.jpg" alt="Banner" class="banner-img" />
-    </div>
 
+    <div class="banner">
+      <Swiper :modules="[Autoplay]" :autoplay="{ delay: 1000, disableOnInteraction: false }" :loop="true"
+        class="w-full h-64 mx-auto"  :key="banners.length">
+        <SwiperSlide v-for="(banner, index) in banners" :key="index">
+          <img :src="banner" alt="Banner" class="banner-img w-full h-64 object-cover" />
+        </SwiperSlide>
+      </Swiper>
+      <!-- <img src="../../public/images/banner.jpg" alt="Banner" class="banner-img" /> -->
+    </div>
 
     <!-- Danh mục sản phẩm -->
     <div class="categories">
@@ -28,7 +33,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/autoplay";
+import { Autoplay } from "swiper/modules";
+
+const banners = [
+  "../../public/images/dumsum.webp",
+  "../../public/images/discount.webp",
+  "../../public/images/menu.webp",
+  "../../public/images/fruit.webp",
+];
 
 const categories = ref([
   { id: 1, name: "Donut", category: "Dersert", price: 200000, image: "../../public/images/donut.avif" },

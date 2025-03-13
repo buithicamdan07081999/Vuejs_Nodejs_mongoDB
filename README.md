@@ -249,7 +249,16 @@ src/
  4. Tạo file: src/views/ProductDetailView.vue
  5. Cập nhật file: src/router/index.js
 
-
+Wednesday, March 11, 2025
 - Cach hoat dong:
 1. Chay App.vue trc
 2. <RouterView /> se goi cac router tuong ung (theo duong dan) (routers/index.js)
+- Done Detail, chuyen trang,...
+
+Thursday, March 13, 2025
+Banner tự động chuyển động (Carousel)
+✅ Cài đặt Swiper
+Chạy lệnh:
+npm install swiper
+- Tiep tuc code Backend
+- 

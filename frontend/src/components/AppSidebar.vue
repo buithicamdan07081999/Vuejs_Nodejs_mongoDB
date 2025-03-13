@@ -1,6 +1,6 @@
 <template>
   <aside class="w-64 h-screen bg-grey-800 hover:bg-indigo-100 text-white p-4 shadow-lg">
-    <h2 class="text-xl font-semibold mb-6 text-gray-100">Danh mục</h2>
+    <h2 class="text-xl font-semibold mb-6 text-black">Danh mục</h2>
     <nav>
       <ul class="space-y-3">
         <li>
