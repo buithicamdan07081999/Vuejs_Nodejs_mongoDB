@@ -4,27 +4,33 @@ const jwt = require("jsonwebtoken");
 
 // Đăng ký user
 const registerUser = async (req, res) => {
-    const { name, email, password } = req.body;
-
     try {
-        const userExists = await User.findOne({ email });
-        if (userExists) {
-            return res.status(400).json({ message: "Email đã tồn tại!" });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const user = await User.create({
-            name,
-            email,
-            password: hashedPassword,
-        });
-
-        res.status(201).json({ message: "Đăng ký thành công!", user });
+      const { name, email, password } = req.body;
+      
+      console.log("📩 Dữ liệu nhận được:", req.body);
+  
+      // Kiểm tra email đã tồn tại chưa
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: "Email đã tồn tại!" });
+      }
+  
+      // Mã hóa mật khẩu
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      
+      console.log("🔑 Mật khẩu sau khi hash:", hashedPassword);
+  
+      // Lưu user vào DB
+      const newUser = new User({ name, email, password: hashedPassword });
+      await newUser.save();
+  
+      res.status(201).json({ message: "Đăng ký thành công!" });
     } catch (error) {
-        res.status(500).json({ message: "Lỗi server", error: error.message });
+      console.error("🔥 Lỗi server:", error);
+      res.status(500).json({ message: "Lỗi server", error: error.message });
     }
-};
+  };
 
 // Đăng nhập user
 const loginUser = async (req, res) => {

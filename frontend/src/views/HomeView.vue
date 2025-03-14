@@ -3,7 +3,8 @@
     <div class="p-4">
       <section style="background-color: #1a1a1a;" class="text-white text-center p-10 rounded-lg">
         <h1 class="text-4xl font-bold">Wellcome to KDBD Chanel</h1>
-        <p class="mt-2 text-lg">Find and shop for the best items at cheap prices</p>
+        <p class="mt-2 text-lg marquee-text">Find and shop for the best items at cheap prices</p>
+        <!-- marquee-text : chạy chữ (giống banner)  -->
       </section>
     </div>
 
@@ -11,8 +12,8 @@
 
     <div class="banner">
       <Swiper :modules="[Autoplay]" :autoplay="{ delay: 1000, disableOnInteraction: false }" :loop="true"
-        class="w-full h-64 mx-auto"  :key="banners.length">
-        <SwiperSlide v-for="(banner, index) in banners" :key="index">
+        class="w-full h-64 mx-auto"  :key="bannerpics.length">
+        <SwiperSlide v-for="(banner, index) in bannerpics" :key="index">
           <img :src="banner" alt="Banner" class="banner-img w-full h-64 object-cover" />
         </SwiperSlide>
       </Swiper>
@@ -39,8 +40,8 @@ import "swiper/css";
 import "swiper/css/autoplay";
 import { Autoplay } from "swiper/modules";
 
-const banners = [
-  "../../public/images/dumsum.webp",
+const bannerpics = [
+  "../../public/images/dimsum.webp",
   "../../public/images/discount.webp",
   "../../public/images/menu.webp",
   "../../public/images/fruit.webp",
@@ -56,7 +57,19 @@ const categories = ref([
 </script>
 
 <style scoped>
-.banner {
+.marquee-text {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: marquee 8s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.banner {  
   width: 100%;
   text-align: center;
 }
