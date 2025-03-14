@@ -35,7 +35,7 @@ const filteredProducts = computed(() => {
     const matchSearch = product.name.toLowerCase().includes(searchQuery.value.toLowerCase());
 
     if (selectedValue != "All" && matchCategory) {
-      console.log(product.id, ".Tên sản phẩm: ", productname, " | Tên danh mục: ", productcategory,  " | Kiểu dữ liệu:", typeof product.category);
+      console.log(product.id, ".Tên sản phẩm: ", productname, " | Tên danh mục: ", productcategory, " | Kiểu dữ liệu:", typeof product.category);
     }
 
     return matchCategory && matchSearch;

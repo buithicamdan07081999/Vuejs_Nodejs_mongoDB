@@ -51,7 +51,7 @@ const route = useRoute();
 // route.path → Đường dẫn hiện tại.
 // route.fullPath → Đường dẫn đầy đủ (cả query).
 
-const product = ref(null); 
+const product = ref(null);
 // khai báo biến (khởi tạo null)
 // Dùng để gán dữ liệu từ API
 
@@ -65,13 +65,19 @@ const products = [
 
 onMounted(() => {
   const productId = parseInt(route.params.id);
+  // route.params.id lấy ID của sản phẩm từ URL.
   product.value = products.find((p) => p.id === productId);
-
+  //   Tìm kiếm sản phẩm trong danh sách products có id khớp với productId.
+  //   Nếu tìm thấy, nó gán vào biến product.
   console.log("Route ID:", route.params.id, "Type:", typeof route.params.id);
   console.log("Products:", products);
   console.log("Found Product:", product.value);
 });
 const formatPrice = (price) => {
-  return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price);
+  return new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+    currencyDisplay: "code" // Hiển thị mã tiền tệ "VND" thay vì "₫"
+  }).format(price);
 };
 </script>
