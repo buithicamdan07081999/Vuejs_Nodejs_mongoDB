@@ -261,4 +261,5 @@ Banner tự động chuyển động (Carousel)
 Chạy lệnh:
 npm install swiper
 - Tiep tuc code Backend
-- 
+- Them chu thich all frontend
+- Tai cong cu Debug: https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?pli=1
