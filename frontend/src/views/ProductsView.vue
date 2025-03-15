@@ -66,12 +66,13 @@ const filteredProducts = computed(() => {
 
     <!-- Danh sách sản phẩm -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      <div v-for="product in filteredProducts" :key="product.id" class="p-4 bg-gray-100 rounded-lg text-center">
+      <div v-for="product in filteredProducts" :key="product.id" class="p-4 border rounded-lg text-center">
+        <!-- <div v-for="product in filteredProducts" :key="product.id" class="p-4 bg-gray-100 rounded-lg text-center"> -->
         <img :src="product.image" class="w-full h-32 object-cover rounded" />
-        <h3 class="mt-2 font-semibold">{{ productname }}</h3>
-        <p class="text-gray-700">{{ productcategory }}</p>
+        <h3 class="mt-2 font-semibold">{{ product.name }}</h3>
+        <p class="text-gray-700">{{ product.category }}</p>
         <p class="text-red-500 font-bold">{{ product.price.toLocaleString() }} VNĐ</p>
-        <router-link class="text-blue-500 font-bold" :to="'/products/' + product.id">Xem chi tiết</router-link>
+        <router-link class="text-blue-500 font-bold hover:bg-blue-700 hover:text-white" :to="'/products/' + product.id">Xem chi tiết</router-link>
       </div>
     </div>
   </div>
