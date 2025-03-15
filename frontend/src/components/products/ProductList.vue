@@ -36,10 +36,10 @@
   
   // Fake data sản phẩm
   const products = ref([
-  { id: 1, name: "Donut", category: "Dersert", price: 200000, image: "../../../public/images/donut.avif" },
-  { id: 2, name: "Pizza", category: "Fastfood", price: 1500000, image: "../../../public/images/pizza.avif" },
-  { id: 3, name: "Ham", category: "Fastfood", price: 500000, image: "../../../public/images/thitnguoi.avif" },
-  { id: 4, name: "Egg", category: "Fastfood", price: 1200000, image: "../../../public/images/egg.avif" }
+  { id: 1, name: "Donut", category: "desserts", price: 200000, image: "../../../public/images/donut.avif" },
+  { id: 2, name: "Pizza", category: "Fastfoods", price: 1500000, image: "../../../public/images/pizza.avif" },
+  { id: 3, name: "Ham", category: "Fastfoods", price: 500000, image: "../../../public/images/thitnguoi.avif" },
+  { id: 4, name: "Egg", category: "Fastfoods", price: 1200000, image: "../../../public/images/egg.avif" }
 ]);
   
   const searchQuery = ref("");

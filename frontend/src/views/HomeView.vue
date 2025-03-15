@@ -13,18 +13,18 @@ const bannerpics = [
 ];
 
 const categories = ref([
-  { id: 1, name: "Donut", category: "Dersert", price: 200000, image: "../../../public/images/donut.avif" },
-  { id: 2, name: "Pizza", category: "Fastfood", price: 1500000, image: "../../../public/images/pizza.avif" },
-  { id: 3, name: "Ham", category: "Fastfood", price: 500000, image: "../../../public/images/thitnguoi.avif" },
-  { id: 4, name: "Egg", category: "Fastfood", price: 1200000, image: "../../../public/images/egg.avif" },
-  { id: 5, name: "Burger", category: "Fastfood", price: 200000, image: "../../../public/images/donut.avif" },
-  { id: 6, name: "Spaghetti", category: "Fastfood", price: 1500000, image: "../../../public/images/pizza.avif" },
-  { id: 7, name: "Pasta", category: "Fastfood", price: 500000, image: "../../../public/images/thitnguoi.avif" },
-  { id: 8, name: "Pancake", category: "Dersert", price: 1200000, image: "../../../public/images/egg.avif" },
-  { id: 9, name: "Ice Cream", category: "Dersert", price: 1200000, image: "../../../public/images/egg.avif" },
-  { id: 10, name: "Egg", category: "Fastfood", price: 1200000, image: "../../public/images/egg.avif" },
-  { id: 11, name: "Donut", category: "Dersert", price: 200000, image: "../../public/images/donut.avif" },
-  { id: 12, name: "Pizza", category: "Fastfood", price: 1500000, image: "../../public/images/pizza.avif" },
+  { id: 1, name: "Donut", category: "desserts", price: 200000, image: "../../../public/images/donut.avif" },
+  { id: 2, name: "Pizza", category: "Fastfoods", price: 1500000, image: "../../../public/images/pizza.avif" },
+  { id: 3, name: "Ham", category: "Fastfoods", price: 500000, image: "../../../public/images/thitnguoi.avif" },
+  { id: 4, name: "Egg", category: "Fastfoods", price: 1200000, image: "../../../public/images/egg.avif" },
+  { id: 5, name: "Burger", category: "Fastfoods", price: 200000, image: "../../../public/images/donut.avif" },
+  { id: 6, name: "Spaghetti", category: "Fastfoods", price: 1500000, image: "../../../public/images/pizza.avif" },
+  { id: 7, name: "Pasta", category: "Fastfoods", price: 500000, image: "../../../public/images/thitnguoi.avif" },
+  { id: 8, name: "Pancake", category: "desserts", price: 1200000, image: "../../../public/images/egg.avif" },
+  { id: 9, name: "Ice Cream", category: "desserts", price: 1200000, image: "../../../public/images/egg.avif" },
+  { id: 10, name: "Egg", category: "Fastfoods", price: 1200000, image: "../../public/images/egg.avif" },
+  { id: 11, name: "Donut", category: "desserts", price: 200000, image: "../../public/images/donut.avif" },
+  { id: 12, name: "Pizza", category: "Fastfoods", price: 1500000, image: "../../public/images/pizza.avif" },
 ]);
 
 </script>
