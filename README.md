@@ -174,22 +174,25 @@ Monday, March 10, 2025
 2. Tạo cấu trúc thư mục
     a. Tạo src/router/index.js
     b. Tạo layout
+    
     /frontend
- ├── /public
- ├── /src
- │   ├── /components
+ ├── /public (pics)
+ ├── /src (code customize)
+ │   ├── /components (Chứa các component nhỏ dùng lại được)
  │   │   ├── AppHeader.vue
  │   │   ├── AppFooter.vue
  │   │   ├── AppSidebar.vue
  │   ├── /views
- │   │   ├── HomeView.vue
- │   │   ├── ProductsView.vue
+ │   │   ├── HomeView.vue (ok) - index
+ │   │   ├── ProductsView.vue (ok) - Trang san pham
+ │   │   ├── ProductsDetailView.vue (ok) - Trang chi tiet san pham
  │   ├── /router
- │   │   ├── index.js
- │   ├── App.vue
+ │   │   ├── index.js - định nghĩa đường dẫn đến từng trang.
+ │   ├── App.vue (bố cục của trang chủ)
  │   ├── main.js
  ├── package.json
  ├── vite.config.js
+
 1. Tùy chỉnh nội dung của các thư mục:
         *** (Cập nhật App.vue để chứa Header, Sidebar, Footer)
          - src/App.vue 

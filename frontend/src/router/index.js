@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-// B1: import
+// B1: import các thư mục phải nằm trong views
 import HomeView from '@/views/HomeView.vue';  //phai tao trang HomeView trước
 import ProductsView from '@/views/ProductsView.vue';
 import ProductDetailView from "@/views/ProductDetailView.vue";
@@ -9,9 +9,9 @@ import ProductDetailView from "@/views/ProductDetailView.vue";
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
   { path: '/products', name: 'ProductsView', component: ProductsView },
-  { path: '/products/:id', name: 'ProductDetail', component: ProductDetailView }
-];
+  { path: '/products/:id', name: 'ProductDetail', component: ProductDetailView },
 
+]
 const router = createRouter({
   history: createWebHistory(),
   routes,

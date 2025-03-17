@@ -89,7 +89,7 @@ const categories = ref([
         <!-- - rounded-lg: Bo góc large (lg), tương đương 8px. -->
         <!-- p-5 (padding) 5 * 4px = 20px -->
         <h1 class="text-4xl font-bold">Wellcome to KDBD Chanel</h1>
-        <p class="mt-2 text-lg marquee-text">Find and shop for the best items at cheap prices</p>
+        <p class="mt-2 text-lg text-yellow-300 marquee-text">I love mập yêu!</p>
         <!-- marquee-text : chạy chữ (giống banner)  -->
       </section>
     </div>
