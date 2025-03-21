@@ -1,10 +1,9 @@
 const express = require("express");
-
 const dotenv = require("dotenv");
 const path = require("path");
 // Load file .env từ thư mục backend
 dotenv.config({ path: path.resolve(__dirname, ".env") });
-console.log("🔹 MONGO_URI từ env:", process.env.MONGO_URI); // Kiểm tra giá trị
+// console.log("🔹 MONGO_URI từ env:", process.env.MONGO_URI); // Kiểm tra giá trị
 
 const cors = require("cors");
 const morgan = require("morgan");
