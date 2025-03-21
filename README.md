@@ -1,17 +1,5 @@
 Account MongoDB btcdan789/7892388
-
-Các bước : 
-Tạo: Tạo kết nối -> tạo fule model -> tạo fule router
-🔹 Tạo file models để thiết kế database sản phẩm.
-🔹 Tạo file routes để định nghĩa API.
-🔹 Viết API CRUD cho products.
-
-- Run: node server.js kết nối DB, Router, Model
-
-Thursday, March 6, 2025
-
-I. Cài đặt MONGODB : https://cloud.mongodb.com/
-npm install express mongoose dotenv cors multer jsonwebtoken bcryptjs
+KHAI NIEM
 🔹 express: Framework backend
 🔹 mongoose: Kết nối MongoDB
 🔹 dotenv: Đọc biến môi trường
@@ -19,6 +7,14 @@ npm install express mongoose dotenv cors multer jsonwebtoken bcryptjs
 🔹 multer: Xử lý upload file
 🔹 jsonwebtoken: Xác thực bằng JWT
 🔹 bcryptjs: Mã hóa mật khẩu
+
+- Run: node server.js
+
+Thursday, March 6, 2025
+
+I. Cài đặt MONGODB : https://cloud.mongodb.com/
+npm install express mongoose dotenv cors multer jsonwebtoken bcryptjs
+
 - Tự động Load server: npm install --save-dev nodemon
 - Thêm vào package.json: 
 "scripts": {
@@ -27,13 +23,12 @@ npm install express mongoose dotenv cors multer jsonwebtoken bcryptjs
 }
 Cài đặt : npm install mongodb
 - Thêm vào thư mục .env
+- Change pw: 7892388Btcd
 MONGO_URI=mongodb+srv://btcdan789:7892388@Btcd@kdbd.zvwls.mongodb.net/?retryWrites=true&w=majority&appName=KDBD 
 
 link: https://cloud.mongodb.com/v2/67c9168ec4b1601af7c33396#/metrics/replicaSet/67c918b47f1c686bd2b4540b/explorer/sample_mflix
 - Thao tác với MongoDB 
  🔹 Bước 1: Đăng nhập MongoDB Atlas
-Truy cập MongoDB Atlas
-Đăng nhập vào tài khoản của bạn
 🔹 Bước 2: Xem danh sách Database
 Chọn dự án (Project) của bạn
 Trong tab Databases, bạn sẽ thấy danh sách các Cluster
@@ -60,19 +55,16 @@ BACKEND
 2. Cài Package
     npm install express mongoose dotenv cors body-parser morgan jsonwebtoken bcryptjs multer
 3. Cài nodemon: npm install --save-dev nodemon
-4. Tạo cấu trúc thư mục:
-    - Backend:  
-    mkdir config models routes controllers middleware uploads
-5. Tạo file .env:
+4. Tạo file .env:
     touch server.js .env (sai)
     echo "" > server.js
     echo "" > .env
-6. Thêm các file .env config/db.js , cd .. server.js , thêm vào file package.json 
+5. Thêm các file .env config/db.js , server.js , thêm vào file package.json 
 "scripts": {
   "start": "node server.js",
   "dev": "nodemon server.js"
 }
-7. Chạy npm run dev
+1. Chạy npm run dev
 
 II. Thao tác với Postman: 
 <!-- Format https://jsonformatter.curiousconcept.com/# -->

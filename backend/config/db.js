@@ -1,15 +1,14 @@
 const mongoose = require("mongoose");
-const dotenv = require("dotenv"); // Đọc các biến môi trường từ file .env
-
-dotenv.config(); //Load biến môi trường từ .env
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 5000, // Chờ 5 giây nếu không tìm thấy server
-    });
+    console.log("Connecting to:", process.env.MONGO_URI); // Debug xem URI có bị undefined không
+    if (!process.env.MONGO_URI) {
+      throw new Error("MONGO_URI is not defined in .env file!");
+    }
+
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`Error: ${error.message}`);

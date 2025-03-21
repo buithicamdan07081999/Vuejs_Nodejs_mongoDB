@@ -1,11 +1,9 @@
 const express = require("express");
-const { registerUser, loginUser, getUserProfile } = require("../controllers/authController");
-const protect = require("../middleware/authMiddleware");
-
 const router = express.Router();
 
-router.post("/register", registerUser);
-router.post("/login", loginUser);
-router.get("/profile", protect, getUserProfile);
+// Route kiểm tra đăng nhập
+router.get("/test", (req, res) => {
+    res.json({ message: "Auth route hoạt động!" });
+});
 
 module.exports = router;
