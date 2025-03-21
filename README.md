@@ -8,64 +8,6 @@ link:
  
 
 
-Thursday, March 6, 2025
-I.MONGODB : https://cloud.mongodb.com/
-💡 Cai dat va giải thích từng package: 
-  1. npm install express mongoose mongodb dotenv cors multer jsonwebtoken bcryptjs morgan
-  2. npm install --save-dev nodemon (Tự động Load server)
-     - Thêm vào package.json: 
-     "scripts": {
-       "start": "node server.js",
-       "dev": "nodemon server.js"
-     }
-  3. Tạo file .env: echo "" > .env
-    Set up env: 
-    PORT=5000
-    MONGO_URI=mongodb+srv://btcdan789:7892388Btcd@kdbd.zvwls.mongodb.net/?retryWrites=true&w=majority
-    JWT_SECRET=4dX@
-  4. Test 
-     1. Truy cập trình duyệt: http://localhost:5000/
-     2. Chạy thử API: kiểm tra lại các files: node server.js
-  5. Chạy npm run dev
-
-II. Thao tác với Postman: 
-- Nhấn + (Chọn GET/POST):
- + GET: (Select)
-  VD1: postman-echo.com/get
-  VD2: http://localhost:5000/api/products (sussecfully)
- + POST (Insert)Thêm sản phẩm mới (POST)
-URL: http://localhost:5000/api/products
-Body (JSON - chọn "raw" + "JSON"):
-{
-    "prod_name": "Đầm nữ Sexy Ntree",
-    "prod_price": 150000
-}
-
-[
-    {
-        "_id": "67c96525460e41ab7912b816",
-        "prod_name": "Đầm nữ Sexy Ntree",
-        "prod_price": 150000,
-        "__v": 0
-    }
-]
-
-LƯU Ý: tên đặt khi sd POST phải trùng với tên trong các files:
-productModel.js, routes/productRoutes.js
-=> Tiếp tục tạo các productModel.js, routes/productRoutes.js
-
-*** Cài Nodejs
-1. Cài đặt
-nvm list available
-nvm install 20.11.1
-nvm use 20.11.1
-1. Kiểm tra: 
-node -v v20.11.1    
-npm -v  10.2.4
-
--Tạo file api.js
- a. Mở file server.js trong thư mục backend
-
 
 Friday, March 7, 2025
 FRONTEND 
@@ -176,3 +118,109 @@ Tiep tuc trang Chi tiet san pham
 4. Banner tự động chuyển động (Carousel)
 - npm install swiper
 - Tai cong cu Debug: https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?pli=1
+
+
+
+BACKEND
+
+II. Thao tác với Postman: 
+- Nhấn + (Chọn GET/POST):
+ + GET: (Select)
+  VD1: postman-echo.com/get
+  VD2: http://localhost:5000/api/products (sussecfully)
+ + POST (Insert)Thêm sản phẩm mới (POST)
+URL: http://localhost:5000/api/products
+Body (JSON - chọn "raw" + "JSON"):
+{
+    "prod_name": "Đầm nữ Sexy Ntree",
+    "prod_price": 150000
+}
+
+[
+    {
+        "_id": "67c96525460e41ab7912b816",
+        "prod_name": "Đầm nữ Sexy Ntree",
+        "prod_price": 150000,
+        "__v": 0
+    }
+]
+
+LƯU Ý: tên đặt khi sd POST phải trùng với tên trong các files:
+productModel.js, routes/productRoutes.js
+=> Tiếp tục tạo các productModel.js, routes/productRoutes.js
+
+🏁 Lộ Trình Backend 
+📌 Xây dựng API RESTful cho website
+🔥 BƯỚC 1: SET UP
+  *** Cài Nodejs
+  1. Cài đặt
+  nvm list available
+  nvm install 20.11.1
+  nvm use 20.11.1
+  1. Kiểm tra: 
+  node -v v20.11.1    
+  npm -v  10.2.4 
+
+🔥 BƯỚC 2: Thiết lập cơ bản & Kết nối MongoDB ✅ (ĐÃ XONG)ng (server.js).
+    I.MONGODB : https://cloud.mongodb.com/
+    💡 Cai dat va giải thích từng package: 
+      1. npm install express mongoose mongodb dotenv cors multer jsonwebtoken bcryptjs morgan
+      2. npm install --save-dev nodemon (Tự động Load server)
+        - Thêm vào package.json: 
+        "scripts": {
+          "start": "node server.js",
+          "dev": "nodemon server.js"
+        }
+      3. Tạo file .env: echo "" > .env
+        Set up env: 
+        PORT=5000
+        MONGO_URI=mongodb+srv://btcdan789:7892388Btcd@kdbd.zvwls.mongodb.net/KDBD
+        JWT_SECRET=4dX@
+      4. Test 
+        1. Truy cập trình duyệt: http://localhost:5000/
+        2. Chạy thử API: kiểm tra lại các files: node server.js
+      5. Chạy npm run dev
+      
+🔥 BƯỚC 3: Tạo Model cho Sản Phẩm & Người Dùng
+Note: Import from mongoose
+1. mkdir models
+2. echo "" > models/Product.js
+3. Content for models/Product.js
+   1. const mongoose = require("mongoose");
+   2. (Design Column for Table - Same SQL)
+   3. module.exports = mongoose.model("Product", productSchema);
+4. Same with models/User.js
+🔥 BƯỚC 4: Express Router - Xây dựng API cho Sản Phẩm (GET, POST, PUT, DELETE) 
+Note: Import from Models
+1. mkdir routes
+2. echo "" > routes/ProductRoutes.js
+3. Content for routes/ProductRoutes.js
+   1. Khai bao
+      1. const express = require("express");
+      2. const Product = require("../models/ProductModels");
+      3. const router = express.Router();
+      4. GET all products
+      5. GET single product by ID
+      6. POST (create) a new product
+      7. PUT (update) a product
+      8. DELETE a product
+   2. Thêm vào server.js để sử dụng routes này
+4. Set up link call API in server.js with Postman (đường dẫn thế nào là do bạn tự đặt tên)
+   1. Lấy danh sách sản phẩm: GET http://localhost:5000/api/products (DONE)
+   2. Thêm sản phẩm: POST http://localhost:5000/api/products (DONE)
+         1. {
+       "name": "Pizza",
+       "description": "Delicious Italian pizza with cheese",
+       "price": 150000,
+       "category": "Fastfoods",
+       "image": "/images/pizza.avif",
+       "stock": 10
+   }
+   3. Cập nhật sản phẩm: PUT http://localhost:5000/api/products/:id (DONE)
+   4. Xóa sản phẩm: DELETE http://localhost:5000/api/products/:id
+5. NOTE: save with UOF-8 
+6. 
+
+📌📌Xử lý sản phẩm, người dùng, đơn hàng, giỏ hàng.
+📌📌📌Xác thực người dùng bằng JWT.
+📌📌📌📌Quản lý dữ liệu với MongoDB.
