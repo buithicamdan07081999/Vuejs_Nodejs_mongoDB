@@ -4,8 +4,6 @@ import Home from '../components/Home.vue';
 
 <template>
   <div>
-    <h1>Trang Chủ</h1>
-    <!-- <ProductList /> -->
     <Home />
   </div>
 </template>
