@@ -127,9 +127,9 @@ II. Thao tác với Postman:
 - Nhấn + (Chọn GET/POST):
  + GET: (Select)
   VD1: postman-echo.com/get
-  VD2: http://localhost:5000/api/products (sussecfully)
+  VD2: /products (sussecfully)
  + POST (Insert)Thêm sản phẩm mới (POST)
-URL: http://localhost:5000/api/products
+URL: /products
 Body (JSON - chọn "raw" + "JSON"):
 {
     "prod_name": "Đầm nữ Sexy Ntree",
@@ -206,8 +206,8 @@ Note: Import from Models
       8. DELETE a product
    2. Thêm vào server.js để sử dụng routes này
 4. Set up link call API in server.js with Postman (đường dẫn thế nào là do bạn tự đặt tên)
-   1. Lấy danh sách sản phẩm: GET http://localhost:5000/api/products (DONE)
-   2. Thêm sản phẩm: POST http://localhost:5000/api/products (DONE)
+   1. Lấy danh sách sản phẩm: GET /products (DONE)
+   2. Thêm sản phẩm: POST /products (DONE)
          1. {
        "name": "Pizza",
        "description": "Delicious Italian pizza with cheese",
@@ -216,8 +216,8 @@ Note: Import from Models
        "image": "/images/pizza.avif",
        "stock": 10
    }
-   3. Cập nhật sản phẩm: PUT http://localhost:5000/api/products/:id (DONE)
-   4. Xóa sản phẩm: DELETE http://localhost:5000/api/products/:id
+   3. Cập nhật sản phẩm: PUT /products/:id (DONE)
+   4. Xóa sản phẩm: DELETE /products/:id
 5. NOTE: save with UOF-8 
 6. 
 
@@ -242,4 +242,5 @@ import ProductList from '../components/ProductList.vue';
 3. Cập nhật router/index.js
 
 🔹 1. Load danh sách sản phẩm từ API
-1. npm install axios
+1. npm install axios -> import to src/main.js 
+2. Test : Chạy cùng lúc 1 Terminal (Backend & frontend)

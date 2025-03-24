@@ -10,7 +10,7 @@ const productId = route.params.id;
 // Hàm lấy thông tin sản phẩm từ API
 const fetchProduct = async () => {
   try {
-    const response = await axios.get(`http://localhost:5000/api/products/${productId}`);
+    const response = await axios.get(`/products/${productId}`);
     product.value = response.data;
   } catch (error) {
     console.error('Lỗi khi lấy sản phẩm:', error);

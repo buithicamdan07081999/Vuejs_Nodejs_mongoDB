@@ -15,7 +15,13 @@ const connectDB = require("./config/db");
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // Hoặc cổng của frontend (Vite mặc định là 5173)
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type,Authorization'
+}));
+
 app.use(morgan("dev"));
 
 // Kết nối MongoDB
