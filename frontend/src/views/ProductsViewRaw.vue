@@ -1,5 +1,5 @@
 <script setup>
-import Productsraw from '../components/Productsraw.vue';
+import Productsraw from '../components/ProductsRaw.vue';
 </script>
 
 <template>

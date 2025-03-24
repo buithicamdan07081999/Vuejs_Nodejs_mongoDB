@@ -21,7 +21,11 @@ onMounted(fetchProducts);
 // Hàm xóa sản phẩm
 const deleteProduct = async (id) => {
   try {
+<<<<<<< HEAD
     await axios.delete(`/products/${id}`);
+=======
+    await axios.delete(`http://localhost:5000/api/products/${id}`);
+>>>>>>> f656ed9 (done fix index)
     alert('Xóa sản phẩm thành công!');
     fetchProducts(); // Load lại danh sách
   } catch (error) {

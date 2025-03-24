@@ -1,9 +1,8 @@
 <script setup>
-import Details from '../components/Productsdetailraw.vue';
+import ProductsDetailRaw from '../components/ProductsDetailRaw.vue';
 </script>
-
 <template>
   <div>
-    <Details />
+    <ProductsDetailRaw />
   </div>
 </template>

@@ -6,9 +6,10 @@ import IndexRaw from '@/views/IndexRaw.vue';
 import ProductsViewRaw from "@/views/ProductsViewRaw.vue";
 import ProductsDetailViewRaw from '@/views/ProductsDetailViewRaw.vue';
 // OFFICAL
-import AdminView from '@/views/AdminView.vue';
+// import AdminView from '@/views/AdminView.vue';
 import HomeView from '@/views/HomeView.vue';
-import ProductsView from '@/views/ProductsView.vue';
+import ProductsView from '@/views/Products.vue';
+import ProductsDetailView from '@/views/ProductsDetailView.vue';
 
 // B2: Tạo đường dẫn
 const routes = [
@@ -17,11 +18,10 @@ const routes = [
   { path: '/ProductsViewRaw', name: 'ProductsViewRaw', component: ProductsViewRaw }, 
   { path: '/ProductsDetailViewRaw/:id', name: 'ProductsDetailViewRaw', component: ProductsDetailViewRaw },
 
-  // ADD dữ liệu API
-  // { path: '/', name: 'Index', component: Index }, // tên trong views
+  // ADD dữ liệu API,
   { path: '/', name: 'HomeView', component: HomeView },
-  { path: '/AdminView', name: 'AdminView', component: AdminView },
-  { path: '/Products/:id', name: 'ProductPageView', component: ProductsView },
+  { path: '/Products/', name: 'ProductsView', component: ProductsView },
+  { path: '/Products/:id', name: 'ProductsDetailView', component: ProductsDetailView },
 
 ]
 const router = createRouter({
