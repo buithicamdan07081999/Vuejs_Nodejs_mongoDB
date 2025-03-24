@@ -244,3 +244,5 @@ import ProductList from '../components/ProductList.vue';
 🔹 1. Load danh sách sản phẩm từ API
 1. npm install axios -> import to src/main.js 
 2. Test : Chạy cùng lúc 1 Terminal (Backend & frontend)
+3. Edit content Main (public/index.html i="App")
+4. Edit CSS src/main.js

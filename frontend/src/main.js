@@ -10,4 +10,4 @@ import App from './App.vue'
 const app = createApp(App);
 app.use(router); // Dùng Vue Router trong ứng dụng
 app.config.globalProperties.$axios = axios; // Gán axios vào globalProperties
-app.mount('#app');
+app.mount('#app');// Gắn Vue vào <div id="app">
