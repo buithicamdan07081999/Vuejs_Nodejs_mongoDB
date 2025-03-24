@@ -30,8 +30,10 @@ onMounted(async () => {
 <template>
   <div>
     <div class="home">
-      <div class="p-4">
-        <section style="background-color: #1a1a1a;" class="text-white text-center p-5 rounded-lg">
+      <div class="p-6">
+        <section style="background-color: white;" class="text-black text-center p-1">
+          <!-- hiệu ứng: -->
+          <!-- <section style="background-color: #1a1a1a;" class="text-white text-center p-5 rounded-lg"> -->
           <!-- hiệu ứng: -->
           <!-- - rounded-lg: Bo góc large (lg), tương đương 8px. -->
           <!-- p-5 (padding) 5 * 4px = 20px -->

@@ -10,9 +10,9 @@ import Sidebar from '@/layouts/AppSidebar.vue';
     I love mập yêu!
   </div> -->
   <div class="flex h-screen w-full">
-    <Sidebar class="w-1/5 border p-4 mr-5" />
+    <!-- <Sidebar class="w-1/5 border p-4 mr-5" /> -->
     <!-- Sidebar chiếm 1/5 chiều rộng, nền xám (bg-gray-100) & padding (p-4) -->
-    <div class=" flex-1 flex flex-col w-4/5">
+    <div class=" flex-1 flex flex-col w-full">
       <Header class="bg-gray-800 h-16 text-white flex items-center justify-between px-4" />
       <!-- Header cố định chiều cao h-16 (~64px), màu nền xanh (bg-blue-500), căn giữa nội dung -->
       <main class="flex-1 p-4 overflow-auto">
