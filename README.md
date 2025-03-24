@@ -224,3 +224,22 @@ Note: Import from Models
 📌📌Xử lý sản phẩm, người dùng, đơn hàng, giỏ hàng.
 📌📌📌Xác thực người dùng bằng JWT.
 📌📌📌📌Quản lý dữ liệu với MongoDB.
+
+
+✨ Cách tách views thành components
+1. src/components/ProductList.vue / src/components/ProductDetail.vue ....
+2. Import vào views: MainView (import from ProductList) & ProductPage.vue (import from ProductDetail)
+   1. Vi du: 
+<script setup>
+import ProductList from '../components/ProductList.vue';
+</script>
+<template>
+  <div>
+    <h1>Trang Chủ</h1>
+    <ProductList />
+  </div>
+</template>
+3. Cập nhật router/index.js
+
+🔹 1. Load danh sách sản phẩm từ API
+1. npm install axios
