@@ -89,8 +89,8 @@ onMounted(async () => {
         <p class="text-center font-medium">{{ product.name }}</p>
         <p class="text-center text-gray-700 font-medium">{{ product.category }}</p>
         <p class="text-red-500 font-bold">{{ product.price }} VNĐ</p>
-        <button @click="deleteProduct(product._id)">Xóa</button>
-        <router-link class="text-blue-500 font-bold" :to="'/products/' + product.id">Xem chi tiết</router-link>
+        <button @click="deleteProduct(product._id)">Xóa</button><br/>
+        <router-link class="text-blue-500 font-bold" :to="'/products/' + product._id">Xem chi tiết</router-link>
       </div>
     </div>
   </div>
