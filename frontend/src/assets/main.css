@@ -1,19 +1,5 @@
 @import './base.css';
 
-#app {
-  /* width: 100%; */
-  max-width: none;
-  margin: 0;
-  padding: 4rem;
-  font-weight: normal;
-
-
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;  /* Ngăn cuộn nếu không cần */
-}
-
-a,
 .green {
   text-decoration: none;
   color: hsla(160, 100%, 37%, 1);

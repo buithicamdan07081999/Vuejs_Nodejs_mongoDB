@@ -246,3 +246,27 @@ import ProductList from '../components/ProductList.vue';
 2. Test : Chạy cùng lúc 1 Terminal (Backend & frontend)
 3. Edit content Main (public/index.html i="App")
 4. Edit CSS src/main.js
+5. Add API
+   1️⃣ Lấy danh sách sản phẩm
+    GET http://localhost:5000/api/products
+   2️⃣ Lấy sản phẩm theo ID
+    GET http://localhost:5000/api/products/65abc123d4e5f6789abc1234
+   3️⃣ Thêm sản phẩm mới
+    POST http://localhost:5000/api/products
+    📌 Body (JSON)
+          {
+            "name": "MacBook Pro M3",
+            "price": 45000000,
+            "description": "Laptop mạnh mẽ của Apple",
+            "category": "Laptop",
+            "image": "macbook.jpg",
+            "stock": 10
+          }
+   4️⃣ Cập nhật sản phẩm
+    PUT http://localhost:5000/api/products/65abc123d4e5f6789abc1234
+    📌 Body (JSON)
+    {
+      "price": 43000000
+    }
+   5️⃣ Xóa sản phẩm
+   DELETE http://localhost:5000/api/products/65abc123d4e5f6789abc1234

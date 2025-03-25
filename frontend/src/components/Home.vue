@@ -44,6 +44,7 @@ onMounted(async () => {
     // const response = await axios.get('/products');
     const response = await axios.get('/products');
     products.value = response.data;
+    console.log("API Products:", products.value);
   } catch (error) {
     console.error('Lỗi khi lấy danh sách sản phẩm:', error);
   }
@@ -92,7 +93,6 @@ onMounted(async () => {
         </ul>
     </div>
 </template>
-
 
 <style scoped>
 .marquee-text {

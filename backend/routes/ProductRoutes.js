@@ -25,49 +25,50 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-// POST (create) a new product
+// 🟢 POST - Create new product (có kiểm tra đầu vào)
 router.post("/", async (req, res) => {
     try {
-        const product = new Product(req.body);
+        const { name, price, description, category, image, stock } = req.body;
+        if (!name || !price) {
+            return res.status(400).json({ message: "Tên và giá sản phẩm là bắt buộc" });
+        }
+
+        const product = new Product({ name, price, description, category, image, stock });
         const savedProduct = await product.save();
         res.status(201).json(savedProduct);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ message: "Lỗi khi tạo sản phẩm", error: error.message });
     }
 });
 
-// PUT (update) a product
+
+// 🟢 PUT - Update product (dùng findByIdAndUpdate tối ưu hơn)
 router.put("/:id", async (req, res) => {
     try {
-        const { name, description, price, category, image, stock } = req.body;
-
         const product = await Product.findById(req.params.id);
         if (!product) {
-            return res.status(404).json({ message: "Product not found" });
+            return res.status(404).json({ message: "Không tìm thấy sản phẩm" });
         }
 
-        // Cập nhật thông tin sản phẩm
-        product.name = name || product.name;
-        product.description = description || product.description;
-        product.price = price || product.price;
-        product.category = category || product.category;
-        product.image = image || product.image;
-        product.stock = stock || product.stock;
-
-        const updatedProduct = await product.save();
+        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(updatedProduct);
     } catch (error) {
-        res.status(500).json({ message: "Error updating product", error: error.message });
+        res.status(400).json({ message: "Lỗi khi cập nhật sản phẩm", error: error.message });
     }
 });
 
-// DELETE a product
+// 🟢 DELETE - Xóa sản phẩm (kiểm tra trước khi xóa)
 router.delete("/:id", async (req, res) => {
     try {
-        await Product.findByIdAndDelete(req.params.id);
-        res.json({ message: "Product deleted successfully" });
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({ message: "Không tìm thấy sản phẩm để xóa" });
+        }
+
+        await product.deleteOne();
+        res.json({ message: "Sản phẩm đã được xóa" });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(400).json({ message: "Lỗi khi xóa sản phẩm", error: error.message });
     }
 });
 
