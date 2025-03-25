@@ -126,7 +126,7 @@ onMounted(async () => {
 
 .banner-img {
   width: 100%;
-  max-height: 300px;
+  max-height: 500px;
   object-fit: cover;
   /* Đảm bảo ảnh không méo khi thay đổi kích thước */
 }
@@ -141,7 +141,7 @@ onMounted(async () => {
 
 .category-img {
   width: 100%;
-  height: 150px;
+  height: 300px;
   object-fit: cover;
   border-radius: 8px;
 }
