@@ -4,7 +4,6 @@ import Home from '../components/Home.vue';
 
 <template>
   <div>
-    <!-- <ProductList /> -->
     <Home />
   </div>
 </template>

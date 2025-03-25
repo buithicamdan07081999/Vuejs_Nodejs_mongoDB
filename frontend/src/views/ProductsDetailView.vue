@@ -1,8 +1,9 @@
 <script setup>
-import ProductDetail from '../components/ProductsDetail.vue';
+import ProductsDetail from '../components/ProductsDetail.vue';
 </script>
+
 <template>
   <div>
-    <ProductDetail />
+    <ProductsDetail />
   </div>
 </template>

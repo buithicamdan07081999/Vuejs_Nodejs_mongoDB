@@ -6,11 +6,10 @@ import "swiper/css/autoplay";
 import { Autoplay } from "swiper/modules";
 
 const bannerpics = [
-  "../../public/images/discount.webp",
-  "../../public/images/menu.webp",
-  "../../public/images/fruit.webp",
-  "../../public/images/bannerbadhabit.webp",
-  "../../public/images/bannerbadhabit2.webp",
+  "../../public/images/banner3.webp",
+  "../../public/images/banner1.webp",
+  "../../public/images/banner2.webp",
+  "../../public/images/banner4.webp",
 ];
 
 const categories = ref([

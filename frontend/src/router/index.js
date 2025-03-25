@@ -8,14 +8,14 @@ import ProductsDetailViewRaw from '@/views/ProductsDetailViewRaw.vue';
 // OFFICAL
 // import AdminView from '@/views/AdminView.vue';
 import HomeView from '@/views/HomeView.vue';
-import ProductsView from '@/views/Products.vue';
+import ProductsView from '@/views/ProductsView.vue';
 import ProductsDetailView from '@/views/ProductsDetailView.vue';
 
 // B2: Tạo đường dẫn
 const routes = [
   // gán cứng - TEST GIAO DIỆN - DONE
   { path: '/IndexRaw', name: 'IndexRaw', component: IndexRaw },
-  { path: '/ProductsViewRaw', name: 'ProductsViewRaw', component: ProductsViewRaw }, 
+  { path: '/ProductsViewRaw', name: 'ProductsViewRaw', component: ProductsViewRaw },
   { path: '/ProductsDetailViewRaw/:id', name: 'ProductsDetailViewRaw', component: ProductsDetailViewRaw },
 
   // ADD dữ liệu API,

@@ -5,8 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css'; // Import CSS mặc định của Swiper
 import { Autoplay } from 'swiper/modules';
 
-
-// Biến lưu danh sách sản phẩm
 const products = ref([]);
 
 // Hàm lấy danh sách sản phẩm từ API
@@ -38,6 +36,8 @@ const bannerpics = [
 "../../public/images/banner3.webp",
 "../../public/images/banner4.webp",
 ];
+//swiper 
+
 
 onMounted(async () => {
   try {
@@ -49,74 +49,6 @@ onMounted(async () => {
   }
 });
 </script>
-
-
-<style scoped>
-.product-card {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin: 10px;
-  width: 200px;
-  text-align: center;
-}
-.product-card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-}
-</style>
-
-<style scoped>
-.marquee-text {
-    display: inline-block;
-    white-space: nowrap;
-    /* Giữ chữ trên một dòng. */
-    overflow: hidden;
-    /*  Tránh chữ bị tràn */
-    animation: marquee 8s linear infinite;
-    /* infinite:  lặp vô hạn */
-}
-
-@keyframes marquee {
-    0% {
-        transform: translateX(100%);
-    }
-
-    /* Bắt đầu từ ngoài cùng bên phải */
-    100% {
-        transform: translateX(-100%);
-    }
-
-    /* Kết thúc ngoài cùng bên trái */
-}
-
-.banner {
-    width: 100%;
-    text-align: center;
-}
-
-.banner-img {
-    width: 100%;
-    max-height: 300px;
-    object-fit: cover;
-    /* Đảm bảo ảnh không méo khi thay đổi kích thước */
-}
-
-.category-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    padding: 10px;
-    text-align: center;
-}
-
-.category-img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-</style>
 
 <template>
     <div class="home">

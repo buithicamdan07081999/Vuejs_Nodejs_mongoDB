@@ -8,6 +8,8 @@
     </header>
 </template>
 
+
+
 <script setup>
 </script>
 
@@ -15,6 +17,7 @@
 nav {
   padding: 2px;
 }
+
 nav a {
   color: white;
   margin: 0 10px;
