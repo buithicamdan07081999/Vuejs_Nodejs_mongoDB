@@ -75,7 +75,7 @@ const categories = ref([
 
 .category-img {
   width: 100%;
-  height: 150px;
+  height: 500px;
   object-fit: cover;
   border-radius: 8px;
 }

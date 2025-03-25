@@ -82,7 +82,8 @@ onMounted(async () => {
 
   <div class="categories">
     <h2 class="text-2xl font-bold text-center my-4">Danh sách sản phẩm</h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"> 
+      <!-- (spacing) giữa các cột (grid-cols-*) và các hàng trong CSS Grid hoặc Flexbox. -->
       <div v-for="product in products" :key="product._id" class="category-card">
         <img :src="product.image" :alt="product.name" class="category-img" />
         <p class="text-center font-medium">{{ product.name }}</p>
@@ -141,7 +142,7 @@ onMounted(async () => {
 
 .category-img {
   width: 100%;
-  height: 300px;
+  height: 400px;
   object-fit: cover;
   border-radius: 8px;
 }

@@ -270,3 +270,9 @@ import ProductList from '../components/ProductList.vue';
     }
    5️⃣ Xóa sản phẩm
    DELETE http://localhost:5000/api/products/65abc123d4e5f6789abc1234
+
+   - CSS:
+✔ Dùng flex justify-between nếu muốn trải dài toàn bộ header.
+✔ Dùng flex justify-center space-x-10 nếu muốn căn giữa và cách đều.
+✔ Dùng grid grid-cols-3 nếu muốn chia đều kích thước từng mục.
+Dùng fixed sẽ giúp header luôn nằm ở đầu trang dù cuộn xuống:
