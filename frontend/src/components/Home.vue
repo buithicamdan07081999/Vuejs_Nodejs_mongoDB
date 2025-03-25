@@ -38,7 +38,6 @@ const bannerpics = [
 ];
 //swiper 
 
-
 onMounted(async () => {
   try {
     // const response = await axios.get('/products');
