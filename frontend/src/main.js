@@ -1,6 +1,6 @@
 import './assets/main.css'
 import './style.css';
-import router from './router'; // Import Vue Router
+import router from './user/router/userRoutes'; // Import Vue Router
 import axios from 'axios';
 // Cấu hình axios thành global (tất cả component có thể sử dụng mà không cần import lại)
 axios.defaults.baseURL = 'http://localhost:5000/api';
