@@ -276,3 +276,29 @@ import ProductList from '../components/ProductList.vue';
 ✔ Dùng flex justify-center space-x-10 nếu muốn căn giữa và cách đều.
 ✔ Dùng grid grid-cols-3 nếu muốn chia đều kích thước từng mục.
 Dùng fixed sẽ giúp header luôn nằm ở đầu trang dù cuộn xuống:
+
+
+
+Mình sẽ dùng Vue.js + TailwindCSS + Element Plus để tạo trang admin quản lý sản phẩm với các chức năng:
+
+✅ Danh sách sản phẩm: Hiển thị bằng bảng (table) với pagination, filter.
+✅ Thêm sản phẩm: Form nhập thông tin sản phẩm (tên, giá, danh mục, ảnh...).
+✅ Sửa sản phẩm: Modal chỉnh sửa thông tin sản phẩm có sẵn.
+✅ Xóa sản phẩm: Xóa sản phẩm với xác nhận trước khi xóa.
+
+Mình sẽ bắt đầu với cấu trúc thư mục cho admin:
+
+bash
+Copy
+Edit
+/src
+  ├── /admin
+  │    ├── /views  (Giao diện)
+  │    │    ├── AdminDashboard.vue (Trang chính)
+  │    │    ├── ProductList.vue (Danh sách sản phẩm)
+  │    │    ├── ProductForm.vue (Thêm/Sửa sản phẩm)
+  │    ├── /components (Các component nhỏ)
+  │    │    ├── ProductTable.vue (Bảng sản phẩm)
+  │    │    ├── ProductModal.vue (Modal sửa sản phẩm)
+  │    ├── /router
+  │    │    ├── adminRoutes.js (Routes cho admin)
