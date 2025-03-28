@@ -8,7 +8,13 @@ const productSchema = new mongoose.Schema({
     category: { type: String, required: true },
     image: { type: String, required: true }, // Link ảnh sản phẩm
     stock: { type: Number, default: 1 },
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    sizes: [
+        {
+            size: { type: String, required: true }, // Ví dụ: "S", "M", "L", "XL"
+            stock: { type: Number, default: 1 } // Số lượng tồn kho theo size
+        }
+    ],
 });
 
 module.exports = mongoose.model("ProductModels", productSchema);
