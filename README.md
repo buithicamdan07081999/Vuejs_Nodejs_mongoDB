@@ -291,3 +291,11 @@ Dùng fixed sẽ giúp header luôn nằm ở đầu trang dù cuộn xuống:
   │    ├── /router
   │    │    ├── adminRoutes.js (Routes cho admin)
 2. Change header (admin w user)
+
+them fone awasome:
+
+Cach 1: mở file public/index.html và thêm vào <head>
+Cach 2: (Cho du an lon):
+  1. npm install --save @fortawesome/fontawesome-free
+  2. main.js: import '@fortawesome/fontawesome-free/css/all.min.css';
+

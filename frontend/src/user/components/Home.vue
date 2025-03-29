@@ -52,9 +52,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="home">
-    <div class="p-4">
-      <section style="background-color: #1a1a1a;" class="text-white text-center p-5 rounded-lg">
+  <div class="home p-10">
+      <section style="background-color: #1a1a1a;" class="text-white text-center p-2 rounded-lg">
         <!-- hiệu ứng: -->
         <!-- - rounded-lg: Bo góc large (lg), tương đương 8px. -->
         <!-- p-5 (padding) 5 * 4px = 20px -->
@@ -77,8 +76,6 @@ onMounted(async () => {
           <img :src="banner" alt="Banner" class="banner-img w-full h-64 object-cover" />
         </SwiperSlide>
       </Swiper>
-      <!-- <img src="../../public/images/banner.jpg" alt="Banner" class="banner-img" /> -->
-    </div>
   </div>
 
   <div class="categories">

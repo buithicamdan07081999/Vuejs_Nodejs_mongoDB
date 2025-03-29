@@ -1,16 +1,11 @@
 <template>
     <div class="flex h-screen">
-      <!-- Sidebar -->
-      <!-- <aside class="w-1/5 bg-gray-800 text-white p-4">
-        <Sidebar />
-      </aside> -->
-  
       <!-- Main Content -->
       <div class="flex-1 flex flex-col">
         <!-- Import Header -->
         <Header />  
         <!-- Nội dung chính -->
-        <main class="flex-1 p-4 overflow-auto">
+        <main class="p-4 overflow-auto">
           <RouterView />
         </main>
         <Footer />  
