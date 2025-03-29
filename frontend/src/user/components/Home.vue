@@ -31,11 +31,12 @@ const deleteProduct = async (id) => {
   }
 };
 const bannerpics = [
-  "../../public/images/banner1.webp",
-  "../../public/images/banner2.webp",
-  "../../public/images/banner3.webp",
-  "../../public/images/banner4.webp",
+  "/images/banners/banner1.webp",
+  "/images/banners/banner2.webp",
+  "/images/banners/banner3.webp",
+  "/images/banners/banner4.webp",
 ];
+
 //swiper 
 
 onMounted(async () => {
