@@ -1,14 +1,8 @@
 import AdminDashboard from "@/admin/views/AdminDashboard.vue";
-import ProductManager from "@/admin/views/ProductManager.vue";
 
 const adminRoutes = [
-  {
-    path: "/admin",
-    component: AdminDashboard,
-    children: [
-      { path: "products", component: ProductManager }, // /admin/products
-    ],
-  },
-];
+  // ADD dữ liệu API,
+  { path: '/admin', name: 'AdminDashboard', component: AdminDashboard }
+]
 
 export default adminRoutes;

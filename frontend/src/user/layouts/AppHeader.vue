@@ -2,7 +2,7 @@
   <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50 p-2">
     <nav class="flex justify-center space-x-4">
       <router-link to="/">Trang chủ</router-link>
-      <router-link to="#">Quản lý</router-link>
+      <router-link to="/admin">Quản lý</router-link>
       <router-link to="#">Search</router-link>
     </nav>
   </header>
