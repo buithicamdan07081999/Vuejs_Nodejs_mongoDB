@@ -278,19 +278,7 @@ import ProductList from '../components/ProductList.vue';
 Dùng fixed sẽ giúp header luôn nằm ở đầu trang dù cuộn xuống:
 
 
-
-Mình sẽ dùng Vue.js + TailwindCSS + Element Plus để tạo trang admin quản lý sản phẩm với các chức năng:
-
-✅ Danh sách sản phẩm: Hiển thị bằng bảng (table) với pagination, filter.
-✅ Thêm sản phẩm: Form nhập thông tin sản phẩm (tên, giá, danh mục, ảnh...).
-✅ Sửa sản phẩm: Modal chỉnh sửa thông tin sản phẩm có sẵn.
-✅ Xóa sản phẩm: Xóa sản phẩm với xác nhận trước khi xóa.
-
-Mình sẽ bắt đầu với cấu trúc thư mục cho admin:
-
-bash
-Copy
-Edit
+1. (done) load productlist from admin
 /src
   ├── /admin
   │    ├── /views  (Giao diện)
@@ -302,3 +290,4 @@ Edit
   │    │    ├── ProductModal.vue (Modal sửa sản phẩm)
   │    ├── /router
   │    │    ├── adminRoutes.js (Routes cho admin)
+2. Change header (admin w user)
