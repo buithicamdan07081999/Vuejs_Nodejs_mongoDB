@@ -40,20 +40,27 @@
           <router-link to="/products" class="block px-4 py-2 hover:bg-gray-200">Sản phẩm mới nhất</router-link>
           <router-link to="/products" class="block px-4 py-2 hover:bg-gray-200">Sản phẩm giảm giá</router-link>
         </div>
-      </div>    
-       <!-- Account Links -->
-       <div class="relative" @mouseenter="isUserAccountDropdownOpen = true" @mouseleave="isUserAccountDropdownOpen = false">
+      </div>
+      <!-- Account Links -->
+      <div class="relative" @mouseenter="isUserAccountDropdownOpen = true"
+        @mouseleave="isUserAccountDropdownOpen = false">
         <button class="text-white px-4 py-2">Quản lý tài khoản</button>
-        <div v-if="isUserAccountDropdownOpen" class="absolute left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
+        <div v-if="isUserAccountDropdownOpen"
+          class="absolute left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
           <router-link to="/products" class="block px-4 py-2 hover:bg-gray-200">Thông tin tài khoản</router-link>
           <router-link to="/products" class="block px-4 py-2 hover:bg-gray-200">Đăng nhập</router-link>
           <router-link to="/products" class="block px-4 py-2 hover:bg-gray-200">Đăng xuất</router-link>
         </div>
-      </div>      
+      </div>
       <!-- Shopping-cart -->
-      <button class="text-gray-700 hover:text-blue-500 text-xl">
-          <i class="fas fa-shopping-cart p-2"></i>
+
+      <div>
+        <button class="text-white text-xl">
+          <!-- <i class="fa-solid fa-shopping-cart"></i> -->
+          <i class="fa-solid fa-cart-shopping"></i>
         </button>
+      </div>
+
     </div>
   </header>
 
@@ -113,4 +120,13 @@ nav a:hover {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
 }
+.fa-cart-shopping {
+  display: inline-block !important;
+  visibility: visible !important;
+}
+.fas, .fa-solid {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+}
+
 </style>

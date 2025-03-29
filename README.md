@@ -298,4 +298,7 @@ Cach 1: mở file public/index.html và thêm vào <head>
 Cach 2: (Cho du an lon):
   1. npm install --save @fortawesome/fontawesome-free
   2. main.js: import '@fortawesome/fontawesome-free/css/all.min.css';
-
+debug tren F12: (conole)
+document.querySelector('link[href*="font-awesome"]')
+document.querySelector('.fa-shopping-cart')
+xoa cache Ctrl + Shift + R
