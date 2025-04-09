@@ -302,3 +302,5 @@ debug tren F12: (conole)
 document.querySelector('link[href*="font-awesome"]')
 document.querySelector('.fa-shopping-cart')
 xoa cache Ctrl + Shift + R
+- cai tailwin 
+- cai Flowbite: npm install flowbite

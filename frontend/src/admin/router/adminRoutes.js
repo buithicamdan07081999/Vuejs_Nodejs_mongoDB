@@ -1,10 +1,24 @@
-import AdminDashboard from "@/admin/views/AdminDashboard.vue";
+import AdminLayout from "@/admin/views/AdminLayout.vue";
+import Dashboard from "@/admin/views/Dashboard.vue";
 import ProductList from "@/admin/views/ProductList.vue";
 
-const adminRoutes = [
-  // ADD dữ liệu API,
-  { path: '/admin', name: 'AdminDashboard', component: AdminDashboard },
-  { path: '/admin/Products', name: 'ProductList', component: ProductList },
-]
+const Routes = [
+  {
+    path: '/admin',
+    component: AdminLayout, // dùng layout làm wrapper
+    children: [
+      {
+        path: '',
+        name: 'AdminDashboard',
+        component: Dashboard
+      },
+      {
+        path: 'products',
+        name: 'ProductList',
+        component: ProductList
+      }
+    ]
+  }
+];
 
-export default adminRoutes;
+export default Routes;
