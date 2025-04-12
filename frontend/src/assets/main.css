@@ -24,4 +24,9 @@
     flex-direction: column;
     width: 100%;
   }  
+
+  :root {
+    --header-height: 64px; /* hoặc bất kỳ chiều cao nào của header bạn đang dùng */
+  }
+
 }

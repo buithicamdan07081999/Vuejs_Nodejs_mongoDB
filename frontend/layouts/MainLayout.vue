@@ -1,21 +1,21 @@
 <template>
-    <div class="flex h-screen">
-      <!-- Main Content -->
-      <div class="flex-1 flex flex-col">
-        <!-- Import Header -->
-        <Header />  
-        <!-- Nội dung chính -->
-        <main class="p-4 overflow-auto">
+  <div>
+    <!-- Header cố định -->
+    <Header />
+
+    <!-- Nội dung chính -->
+    <div class="pt-16 flex flex-col h-screen">
+      <main class="flex-1 overflow-auto bg-gray-100">
+        <div class="pt-16 px-4">
           <RouterView />
-        </main>
-        <Footer />  
-      </div>
+        </div>
+      </main>
+      <Footer />
     </div>
-  </template>
-  
-  <script setup>
-  import Header from "@/layouts/AppHeader.vue"; // Import Header
-  import Footer from "@/layouts/AppFooter.vue";
-//   import Sidebar from "@/layouts/AppSidebar.vue";
-  </script>
-  
+  </div>
+</template>
+
+<script setup>
+import Header from "@/layouts/AppHeader.vue"
+import Footer from "@/layouts/AppFooter.vue"
+</script>
