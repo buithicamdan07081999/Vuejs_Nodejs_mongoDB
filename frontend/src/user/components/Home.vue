@@ -53,41 +53,31 @@ onMounted(async () => {
 
 <template>
   <div class="home p-10">
-      <section style="background-color: #1a1a1a;" class="text-white text-center p-2 rounded-lg">
-        <!-- hiệu ứng: -->
-        <!-- - rounded-lg: Bo góc large (lg), tương đương 8px. -->
-        <!-- p-5 (padding) 5 * 4px = 20px -->
-        <h1 class="text-4xl font-bold">Wellcome to KDBD Chanel</h1>
-        <p class="mt-2 text-lg text-yellow-300 marquee-text"> BAD HABITS STORE - BAD IS NOT BAD !</p>
-        <!-- <p class="mt-2 text-lg text-yellow-300 marquee-text">I love mập yêu!</p> -->
-        <!-- marquee-text : chạy chữ (giống banner)  -->
-      </section>
-    </div>
-    <!-- Banner -->
-    <div class="banner">
-      <Swiper :modules="[Autoplay]" :autoplay="{ delay: 1000, disableOnInteraction: false }" :loop="true"
-        class="w-full h-64 mx-auto" :key="bannerpics.length">
-        <!-- 
-            :autoplay="{ delay: 1000 }" → Tự chạy mỗi 1 giây.
-            :loop="true" → Lặp vô hạn.
-            :key="bannerpics.length" → Cập nhật khi danh sách thay đổi. 
-        -->
-        <SwiperSlide v-for="(banner, index) in bannerpics" :key="index">
-          <img :src="banner" alt="Banner" class="banner-img w-full h-64 object-cover" />
-        </SwiperSlide>
-      </Swiper>
+    <section class=" bg-grey; text-white text-center p-2 rounded-lg">
+      <h1 class="text-4xl font-bold">Wellcome to KDBD Chanel</h1>
+      <p class="mt-2 text-lg text-yellow-300 marquee-text"> BAD HABITS STORE - BAD IS NOT BAD !</p>
+    </section>
+  </div>
+  <!-- Banner -->
+  <div class="banner">
+    <Swiper :modules="[Autoplay]" :autoplay="{ delay: 1000, disableOnInteraction: false }" :loop="true"
+      class="w-full h-64 mx-auto" :key="bannerpics.length">
+      <SwiperSlide v-for="(banner, index) in bannerpics" :key="index">
+        <img :src="banner" alt="Banner" class="banner-img w-full h-64 object-cover" />
+      </SwiperSlide>
+    </Swiper>
   </div>
 
-  <div class="categories">
+  <div class="categories text-white">
     <h2 class="text-2xl font-bold text-center my-4">Danh sách sản phẩm</h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"> 
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <!-- (spacing) giữa các cột (grid-cols-*) và các hàng trong CSS Grid hoặc Flexbox. -->
       <div v-for="product in products" :key="product._id" class="category-card">
         <img :src="product.image" :alt="product.name" class="category-img" />
         <p class="text-center font-medium">{{ product.name }}</p>
         <p class="text-center text-gray-700 font-medium">{{ product.category }}</p>
         <p class="text-red-500 font-bold">{{ product.price }} VNĐ</p>
-        <button @click="deleteProduct(product._id)">Xóa</button><br/>
+        <button @click="deleteProduct(product._id)">Xóa</button><br />
         <router-link class="text-blue-500 font-bold" :to="'/products/' + product._id">Xem chi tiết</router-link>
       </div>
     </div>

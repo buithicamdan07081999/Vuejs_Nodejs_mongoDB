@@ -1,9 +1,9 @@
 <script setup>
-import Product from '../components/Product.vue';
+import Sidebar from '../components/Sidebar.vue';
 </script>
 
 <template>
   <div>
-    <Product />
+    <Sidebar />
   </div>
 </template>

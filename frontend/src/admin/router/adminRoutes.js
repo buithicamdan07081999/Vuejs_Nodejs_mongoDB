@@ -1,11 +1,11 @@
-import AdminLayout from "@/admin/views/AdminLayout.vue";
+import Siderbar from "@/admin/views/Sidebar.vue";
 import Dashboard from "@/admin/views/Dashboard.vue";
 import ProductList from "@/admin/views/ProductList.vue";
 
 const Routes = [
   {
     path: '/admin',
-    component: AdminLayout, // dùng layout làm wrapper
+    component: Siderbar, // dùng layout làm wrapper
     children: [
       {
         path: '',

@@ -5,7 +5,7 @@
 
     <!-- Nội dung chính -->
     <div class="pt-16 flex flex-col h-screen">
-      <main class="flex-1 overflow-auto bg-gray-100">
+      <main class="flex-1 overflow-aut">
         <div class="pt-16 px-4">
           <RouterView />
         </div>
