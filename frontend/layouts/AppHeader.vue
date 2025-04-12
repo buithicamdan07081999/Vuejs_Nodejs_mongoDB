@@ -1,6 +1,6 @@
 <template>
   <!-- Header cho người dùng -->
-  <header v-if="!isAdminPage" class="fixed w-full bg-black p-1">
+  <header v-if="!isAdminPage" class="fixed w-full bg-black p-1 z-50">
     <div class="flex w-full items-center">
       <!-- Logo -->
       <div class="w-1/4 flex justify-center items-center">
