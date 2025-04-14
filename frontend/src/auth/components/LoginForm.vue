@@ -12,20 +12,29 @@
   <script setup>
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
+  import { login } from '@/auth/services/authService' // 👈 import hàm login
   
   const router = useRouter()
   const email = ref('')
   const password = ref('')
   
-  const handleLogin = () => {
-    if (email.value === 'admin@gmail.com' && password.value === '123456') {
-      localStorage.setItem('isLoggedIn', 'true')
-      router.push('/admin')
-    } else {
-      alert('Sai tài khoản hoặc mật khẩu')
+  const handleLogin = async () => {
+    try {
+      const res = await login(email.value, password.value) // 👈 gọi API thật
+      
+      // Giả sử backend trả về token và user info
+      const { token, user } = res.data
+  
+      localStorage.setItem('token', token)
+      localStorage.setItem('user', JSON.stringify(user))
+  
+      router.push('/admin') // hoặc '/user' nếu user role khác
+    } catch (err) {
+      alert('Đăng nhập thất bại: ' + err.response.data.message)
     }
   }
   </script>
+  
   
   <style scoped>
   .input {

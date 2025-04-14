@@ -1,4 +1,4 @@
-const Product = require("../../models/ProductsModels");
+const Product = require("../../models/Products/ProductsModels");
 
 // Lấy tất cả sản phẩm
 const getAllProducts = async (req, res) => {

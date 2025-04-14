@@ -32,8 +32,13 @@ mongoose.connect(process.env.MONGO_URI)
 // Kết nối MongoDB
 
 // Import routes
+// /api/Product FOR CALL API FROM POSTMAN
 const productRoutes = require("./routes/ProductRoutes");
-app.use("/api/products", productRoutes); // /api/Product FOR CALL API FROM POSTMAN
+app.use("/api/products", productRoutes); 
+// /api/Product FOR CALL API FROM POSTMAN
+// const authRoutes = require("./routes/AuthRoutes");
+// app.use("/api/auth", authRoutes);
+
 // NOTE: SAME FILE NAME WITH FILE IN ROUTES
 // for use Routes
 

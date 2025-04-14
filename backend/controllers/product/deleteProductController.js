@@ -1,4 +1,4 @@
-const Product = require("../../models/ProductsModels");
+const Product = require("../../models/Products/ProductsModels");
 
 // Xóa sản phẩm
 const deleteProduct = async (req, res) => {

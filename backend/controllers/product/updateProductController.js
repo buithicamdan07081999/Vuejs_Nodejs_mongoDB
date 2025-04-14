@@ -1,4 +1,4 @@
-const Product = require("../../models/ProductsModels");
+const Product = require("../../models/Products/ProductsModels");
 
 // Cập nhật sản phẩm
 const updateProduct = async (req, res) => {
