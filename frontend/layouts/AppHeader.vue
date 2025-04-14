@@ -1,12 +1,12 @@
 <template>
   <!-- Header cho người dùng -->
-  <header v-if="!isAdminPage" class="fixed w-full bg-black text-white p-1 z-50">
+  <header v-if="!isAdminPage" class="fixed top-0 left-0 w-full bg-black shadow-md z-50 p-2 text-white">
     <div class="flex w-full items-center">
-      <!-- Logo -->
+      <!-- Logo justify-center-->
       <div class="w-1/4 flex justify-center items-center">
         <router-link to="/">
           <img src="/images/logo/logo.webp" alt="Logo"
-            class="h-8 sm:h-8 md:h-14 lg:h-16 xl:h-20 object-contain cursor-pointer" />
+            class="h-6 sm:h-10 md:h-12 lg:h-14 xl:h-20 object-contain cursor-pointer" />
         </router-link>
       </div>
 
@@ -14,8 +14,9 @@
       <div class="w-3/4 flex justify-center items-center space-x-4">
         <!-- Bộ sưu tập Dropdown -->
         <div class="dropdown-container">
-          <button class="px-4 py-2">
-            <router-link to="/products">Bộ sưu tập</router-link>
+          <button class="px-4">
+            <router-link to="/products" class="hover:bg-gray-700 hover:text-white px-4 py-2 rounded-lg">Bộ sưu
+              tập</router-link>
           </button>
           <div class="dropdown-menu">
             <router-link to="/products" class="block px-4 py-2 hover:bg-gray-200">Sản phẩm bán chạy</router-link>
@@ -35,6 +36,9 @@
             <router-link to="/" class="block px-4 py-2 hover:bg-gray-200">Đăng xuất</router-link>
           </div>
         </div>
+
+        <router-link to="/login" class="block px-4 py-2 hover:bg-gray-200">Đăng nhập</router-link>
+        <router-link to="/" class="block px-4 py-2 hover:bg-gray-200">Đăng xuất</router-link>
 
         <!-- Giỏ hàng -->
         <div>
