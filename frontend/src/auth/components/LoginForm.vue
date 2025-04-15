@@ -19,20 +19,25 @@
   const password = ref('')
   
   const handleLogin = async () => {
-    try {
-      const res = await login(email.value, password.value) // 👈 gọi API thật
-      
-      // Giả sử backend trả về token và user info
-      const { token, user } = res.data
-  
-      localStorage.setItem('token', token)
-      localStorage.setItem('user', JSON.stringify(user))
-  
-      router.push('/admin') // hoặc '/user' nếu user role khác
-    } catch (err) {
-      alert('Đăng nhập thất bại: ' + err.response.data.message)
+  try {
+    const res = await login(email.value, password.value)
+    const { token, user } = res.data
+
+    localStorage.setItem('token', token)
+    localStorage.setItem('user', JSON.stringify(user))
+
+    // 👉 Điều hướng theo role
+    if (user.role === 'admin') {
+      router.push('/admin')
+    } else {
+      router.push('/profile')
     }
+
+  } catch (err) {
+    alert('Đăng nhập thất bại: ' + (err.response?.data?.message || 'Lỗi không xác định'))
   }
+}
+
   </script>
   
   

@@ -1,38 +1,50 @@
-const User = require("../models/Auth/UserModel");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+// controllers/Auth/AuthController.js
+const User = require("../../models/Auth/UserModels");
+const bcrypt = require("bcryptjs");
 
-const SECRET_KEY = "your-secret-key"; // nên để vào .env
+const AuthController = {
+  register: async (req, res) => {
+    try {
+      const { email, password, role } = req.body;
 
-// Đăng ký
-exports.register = async (req, res) => {
-  try {
-    const { email, password, role } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: "Email đã tồn tại." });
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = new User({ email, password: hashedPassword, role });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ email, password: hashedPassword, role });
-    res.status(201).json({ message: "Đăng ký thành công", user: newUser });
-  } catch (err) {
-    res.status(500).json({ message: "Lỗi server", error: err.message });
+      await newUser.save();
+      res.status(201).json({ message: "User registered successfully", user: newUser });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  },
+
+  login: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
+
+      if (!user) return res.status(400).json({ message: "Email không tồn tại" });
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) return res.status(401).json({ message: "Sai mật khẩu" });
+
+      res.status(200).json({ message: "Đăng nhập thành công", user });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  },
+
+  update: async (req, res) => {
+    try {
+      const updated = await User.findByIdAndUpdate(
+        req.params.id,
+        { $set: req.body },
+        { new: true }
+      );
+      res.status(200).json(updated);
+    } catch (err) {
+      res.status(500).json(err);
+    }
   }
 };
 
-// Đăng nhập
-exports.login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Tài khoản không tồn tại" });
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Sai mật khẩu" });
-
-    const token = jwt.sign({ id: user._id, role: user.role }, SECRET_KEY, { expiresIn: "1d" });
-
-    res.json({ token, user });
-  } catch (err) {
-    res.status(500).json({ message: "Lỗi server", error: err.message });
-  }
-};
+module.exports = AuthController;
