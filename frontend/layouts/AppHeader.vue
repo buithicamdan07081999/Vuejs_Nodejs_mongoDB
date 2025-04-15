@@ -31,9 +31,9 @@
             <router-link to="/admin">Tài khoản</router-link>
           </button>
           <div class="dropdown-menu">
-            <router-link to="/admin" class="block px-4 py-2 hover:bg-gray-200">Thông tin tài khoản</router-link>
+            <router-link to="/profile" class="block px-4 py-2 hover:bg-gray-200">Thông tin tài khoản</router-link>
             <router-link to="/login" class="block px-4 py-2 hover:bg-gray-200">Đăng nhập</router-link>
-            <router-link to="/" class="block px-4 py-2 hover:bg-gray-200">Đăng xuất</router-link>
+            <router-link to="/logout" class="block px-4 py-2 hover:bg-gray-200">Đăng xuất</router-link>
           </div>
         </div>
 
