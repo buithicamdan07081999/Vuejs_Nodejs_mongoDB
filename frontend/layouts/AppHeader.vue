@@ -1,9 +1,9 @@
 <template>
   <!-- Header cho người dùng -->
-  <header v-if="!isAdminPage" class="fixed top-0 left-0 w-full bg-black shadow-md z-50 p-2 text-white">
-    <div class="flex justify-between w-full items-center">
+  <header v-if="!isAdminPage" class="header-user">
+    <div class="item-between-css">
       <!-- Logo -->
-      <div class="w-1/4 flex justify-center items-center">
+      <div class="w-1/4 item-center-css">
         <router-link to="/">
           <img src="/images/logo/logo.webp" alt="Logo"
             class="h-6 sm:h-10 md:h-12 lg:h-14 xl:h-20 object-contain cursor-pointer" />
@@ -11,7 +11,7 @@
       </div>
 
       <!-- Menu -->
-      <div class="w-2/4 flex justify-center items-center space-x-4">
+      <div class="w-2/4 item-center-css">
         <!-- Bộ sưu tập Dropdown -->
         <div class="dropdown-container">
           <button class="px-4">
@@ -36,42 +36,43 @@
             Tiếng Việt
           </router-link>
         </div>
-
         <div>
           <router-link to="/products" class="header-link">
             Giỏ hàng
           </router-link>
         </div>
       </div>
-      <div class="w-1/4 flex justify-end items-center space-x-4  pr-4">
+      <div class="w-1/4 justify-end">
         <div v-if="auth.user">
           <!-- Tài khoản -->
           <div class="dropdown-container">
             <button class="header-link">
-              <span class="mr-4"> 👋 Xin chào,&nbsp;</span>
+              <span>👋 Xin chào,&nbsp;</span>
               <router-link to="/profile">{{ auth.user.name || auth.user.email }}</router-link>
             </button>
             <div class="dropdown-menu">
-              <router-link to="/profile"
-                class="w-full flex justify-center items-center block header-link">Quản lý tài
-                khoản</router-link>
+              <router-link to="/profile" class="item-center-css header-link">
+                Quản lý tài khoản
+              </router-link>
               <button @click="handleLogout"
-                class="w-full flex justify-center items-center text-red-500 font-semibold">&nbsp;Đăng xuất</button>
+                class="header-link item-center-css text-red-500">Đăng xuất</button>
             </div>
           </div>
 
         </div>
-        <div v-else>
-          <router-link to="/login" class="text-blue-500 font-semibold">Đăng nhập |</router-link>
-          <router-link to="/login" class="text-blue-500 font-semibold">&nbsp;Đăng ký</router-link>
-        </div>
+        <div v-else class="flex items-center space-x-1">
+  <router-link to="/login" class="text-blue-500 header-link">Đăng nhập</router-link>
+  <span>|</span>
+  <router-link to="/login" class="text-blue-500 header-link">Đăng ký</router-link>
+</div>
+
       </div>
     </div>
   </header>
 
   <!-- Header cho trang Admin -->
-  <header v-else class="fixed top-0 left-0 w-full bg-white shadow-md z-50 p-2 text-black">
-    <nav class="flex justify-center items-center space-x-4">
+  <header v-else class="header-admin">
+    <nav class="item-center-css">
       <router-link class="header-link" to="/">Trang chủ</router-link>
       <router-link class="header-link" to="/admin">Admin</router-link>
 

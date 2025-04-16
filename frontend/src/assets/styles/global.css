@@ -1,10 +1,30 @@
 /* src/assets/styles/global.css */
 
 .header-link {
-    @apply px-4 py-3 rounded-lg hover:text-blue-200 transition-colors duration-200;
-  }
-  
-  .dropdown-item {
-    @apply block px-3 py-2 text-center w-full;
-  }
-  
+  @apply px-4 py-3 rounded-lg hover:text-blue-200 transition-colors duration-200;
+}
+
+.dropdown-item {
+  @apply block px-3 py-2 text-center w-full;
+}
+
+.header-user {
+  @apply fixed top-0 left-0 w-full shadow-md z-50 p-2 bg-black text-white;
+}
+
+.header-admin {
+  @apply fixed top-0 left-0 w-full shadow-md z-50 p-2 bg-white text-black;
+}
+
+.item-center-css {
+  @apply flex justify-center items-center;
+  /* flex	Kích hoạt Flexbox layout
+justify-center	Canh giữa nội dung theo chiều ngang
+items-center	Canh giữa nội dung theo chiều dọc */
+}
+
+.item-between-css {
+  @apply flex justify-between w-full items-center;
+  /* flex justify-between w-full items-center  */
+  /* canh đều nhưng không chia đều mà có thể tùy chỉnh */
+}

@@ -8,7 +8,7 @@ import Footer from '@/../layouts/AppFooter.vue';
 <template>
     <div class=" flex-1 flex flex-col w-full">
       <Header />
-      <div class=" flex-1 flex flex-col w-full">
+      <div class="flex-1 flex flex-col w-full">
         <main class="flex-1 overflow-auto mt-12">
           <RouterView />
         </main>
