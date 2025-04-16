@@ -1,7 +1,7 @@
 <template>
   <!-- Header cho người dùng -->
   <header v-if="!isAdminPage" class="fixed top-0 left-0 w-full bg-black shadow-md z-50 p-2 text-white">
-    <div class="flex w-full items-center">
+    <div class="flex justify-between w-full items-center">
       <!-- Logo -->
       <div class="w-1/4 flex justify-center items-center">
         <router-link to="/">
@@ -11,47 +11,59 @@
       </div>
 
       <!-- Menu -->
-      <div class="w-3/4 flex justify-center items-center space-x-4">
+      <div class="w-2/4 flex justify-center items-center space-x-4">
         <!-- Bộ sưu tập Dropdown -->
         <div class="dropdown-container">
           <button class="px-4">
-            <router-link to="/products" class="hover:bg-gray-700 hover:text-white px-4 py-2 rounded-lg">Bộ sưu
+            <router-link to="/products" class="header-link">Bộ sưu
               tập</router-link>
           </button>
           <div class="dropdown-menu">
-            <router-link to="/products" class="block px-4 py-2 hover:bg-gray-200">Sản phẩm bán chạy</router-link>
-            <router-link to="/products" class="block px-4 py-2 hover:bg-gray-200">Sản phẩm mới nhất</router-link>
-            <router-link to="/products" class="block px-4 py-2 hover:bg-gray-200">Sản phẩm giảm giá</router-link>
+            <router-link to="/products" class="block header-link">Sản phẩm bán chạy</router-link>
+            <router-link to="/products" class="block header-link">Sản phẩm mới nhất</router-link>
+            <router-link to="/products" class="block header-link">Sản phẩm giảm giá</router-link>
           </div>
         </div>
-
-        <div v-if="auth.user">
-        <span class="mr-4"> 👋 Xin chào, {{ auth.user.name || auth.user.email }}</span>
-        <button @click="auth.logout" class="text-red-500 font-semibold">&nbsp;Đăng xuất</button>
-      </div>
-      <div v-else>
-        <router-link to="/login" class="text-blue-500 font-semibold">Đăng nhập</router-link>
-      </div>
-        <!-- Tài khoản Dropdown -->
-        <!-- <div class="dropdown-container">
-          <button class="px-4 py-2">
-            <router-link to="/admin">Tài khoản</router-link>
-          </button>
-          <div class="dropdown-menu">
-            <router-link v-if="isLoggedIn" to="/profile" class="block px-4 py-2 hover:bg-gray-200">Thông tin tài
-              khoản</router-link>
-            <router-link v-if="!isLoggedIn" to="/login" class="block px-4 py-2 hover:bg-gray-200">Đăng
-              nhập</router-link>
-            <button v-if="isLoggedIn" @click="logout" class="block px-4 py-2 hover:bg-gray-200">Đăng xuất</button>
-          </div>
-        </div> -->
-
-
-        <!-- Giỏ hàng -->
+        <!-- Thông báo -->
         <div>
-          <router-link to="/products" class="px-4 py-2 hover:bg-gray-700 rounded">
+          <router-link to="/noti" class="header-link">
+            Thông báo
+          </router-link>
+        </div>
+        <!-- Tiếng Việt -->
+        <div>
+          <router-link to="/#" class="header-link">
+            Tiếng Việt
+          </router-link>
+        </div>
+
+        <div>
+          <router-link to="/products" class="header-link">
             Giỏ hàng
           </router-link>
+        </div>
+      </div>
+      <div class="w-1/4 flex justify-end items-center space-x-4  pr-4">
+        <div v-if="auth.user">
+          <!-- Tài khoản -->
+          <div class="dropdown-container">
+            <button class="header-link">
+              <span class="mr-4"> 👋 Xin chào,&nbsp;</span>
+              <router-link to="/profile">{{ auth.user.name || auth.user.email }}</router-link>
+            </button>
+            <div class="dropdown-menu">
+              <router-link to="/profile"
+                class="w-full flex justify-center items-center block header-link">Quản lý tài
+                khoản</router-link>
+              <button @click="handleLogout"
+                class="w-full flex justify-center items-center text-red-500 font-semibold">&nbsp;Đăng xuất</button>
+            </div>
+          </div>
+
+        </div>
+        <div v-else>
+          <router-link to="/login" class="text-blue-500 font-semibold">Đăng nhập |</router-link>
+          <router-link to="/login" class="text-blue-500 font-semibold">&nbsp;Đăng ký</router-link>
         </div>
       </div>
     </div>
@@ -60,41 +72,27 @@
   <!-- Header cho trang Admin -->
   <header v-else class="fixed top-0 left-0 w-full bg-white shadow-md z-50 p-2 text-black">
     <nav class="flex justify-center items-center space-x-4">
-      <router-link class="px-4 py-2 hover:bg-gray-700 rounded" to="/">Trang chủ</router-link>
-      <router-link class="px-4 py-2 hover:bg-gray-700 rounded" to="/admin">Admin</router-link>
+      <router-link class="header-link" to="/">Trang chủ</router-link>
+      <router-link class="header-link" to="/admin">Admin</router-link>
 
       <!-- Dropdown Quản trị -->
       <div class="dropdown-container">
-        <button class="px-4 py-2">Quản trị</button>
+        <button class="header-link">Quản trị</button>
         <div class="dropdown-menu">
-          <router-link to="/admin/products" class="block px-4 py-2 hover:bg-gray-200">Quản lý Sản phẩm</router-link>
-          <router-link to="#" class="block px-4 py-2 hover:bg-gray-200">Quản lý Đơn hàng</router-link>
-          <router-link to="#" class="block px-4 py-2 hover:bg-gray-200">Quản lý Tài khoản</router-link>
-          <router-link to="#" class="block px-4 py-2 hover:bg-gray-200">Quản lý Bài viết</router-link>
+          <router-link to="/admin/products" class="block header-link hover:bg-gray-200">Quản lý Sản phẩm</router-link>
+          <router-link to="#" class="block header-link hover:bg-gray-200">Quản lý Đơn hàng</router-link>
+          <router-link to="#" class="block header-link hover:bg-gray-200">Quản lý Tài khoản</router-link>
+          <router-link to="#" class="block header-link hover:bg-gray-200">Quản lý Bài viết</router-link>
         </div>
       </div>
 
       <div v-if="auth.user">
         <span class="mr-4"> 👋 Xin chào, {{ auth.user.name || auth.user.email }}</span>
-        <button @click="auth.logout" class="text-red-500 font-semibold">&nbsp;Đăng xuất</button>
+        <button @click="handleLogout" class="text-red-500 font-semibold">&nbsp;Đăng xuất</button>
       </div>
       <div v-else>
         <router-link to="/login" class="text-blue-500 font-semibold">Đăng nhập</router-link>
       </div>
-
-      <!-- Tài khoản Dropdown -->
-      <!-- <div class="dropdown-container">
-        <button class="px-4 py-2">
-          <router-link to="/admin">Tài khoản</router-link>
-        </button>
-        <div class="dropdown-menu">
-          <router-link v-if="isLoggedIn" to="/profile" class="block px-4 py-2 hover:bg-gray-200">Thông tin tài
-            khoản</router-link>
-          <router-link v-if="!isLoggedIn" to="/login" class="block px-4 py-2 hover:bg-gray-200">Đăng nhập</router-link>
-          <button v-if="isLoggedIn" @click="logout" class="block px-4 py-2 hover:bg-gray-200">Đăng xuất</button>
-        </div>
-      </div> -->
-
     </nav>
   </header>
 </template>
@@ -111,7 +109,6 @@ const route = useRoute()
 const auth = useAuthStore()
 
 const isAdminPage = computed(() => route.path.startsWith('/admin'))
-const isLoggedIn = computed(() => auth.isLoggedIn)
 
 const handleLogout = () => {
   auth.logout()
@@ -125,6 +122,7 @@ watch(() => auth.user, (newUser) => {
 </script>
 
 <style scoped>
+
 .dropdown-container {
   position: relative;
 }
@@ -134,7 +132,7 @@ watch(() => auth.user, (newUser) => {
   left: 0;
   margin-top: 0.5rem;
   width: 12rem;
-  background: white;
+  background: #ffffff;
   color: black;
   border-radius: 0.5rem;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
@@ -143,6 +141,11 @@ watch(() => auth.user, (newUser) => {
   visibility: hidden;
   transition: all 0.3s ease;
   z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .dropdown-container:hover .dropdown-menu {
@@ -151,3 +154,4 @@ watch(() => auth.user, (newUser) => {
   visibility: visible;
 }
 </style>
+

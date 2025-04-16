@@ -8,6 +8,8 @@ import router from '/src/router/index.js'
 import axios from 'axios'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import './assets/styles/global.css'
+
 
 // Khởi tạo Pinia với plugin persisted
 const pinia = createPinia()
