@@ -312,3 +312,5 @@ Kết nối API thật: npm i axios
 16/04/2025: 
   1. npm install pinia
   2. Tao src/stores/auth.js
+  3. npm install pinia-plugin-persistedstate
+(fix sau khi đăng nhập mình nhấn reload (f5) thì nó mới hiển thị là xin chào admin@gmail.com)

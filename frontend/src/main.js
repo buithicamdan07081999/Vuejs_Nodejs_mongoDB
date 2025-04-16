@@ -1,15 +1,25 @@
 import './assets/main.css'
-import './style.css';
-import router from "/src/router/index.js";
-import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:5000/api';
+import './style.css'
+import './assets/tailwind.css'
+
 import { createApp } from 'vue'
 import App from './App.vue'
-import './assets/tailwind.css'
+import router from '/src/router/index.js'
+import axios from 'axios'
 import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
-const app = createApp(App);
-app.use(router); // Dùng Vue Router trong ứng dụng
-app.config.globalProperties.$axios = axios; // Gán axios vào globalProperties
-app.use(createPinia()) // xử lý đăng nhập
-app.mount('#app');// Gắn Vue vào <div id="app">
+// Khởi tạo Pinia với plugin persisted
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+
+// Cấu hình axios
+axios.defaults.baseURL = 'http://localhost:5000/api'
+
+const app = createApp(App)
+
+app.use(router)
+app.use(pinia) // ✅ Dùng pinia đã khai báo ở trên
+app.config.globalProperties.$axios = axios
+
+app.mount('#app')

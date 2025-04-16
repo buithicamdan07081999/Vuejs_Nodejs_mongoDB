@@ -25,12 +25,13 @@
           </div>
         </div>
 
-        <div v-if="isLoggedIn">
-          <button @click="logout">Đăng xuất</button>
-        </div>
-        <div v-else>
-          <router-link to="/login">Đăng nhập</router-link>
-        </div>
+        <div v-if="auth.user">
+        <span class="mr-4"> 👋 Xin chào, {{ auth.user.name || auth.user.email }}</span>
+        <button @click="auth.logout" class="text-red-500 font-semibold">&nbsp;Đăng xuất</button>
+      </div>
+      <div v-else>
+        <router-link to="/login" class="text-blue-500 font-semibold">Đăng nhập</router-link>
+      </div>
         <!-- Tài khoản Dropdown -->
         <!-- <div class="dropdown-container">
           <button class="px-4 py-2">
@@ -73,11 +74,12 @@
         </div>
       </div>
 
-      <div v-if="isLoggedIn">
-        <button @click="logout">Đăng xuất</button>
+      <div v-if="auth.user">
+        <span class="mr-4"> 👋 Xin chào, {{ auth.user.name || auth.user.email }}</span>
+        <button @click="auth.logout" class="text-red-500 font-semibold">&nbsp;Đăng xuất</button>
       </div>
       <div v-else>
-        <router-link to="/login">Đăng nhập</router-link>
+        <router-link to="/login" class="text-blue-500 font-semibold">Đăng nhập</router-link>
       </div>
 
       <!-- Tài khoản Dropdown -->
@@ -98,9 +100,11 @@
 </template>
 
 <script setup>
+import { watch } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+
 
 const router = useRouter()
 const route = useRoute()
@@ -109,10 +113,15 @@ const auth = useAuthStore()
 const isAdminPage = computed(() => route.path.startsWith('/admin'))
 const isLoggedIn = computed(() => auth.isLoggedIn)
 
-function logout() {
+const handleLogout = () => {
   auth.logout()
   router.push('/login')
 }
+
+watch(() => auth.user, (newUser) => {
+  console.log('User thay đổi:', newUser)
+})
+
 </script>
 
 <style scoped>
