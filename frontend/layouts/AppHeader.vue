@@ -2,7 +2,7 @@
   <!-- Header cho người dùng -->
   <header v-if="!isAdminPage" class="fixed top-0 left-0 w-full bg-black shadow-md z-50 p-2 text-white">
     <div class="flex w-full items-center">
-      <!-- Logo justify-center-->
+      <!-- Logo -->
       <div class="w-1/4 flex justify-center items-center">
         <router-link to="/">
           <img src="/images/logo/logo.webp" alt="Logo"
@@ -10,7 +10,7 @@
         </router-link>
       </div>
 
-      <!-- Menu/Dropdowns -->
+      <!-- Menu -->
       <div class="w-3/4 flex justify-center items-center space-x-4">
         <!-- Bộ sưu tập Dropdown -->
         <div class="dropdown-container">
@@ -25,20 +25,26 @@
           </div>
         </div>
 
+        <div v-if="isLoggedIn">
+          <button @click="logout">Đăng xuất</button>
+        </div>
+        <div v-else>
+          <router-link to="/login">Đăng nhập</router-link>
+        </div>
         <!-- Tài khoản Dropdown -->
-        <div class="dropdown-container">
+        <!-- <div class="dropdown-container">
           <button class="px-4 py-2">
             <router-link to="/admin">Tài khoản</router-link>
           </button>
           <div class="dropdown-menu">
-            <router-link to="/profile" class="block px-4 py-2 hover:bg-gray-200">Thông tin tài khoản</router-link>
-            <router-link to="/login" class="block px-4 py-2 hover:bg-gray-200">Đăng nhập</router-link>
-            <router-link to="/logout" class="block px-4 py-2 hover:bg-gray-200">Đăng xuất</router-link>
+            <router-link v-if="isLoggedIn" to="/profile" class="block px-4 py-2 hover:bg-gray-200">Thông tin tài
+              khoản</router-link>
+            <router-link v-if="!isLoggedIn" to="/login" class="block px-4 py-2 hover:bg-gray-200">Đăng
+              nhập</router-link>
+            <button v-if="isLoggedIn" @click="logout" class="block px-4 py-2 hover:bg-gray-200">Đăng xuất</button>
           </div>
-        </div>
+        </div> -->
 
-        <router-link to="/login" class="block px-4 py-2 hover:bg-gray-200">Đăng nhập</router-link>
-        <router-link to="/" class="block px-4 py-2 hover:bg-gray-200">Đăng xuất</router-link>
 
         <!-- Giỏ hàng -->
         <div>
@@ -67,32 +73,49 @@
         </div>
       </div>
 
-      <!-- Dropdown Tài khoản -->
-      <div class="dropdown-container">
-        <button class="px-4 py-2">Quản lý tài khoản</button>
-        <div class="dropdown-menu">
-          <router-link to="/login" class="block px-4 py-2 hover:bg-gray-200">Đăng nhập</router-link>
-          <router-link to="/" class="block px-4 py-2 hover:bg-gray-200">Đăng xuất</router-link>
-        </div>
+      <div v-if="isLoggedIn">
+        <button @click="logout">Đăng xuất</button>
       </div>
+      <div v-else>
+        <router-link to="/login">Đăng nhập</router-link>
+      </div>
+
+      <!-- Tài khoản Dropdown -->
+      <!-- <div class="dropdown-container">
+        <button class="px-4 py-2">
+          <router-link to="/admin">Tài khoản</router-link>
+        </button>
+        <div class="dropdown-menu">
+          <router-link v-if="isLoggedIn" to="/profile" class="block px-4 py-2 hover:bg-gray-200">Thông tin tài
+            khoản</router-link>
+          <router-link v-if="!isLoggedIn" to="/login" class="block px-4 py-2 hover:bg-gray-200">Đăng nhập</router-link>
+          <button v-if="isLoggedIn" @click="logout" class="block px-4 py-2 hover:bg-gray-200">Đăng xuất</button>
+        </div>
+      </div> -->
+
     </nav>
   </header>
 </template>
 
 <script setup>
+import { useAuthStore } from '@/stores/auth'
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
+const router = useRouter()
 const route = useRoute()
+const auth = useAuthStore()
+
 const isAdminPage = computed(() => route.path.startsWith('/admin'))
+const isLoggedIn = computed(() => auth.isLoggedIn)
+
+function logout() {
+  auth.logout()
+  router.push('/login')
+}
 </script>
 
 <style scoped>
-.fa-cart-shopping {
-  font-family: "Font Awesome 6 Free" !important;
-  font-weight: 900 !important;
-}
-
 .dropdown-container {
   position: relative;
 }
@@ -105,15 +128,17 @@ const isAdminPage = computed(() => route.path.startsWith('/admin'))
   background: white;
   color: black;
   border-radius: 0.5rem;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-  visibility: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px);
   opacity: 0;
-  transition: opacity 0.2s ease;
+  visibility: hidden;
+  transition: all 0.3s ease;
   z-index: 50;
 }
 
 .dropdown-container:hover .dropdown-menu {
-  visibility: visible;
+  transform: translateY(0);
   opacity: 1;
+  visibility: visible;
 }
 </style>

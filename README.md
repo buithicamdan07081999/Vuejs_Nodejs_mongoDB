@@ -309,3 +309,6 @@ xoa cache Ctrl + Shift + R
 14/4/20205 Create Login page
 Kết nối API thật: npm i axios
 15/04/20205 : Install npm install bcrypt
+16/04/2025: 
+  1. npm install pinia
+  2. Tao src/stores/auth.js
