@@ -54,17 +54,16 @@
               <router-link to="/profile" class="item-center-css header-link">
                 Quản lý tài khoản
               </router-link>
-              <button @click="handleLogout"
-                class="header-link item-center-css text-red-500">Đăng xuất</button>
+              <button @click="handleLogout" class="header-link item-center-css text-red-500">Đăng xuất</button>
             </div>
           </div>
 
         </div>
         <div v-else class="flex items-center space-x-1">
-  <router-link to="/login" class="text-blue-500 header-link">Đăng nhập</router-link>
-  <span>|</span>
-  <router-link to="/login" class="text-blue-500 header-link">Đăng ký</router-link>
-</div>
+          <router-link to="/login" class="text-blue-500 header-link">Đăng nhập</router-link>
+          <span>|</span>
+          <router-link to="/login" class="text-blue-500 header-link">Đăng ký</router-link>
+        </div>
 
       </div>
     </div>
@@ -123,7 +122,6 @@ watch(() => auth.user, (newUser) => {
 </script>
 
 <style scoped>
-
 .dropdown-container {
   position: relative;
 }
@@ -155,4 +153,3 @@ watch(() => auth.user, (newUser) => {
   visibility: visible;
 }
 </style>
-
