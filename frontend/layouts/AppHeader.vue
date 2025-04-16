@@ -9,7 +9,6 @@
             class="h-6 sm:h-10 md:h-12 lg:h-14 xl:h-20 object-contain cursor-pointer" />
         </router-link>
       </div>
-
       <!-- Menu -->
       <div class="w-2/4 item-center-css">
         <!-- Bộ sưu tập Dropdown -->
@@ -19,9 +18,9 @@
               tập</router-link>
           </button>
           <div class="dropdown-menu">
-            <router-link to="/products" class="block header-link">Sản phẩm bán chạy</router-link>
-            <router-link to="/products" class="block header-link">Sản phẩm mới nhất</router-link>
-            <router-link to="/products" class="block header-link">Sản phẩm giảm giá</router-link>
+            <router-link to="/products" class="header-link">Sản phẩm bán chạy</router-link>
+            <router-link to="/products" class="header-link">Sản phẩm mới nhất</router-link>
+            <router-link to="/products" class="header-link">Sản phẩm giảm giá</router-link>
           </div>
         </div>
         <!-- Thông báo -->
@@ -51,20 +50,17 @@
               <router-link to="/profile">{{ auth.user.name || auth.user.email }}</router-link>
             </button>
             <div class="dropdown-menu">
-              <router-link to="/profile" class="item-center-css header-link">
-                Quản lý tài khoản
-              </router-link>
+              <router-link to="/profile" class="item-center-css header-link">Quản lý tài khoản</router-link>
+              <router-link to="/admin" class="item-center-css header-link">Trang quản trị</router-link>
               <button @click="handleLogout" class="header-link item-center-css text-red-500">Đăng xuất</button>
             </div>
           </div>
-
         </div>
         <div v-else class="flex items-center space-x-1">
           <router-link to="/login" class="text-blue-500 header-link">Đăng nhập</router-link>
           <span>|</span>
           <router-link to="/login" class="text-blue-500 header-link">Đăng ký</router-link>
         </div>
-
       </div>
     </div>
   </header>
@@ -74,25 +70,37 @@
     <nav class="item-center-css">
       <router-link class="header-link" to="/">Trang chủ</router-link>
       <router-link class="header-link" to="/admin">Admin</router-link>
-
       <!-- Dropdown Quản trị -->
       <div class="dropdown-container">
         <button class="header-link">Quản trị</button>
         <div class="dropdown-menu">
-          <router-link to="/admin/products" class="block header-link hover:bg-gray-200">Quản lý Sản phẩm</router-link>
-          <router-link to="#" class="block header-link hover:bg-gray-200">Quản lý Đơn hàng</router-link>
-          <router-link to="#" class="block header-link hover:bg-gray-200">Quản lý Tài khoản</router-link>
-          <router-link to="#" class="block header-link hover:bg-gray-200">Quản lý Bài viết</router-link>
+          <router-link to="/admin/products" class="header-link">Quản lý Sản phẩm</router-link>
+          <router-link to="#" class="header-link">Quản lý Đơn hàng</router-link>
+          <router-link to="#" class="header-link">Quản lý Tài khoản</router-link>
+          <router-link to="#" class="header-link">Quản lý Bài viết</router-link>
         </div>
       </div>
 
+      <div class="w-1/4 justify-end">
       <div v-if="auth.user">
-        <span class="mr-4"> 👋 Xin chào, {{ auth.user.name || auth.user.email }}</span>
-        <button @click="handleLogout" class="text-red-500 font-semibold">&nbsp;Đăng xuất</button>
+        <!-- Tài khoản -->
+        <div class="dropdown-container">
+          <button class="header-link">
+            <span>👋 Xin chào,&nbsp;</span>
+            <router-link to="/profile">{{ auth.user.name || auth.user.email }}</router-link>
+          </button>
+          <div class="dropdown-menu">
+            <router-link to="/profile" class="item-center-css header-link">Quản lý tài khoản</router-link>
+            <button @click="handleLogout" class="header-link item-center-css text-red-500">Đăng xuất</button>
+          </div>
+        </div>
       </div>
-      <div v-else>
-        <router-link to="/login" class="text-blue-500 font-semibold">Đăng nhập</router-link>
+      <div v-else class="flex items-center space-x-1">
+        <router-link to="/login" class="text-blue-500 header-link">Đăng nhập</router-link>
+        <span>|</span>
+        <router-link to="/login" class="text-blue-500 header-link">Đăng ký</router-link>
       </div>
+    </div>
     </nav>
   </header>
 </template>
