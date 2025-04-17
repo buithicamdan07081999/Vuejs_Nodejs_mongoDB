@@ -9,6 +9,7 @@ import axios from 'axios'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import './assets/styles/global.css'
+import i18n from './i18n/index.js'
 
 
 // Khởi tạo Pinia với plugin persisted
@@ -21,7 +22,8 @@ axios.defaults.baseURL = 'http://localhost:5000/api'
 const app = createApp(App)
 
 app.use(router)
-app.use(pinia) // ✅ Dùng pinia đã khai báo ở trên
+app.use(pinia)
+app.use(i18n)
 app.config.globalProperties.$axios = axios
 
 app.mount('#app')

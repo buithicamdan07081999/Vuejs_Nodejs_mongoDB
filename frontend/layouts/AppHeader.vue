@@ -29,11 +29,20 @@
             Thông báo
           </router-link>
         </div>
-        <!-- Tiếng Việt -->
-        <div>
-          <router-link to="/#" class="header-link">
-            Tiếng Việt
-          </router-link>
+        <!-- Language Switcher Dropdown -->
+        <div class="dropdown-container">
+          <button class="header-link flex items-center gap-2">
+            🌐 {{ $t('language') }}
+            <svg class="w-4 h-4 transform transition-transform" :class="{ 'rotate-180': isLangOpen }" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="dropdown-menu">
+            <button class="header-link" @click="changeLanguage('vi')">🇻🇳 Tiếng Việt</button>
+            <button class="header-link" @click="changeLanguage('en')">🇺🇸 English</button>
+            <button class="header-link" @click="changeLanguage('fr')">🇫🇷 Français</button>
+          </div>
         </div>
         <div>
           <router-link to="/products" class="header-link">
@@ -82,25 +91,25 @@
       </div>
 
       <div class="w-1/4 justify-end">
-      <div v-if="auth.user">
-        <!-- Tài khoản -->
-        <div class="dropdown-container">
-          <button class="header-link">
-            <span>👋 Xin chào,&nbsp;</span>
-            <router-link to="/profile">{{ auth.user.name || auth.user.email }}</router-link>
-          </button>
-          <div class="dropdown-menu">
-            <router-link to="/profile" class="item-center-css header-link">Quản lý tài khoản</router-link>
-            <button @click="handleLogout" class="header-link item-center-css text-red-500">Đăng xuất</button>
+        <div v-if="auth.user">
+          <!-- Tài khoản -->
+          <div class="dropdown-container">
+            <button class="header-link">
+              <span>👋 Xin chào,&nbsp;</span>
+              <router-link to="/profile">{{ auth.user.name || auth.user.email }}</router-link>
+            </button>
+            <div class="dropdown-menu">
+              <router-link to="/profile" class="item-center-css header-link">Quản lý tài khoản</router-link>
+              <button @click="handleLogout" class="header-link item-center-css text-red-500">Đăng xuất</button>
+            </div>
           </div>
         </div>
+        <div v-else class="flex items-center space-x-1">
+          <router-link to="/login" class="text-blue-500 header-link">Đăng nhập</router-link>
+          <span>|</span>
+          <router-link to="/login" class="text-blue-500 header-link">Đăng ký</router-link>
+        </div>
       </div>
-      <div v-else class="flex items-center space-x-1">
-        <router-link to="/login" class="text-blue-500 header-link">Đăng nhập</router-link>
-        <span>|</span>
-        <router-link to="/login" class="text-blue-500 header-link">Đăng ký</router-link>
-      </div>
-    </div>
     </nav>
   </header>
 </template>
@@ -110,7 +119,13 @@ import { watch } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+const { locale } = useI18n()
 
+function changeLanguage(lang) {
+  locale.value = lang
+  localStorage.setItem('locale', lang)
+}
 
 const router = useRouter()
 const route = useRoute()

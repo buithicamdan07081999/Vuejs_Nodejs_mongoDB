@@ -1,0 +1,15 @@
+{
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "hello": "Bonjour",
+    "logout": "Se déconnecter",
+    "language": "Langue",
+    "cart": "Panier",
+    "profile": "Gestion du compte",
+    "collection": "Collection",
+    "bestseller": "Meilleures ventes",
+    "newest": "Nouveaux produits",
+    "sale": "Produits en promotion",
+    "notification": "Notifications"
+  }
+  
