@@ -1,15 +1,20 @@
 {
+    "collection": "Collection",
+    "bestSellers": "Best Sellers",
+    "newestProducts": "Newest Products",
+    "discountedProducts": "Discounted Products",
+    "notifications": "Notifications",
+    "language": "Language",
+    "cart": "Cart",
     "login": "Login",
     "register": "Register",
     "hello": "Hello",
     "logout": "Logout",
-    "language": "Language",
-    "cart": "Cart",
-    "profile": "Account Management",
-    "collection": "Collection",
-    "bestseller": "Best Sellers",
-    "newest": "Newest Products",
-    "sale": "Discounted Products",
-    "notification": "Notifications"
+    "profileManagement": "Profile Management",
+    "adminPanel": "Admin Panel",
+    "manageProducts": "Manage Products",
+    "manageOrders": "Manage Orders",
+    "manageUsers": "Manage Users",
+    "managePosts": "Manage Posts"
   }
   

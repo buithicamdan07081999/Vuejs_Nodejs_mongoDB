@@ -9,27 +9,27 @@
             class="h-6 sm:h-10 md:h-12 lg:h-14 xl:h-20 object-contain cursor-pointer" />
         </router-link>
       </div>
+
       <!-- Menu -->
       <div class="w-2/4 item-center-css">
         <!-- Bộ sưu tập Dropdown -->
         <div class="dropdown-container">
           <button class="px-4">
-            <router-link to="/products" class="header-link">Bộ sưu
-              tập</router-link>
+            <router-link to="/products" class="header-link">{{ $t('collection') }}</router-link>
           </button>
           <div class="dropdown-menu">
-            <router-link to="/products" class="header-link">Sản phẩm bán chạy</router-link>
-            <router-link to="/products" class="header-link">Sản phẩm mới nhất</router-link>
-            <router-link to="/products" class="header-link">Sản phẩm giảm giá</router-link>
+            <router-link to="/products" class="header-link">{{ $t('best_seller') }}</router-link>
+            <router-link to="/products" class="header-link">{{ $t('newest') }}</router-link>
+            <router-link to="/products" class="header-link">{{ $t('discount') }}</router-link>
           </div>
         </div>
+
         <!-- Thông báo -->
         <div>
-          <router-link to="/noti" class="header-link">
-            Thông báo
-          </router-link>
+          <router-link to="/noti" class="header-link">{{ $t('notification') }}</router-link>
         </div>
-        <!-- Language Switcher Dropdown -->
+
+        <!-- Language Switcher -->
         <div class="dropdown-container">
           <button class="header-link flex items-center gap-2">
             🌐 {{ $t('language') }}
@@ -44,31 +44,32 @@
             <button class="header-link" @click="changeLanguage('fr')">🇫🇷 Français</button>
           </div>
         </div>
+
+        <!-- Giỏ hàng -->
         <div>
-          <router-link to="/products" class="header-link">
-            Giỏ hàng
-          </router-link>
+          <router-link to="/products" class="header-link">{{ $t('cart') }}</router-link>
         </div>
       </div>
+
+      <!-- Tài khoản -->
       <div class="w-1/4 justify-end">
         <div v-if="auth.user">
-          <!-- Tài khoản -->
           <div class="dropdown-container">
             <button class="header-link">
-              <span>👋 Xin chào,&nbsp;</span>
+              <span>👋 {{ $t('hello') }},&nbsp;</span>
               <router-link to="/profile">{{ auth.user.name || auth.user.email }}</router-link>
             </button>
             <div class="dropdown-menu">
-              <router-link to="/profile" class="item-center-css header-link">Quản lý tài khoản</router-link>
-              <router-link to="/admin" class="item-center-css header-link">Trang quản trị</router-link>
-              <button @click="handleLogout" class="header-link item-center-css text-red-500">Đăng xuất</button>
+              <router-link to="/profile" class="item-center-css header-link">{{ $t('manage_account') }}</router-link>
+              <router-link to="/admin" class="item-center-css header-link">{{ $t('admin_page') }}</router-link>
+              <button @click="handleLogout" class="header-link item-center-css text-red-500">{{ $t('logout') }}</button>
             </div>
           </div>
         </div>
         <div v-else class="flex items-center space-x-1">
-          <router-link to="/login" class="text-blue-500 header-link">Đăng nhập</router-link>
+          <router-link to="/login" class="text-blue-500 header-link">{{ $t('login') }}</router-link>
           <span>|</span>
-          <router-link to="/login" class="text-blue-500 header-link">Đăng ký</router-link>
+          <router-link to="/login" class="text-blue-500 header-link">{{ $t('register') }}</router-link>
         </div>
       </div>
     </div>
@@ -77,42 +78,42 @@
   <!-- Header cho trang Admin -->
   <header v-else class="header-admin">
     <nav class="item-center-css">
-      <router-link class="header-link" to="/">Trang chủ</router-link>
+      <router-link class="header-link" to="/">{{ $t('home') }}</router-link>
       <router-link class="header-link" to="/admin">Admin</router-link>
-      <!-- Dropdown Quản trị -->
+
       <div class="dropdown-container">
-        <button class="header-link">Quản trị</button>
+        <button class="header-link">{{ $t('admin') }}</button>
         <div class="dropdown-menu">
-          <router-link to="/admin/products" class="header-link">Quản lý Sản phẩm</router-link>
-          <router-link to="#" class="header-link">Quản lý Đơn hàng</router-link>
-          <router-link to="#" class="header-link">Quản lý Tài khoản</router-link>
-          <router-link to="#" class="header-link">Quản lý Bài viết</router-link>
+          <router-link to="/admin/products" class="header-link">{{ $t('manage_products') }}</router-link>
+          <router-link to="#" class="header-link">{{ $t('manage_orders') }}</router-link>
+          <router-link to="#" class="header-link">{{ $t('manage_accounts') }}</router-link>
+          <router-link to="#" class="header-link">{{ $t('manage_posts') }}</router-link>
         </div>
       </div>
 
       <div class="w-1/4 justify-end">
         <div v-if="auth.user">
-          <!-- Tài khoản -->
           <div class="dropdown-container">
             <button class="header-link">
-              <span>👋 Xin chào,&nbsp;</span>
+              <span>👋 {{ $t('hello') }},&nbsp;</span>
               <router-link to="/profile">{{ auth.user.name || auth.user.email }}</router-link>
             </button>
             <div class="dropdown-menu">
-              <router-link to="/profile" class="item-center-css header-link">Quản lý tài khoản</router-link>
-              <button @click="handleLogout" class="header-link item-center-css text-red-500">Đăng xuất</button>
+              <router-link to="/profile" class="item-center-css header-link">{{ $t('manage_account') }}</router-link>
+              <button @click="handleLogout" class="header-link item-center-css text-red-500">{{ $t('logout') }}</button>
             </div>
           </div>
         </div>
         <div v-else class="flex items-center space-x-1">
-          <router-link to="/login" class="text-blue-500 header-link">Đăng nhập</router-link>
+          <router-link to="/login" class="text-blue-500 header-link">{{ $t('login') }}</router-link>
           <span>|</span>
-          <router-link to="/login" class="text-blue-500 header-link">Đăng ký</router-link>
+          <router-link to="/login" class="text-blue-500 header-link">{{ $t('register') }}</router-link>
         </div>
       </div>
     </nav>
   </header>
 </template>
+
 
 <script setup>
 import { watch } from 'vue'

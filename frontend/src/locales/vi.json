@@ -5,11 +5,18 @@
     "logout": "Đăng xuất",
     "language": "Ngôn ngữ",
     "cart": "Giỏ hàng",
-    "profile": "Quản lý tài khoản",
     "collection": "Bộ sưu tập",
-    "bestseller": "Sản phẩm bán chạy",
+    "best_seller": "Sản phẩm bán chạy",
     "newest": "Sản phẩm mới nhất",
-    "sale": "Sản phẩm giảm giá",
-    "notification": "Thông báo"
+    "discount": "Sản phẩm giảm giá",
+    "notification": "Thông báo",
+    "manage_account": "Quản lý tài khoản",
+    "admin_page": "Trang quản trị",
+    "home": "Trang chủ",
+    "admin": "Quản trị",
+    "manage_products": "Quản lý Sản phẩm",
+    "manage_orders": "Quản lý Đơn hàng",
+    "manage_accounts": "Quản lý Tài khoản",
+    "manage_posts": "Quản lý Bài viết"
   }
   
