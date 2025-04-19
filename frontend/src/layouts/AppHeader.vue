@@ -77,38 +77,47 @@
 
   <!-- Header cho trang Admin -->
   <header v-else class="header-admin w-full block item-center-css">
-    <nav class="item-center-css">
-      <router-link class="header-link" to="/">{{ $t('home') }}</router-link>
-      <div class="dropdown-container">
-        <button class="header-link">{{ $t('admin') }}</button>
-        <div class="dropdown-menu">
-          <router-link to="/admin/products" class="header-link">{{ $t('manage_products') }}</router-link>
-          <router-link to="#" class="header-link">{{ $t('manage_orders') }}</router-link>
-          <router-link to="#" class="header-link">{{ $t('manage_accounts') }}</router-link>
-          <router-link to="#" class="header-link">{{ $t('manage_posts') }}</router-link>
-        </div>
-      </div>
+    <nav class="w-full flex justify-between items-center">
+  <!-- Left (Logo or Home) -->
+  <div class="w-1/4  item-center-css">
+    <router-link class="header-link" to="/">{{ $t('home') }}</router-link>
+  </div>
 
-      <div class="w-1/4 justify-end">
-        <div v-if="auth.user">
-          <div class="dropdown-container">
-            <button class="header-link">
-              <span>👋 {{ $t('hello') }},&nbsp;</span>
-              <router-link to="/profile">{{ auth.user.name || auth.user.email }}</router-link>
-            </button>
-            <div class="dropdown-menu">
-              <router-link to="/profile" class="item-center-css header-link">{{ $t('manage_account') }}</router-link>
-              <button @click="handleLogout" class="header-link item-center-css text-red-500">{{ $t('logout') }}</button>
-            </div>
-          </div>
-        </div>
-        <div v-else class="flex items-center space-x-1">
-          <router-link to="/login" class="text-blue-500 header-link">{{ $t('login') }}</router-link>
-          <span>|</span>
-          <router-link to="/login" class="text-blue-500 header-link">{{ $t('register') }}</router-link>
+  <!-- Center (Admin menu) -->
+  <div class="w-2/4  item-center-css">
+    <div class="dropdown-container">
+      <button class="header-link">{{ $t('admin') }}</button>
+      <div class="dropdown-menu">
+        <router-link to="/admin/products" class="header-link">{{ $t('manage_products') }}</router-link>
+        <router-link to="#" class="header-link">{{ $t('manage_orders') }}</router-link>
+        <router-link to="#" class="header-link">{{ $t('manage_accounts') }}</router-link>
+        <router-link to="#" class="header-link">{{ $t('manage_posts') }}</router-link>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right (User info) -->
+  <div class="w-1/4  item-center-css">
+    <div v-if="auth.user">
+      <div class="dropdown-container">
+        <button class="header-link">
+          <span>👋 {{ $t('hello') }},&nbsp;</span>
+          <router-link to="/profile">{{ auth.user.name || auth.user.email }}</router-link>
+        </button>
+        <div class="dropdown-menu">
+          <router-link to="/profile" class="item-center-css header-link">{{ $t('manage_account') }}</router-link>
+          <button @click="handleLogout" class="header-link item-center-css text-red-500">{{ $t('logout') }}</button>
         </div>
       </div>
-    </nav>
+    </div>
+    <div v-else class="flex items-center space-x-1">
+      <router-link to="/login" class="text-blue-500 header-link">{{ $t('login') }}</router-link>
+      <span>|</span>
+      <router-link to="/login" class="text-blue-500 header-link">{{ $t('register') }}</router-link>
+    </div>
+  </div>
+</nav>
+
   </header>
 </template>
 
