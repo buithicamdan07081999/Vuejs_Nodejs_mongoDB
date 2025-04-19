@@ -52,25 +52,33 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="home p-10">
-    <section class=" bg-grey; text-white text-center p-2 rounded-lg">
+  <div class="home p-2 text-black">
+    <section class="text-center rounded-lg">
       <h1 class="text-4xl font-bold">Wellcome to KDBD Chanel</h1>
       <p class="mt-2 text-lg text-yellow-300 marquee-text"> BAD HABITS STORE - BAD IS NOT BAD !</p>
     </section>
   </div>
   <!-- Banner -->
-  <div class="banner">
+  <div class="banner w-full h-screen">
     <Swiper :modules="[Autoplay]" :autoplay="{ delay: 1000, disableOnInteraction: false }" :loop="true"
-      class="w-full h-64 mx-auto" :key="bannerpics.length">
+      class="w-full h-full" :key="bannerpics.length">
       <SwiperSlide v-for="(banner, index) in bannerpics" :key="index">
-        <img :src="banner" alt="Banner" class="banner-img w-full h-64 object-cover" />
+        <img :src="banner" alt="Banner" class="banner-img w-full h-full object-cover" />
       </SwiperSlide>
     </Swiper>
   </div>
 
-  <div class="categories text-white">
-    <h2 class="text-2xl font-bold text-center my-4">Danh sách sản phẩm</h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+  <div class="home p-2 text-black">
+    <section class="text-left rounded-lg">
+      <h1 class="text-4xl font-bold">NEW ARRIVAL
+        ART & DESIGN / STUDIO</h1>
+      <p class="mt-2 text-lg gray-text">ARE YOU READY TO DARE TO BE OUT WITH BAD HABITS?</p>
+    </section>
+  </div>
+
+  <div class="categories p-6 text-center">
+    <h2 class="text-2xl font-bold">Danh sách sản phẩm</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
       <!-- (spacing) giữa các cột (grid-cols-*) và các hàng trong CSS Grid hoặc Flexbox. -->
       <div v-for="product in products" :key="product._id" class="category-card">
         <img :src="product.image" :alt="product.name" class="category-img" />
@@ -110,14 +118,16 @@ onMounted(async () => {
 
 .banner {
   width: 100%;
-  text-align: center;
+  max-width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .banner-img {
   width: 100%;
-  max-height: 500px;
+  height: 100%;
   object-fit: cover;
-  /* Đảm bảo ảnh không méo khi thay đổi kích thước */
+  display: block;
 }
 
 .category-card {
@@ -130,8 +140,12 @@ onMounted(async () => {
 
 .category-img {
   width: 100%;
-  height: 400px;
+  height: 230px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 5px;
+}
+
+.gray-text {
+  color: #A5A5A5;
 }
 </style>
