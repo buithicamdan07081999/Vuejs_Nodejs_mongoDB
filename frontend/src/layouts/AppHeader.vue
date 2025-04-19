@@ -1,6 +1,6 @@
 <template>
   <!-- Header cho người dùng -->
-  <header v-if="!isAdminPage" class="header-user">
+  <header v-if="!isAdminPage" class="header-user w-full block">
     <div class="item-between-css">
       <!-- Logo -->
       <div class="w-1/4 item-center-css">
@@ -76,7 +76,7 @@
   </header>
 
   <!-- Header cho trang Admin -->
-  <header v-else class="header-admin">
+  <header v-else class="header-admin w-full block item-center-css">
     <nav class="item-center-css">
       <router-link class="header-link" to="/">{{ $t('home') }}</router-link>
       <div class="dropdown-container">

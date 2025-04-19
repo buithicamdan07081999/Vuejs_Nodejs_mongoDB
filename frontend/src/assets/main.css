@@ -28,6 +28,10 @@
   :root {
     --header-height: 64px; /* hoặc bất kỳ chiều cao nào của header bạn đang dùng */
   }
-
+  
+  .pt-header {
+    padding-top: 5rem; /* đúng bằng chiều cao header */
+  }
+  
   
 }

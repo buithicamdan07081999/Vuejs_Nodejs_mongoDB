@@ -9,11 +9,13 @@
 }
 
 .header-user {
-  @apply fixed top-0 left-0 w-full shadow-md z-50 p-2 bg-black text-white;
+  @apply fixed top-0 left-0 w-full z-50 bg-black text-white shadow-md;
+  height: 5rem; /* hoặc h-20 trong Tailwind (80px) */
 }
 
 .header-admin {
-  @apply fixed top-0 left-0 w-full shadow-md z-50 p-2 bg-white text-black;
+  @apply fixed top-0 left-0 w-full z-50 bg-white text-black shadow-md;
+  height: 5rem;
 }
 
 .item-center-css {
@@ -29,3 +31,8 @@ items-center	Canh giữa nội dung theo chiều dọc */
   /* canh đều nhưng không chia đều mà có thể tùy chỉnh */
 }
 
+  /* Header cố định trên cùng */
+  .header-css {
+    @apply fixed top-0 left-0 right-0 z-[1000] shadow-md p-0;
+    /* Bạn có thể thêm bg-white hoặc màu nền tùy giao diện */
+  }

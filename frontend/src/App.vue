@@ -2,17 +2,18 @@
 import { RouterView } from 'vue-router';
 import Header from './layouts/AppHeader.vue';
 import Footer from './layouts/AppFooter.vue';
-// import Sidebar from '@/layouts/AppSidebar.vue';
+
 </script>
 
 <template>
-    <div class=" flex-1 flex flex-col w-full">
-      <Header />
-      <div class="flex-1 flex flex-col w-full mt-9">
-        <main class="flex-1 overflow-auto mt-12">
-          <RouterView />
-        </main>
-        <Footer class="h-12 bg-gray-800 text-white text-center p-2" />
-      </div>
-    </div>
+  <div class="min-h-screen flex flex-col">
+    <!-- flex flex-col: chia bố cục theo chiều dọc
+     min-h-screen: chiều cao tối thiểu là 100% chiều cao màn hình -->
+    <Header class="w-full"/>
+    <main class="flex-grow w-full pt-header">
+      <!-- flex-grow ở main sẽ giúp phần này chiếm toàn bộ không gian còn trống giữa Header và Footer -->
+      <router-view />
+    </main>
+    <Footer class="w-full" />
+  </div>
 </template>
