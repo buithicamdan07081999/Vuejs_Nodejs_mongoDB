@@ -21,4 +21,14 @@ const getProductById = async (req, res) => {
     }
 };
 
-module.exports = { getAllProducts, getProductById };
+const getLatestProducts = async (req, res) => {
+  try {
+    const products = await Product.find().sort({ createdAt: -1 }).limit(6);
+    res.json(products);
+  } catch (error) {
+    console.error("🔥 Lỗi khi lấy sản phẩm mới:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { getAllProducts, getProductById, getLatestProducts };
