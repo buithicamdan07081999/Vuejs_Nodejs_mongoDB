@@ -318,3 +318,28 @@ Kết nối API thật: npm i axios
 17/04/2025: Chức năng chuyển đổi ngôn ngữ
 19/04/2025: Làm sidebar có nút toggle ẩn/hiện (click để thu gọn/mở rộng)
   - npm install @heroicons/vue
+KDBD/                       // Dự án chính
+├── backend/                // Thư mục backend
+│   └── ...                 // Các file backend của bạn
+├── frontend/               // Thư mục frontend
+│   ├── layouts/            // Thư mục chứa các layout chung cho frontend
+│   │   ├── Header.vue      // Header chung cho cả admin và user
+│   │   ├── Footer.vue      // Footer chung cho cả admin và user
+│   │   └── MainLayout.vue  // Layout chính cho cả admin và user
+│   ├── src/                // Thư mục chứa các thành phần của frontend
+│   │   ├── admin/          // Thư mục dành cho các thành phần admin
+│   │   │   ├── components/ // Các component riêng cho admin
+│   │   │   │   ├── OrderPage.vue  // Component cho trang Orders
+│   │   │   │   └── ...         // Các component khác cho admin
+│   │   │   ├── router/      // Router cho admin
+│   │   │   │   └── adminRoutes.js  // Định nghĩa các routes cho admin
+│   │   │   └── views/       // Các view cho admin
+│   │   │       ├── Dashboard.vue      // Trang Dashboard của admin
+│   │   │       ├── ProductList.vue    // Trang danh sách sản phẩm của admin
+│   │   │       └── OrdersPage.vue     // Trang đơn hàng của admin
+│   │   ├── user/            // Thư mục dành cho các thành phần user
+│   │   │   ├── components/ // Các component riêng cho user
+│   │   │   ├── router/      // Router cho user
+│   │   │   └── views/       // Các view cho user
+│   │   └── ...              // Các file khác của frontend (store, assets, v.v.)
+└── ...                     // Các file khác trong dự án của bạn (config, package.json, v.v.)

@@ -1,7 +1,4 @@
 import MainLayout from "@/admin/views/MainLayout.vue";
-import Dashboard from "@/admin/views/Dashboard.vue";
-import ProductList from "@/admin/views/ProductList.vue";
-import OrdersPage from "@/admin/views/OrdersPage.vue";
 
 const Routes = [
   {
@@ -11,17 +8,17 @@ const Routes = [
       {
         path: '',
         name: 'Dashboard',
-        component: Dashboard
+        component:  () => import('@/admin/views/Dashboard.vue'), 
       },
       {
         path: 'products',
         name: 'ProductList',
-        component: ProductList
+        component:  () => import('@/admin/views/ProductList.vue'), 
       },
       {
         path: 'OrdersPage',
         name: 'OrdersPage',
-        component: OrdersPage
+        component: () => import('@/admin/views/OrdersPage.vue'),
       }
     ]
   }

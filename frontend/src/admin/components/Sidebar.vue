@@ -2,9 +2,6 @@
 import { ref, watch } from 'vue'
 import { HomeIcon, CubeIcon, ClipboardDocumentListIcon } from '@heroicons/vue/24/outline'
 
-const props = defineProps({
-  isSidebarHovered: Boolean
-})
 const emit = defineEmits(['hover-change'])
 
 const internalHover = ref(false)
@@ -27,7 +24,7 @@ const menuItems = [
     @mouseenter="internalHover = true"
     @mouseleave="internalHover = false"
   >
-    <div class="p-4 text-center text-xl font-bold">
+    <div class="mt-20 p-4 text-center text-xl font-bold">
       <span v-if="internalHover">Logo</span>
       <span v-else>🔥</span>
     </div>

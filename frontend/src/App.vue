@@ -1,14 +1,14 @@
 <script setup>
 import { RouterView } from 'vue-router';
-import Header from '@/../layouts/AppHeader.vue';
-import Footer from '@/../layouts/AppFooter.vue';
+import Header from './layouts/AppHeader.vue';
+import Footer from './layouts/AppFooter.vue';
 // import Sidebar from '@/layouts/AppSidebar.vue';
 </script>
 
 <template>
     <div class=" flex-1 flex flex-col w-full">
       <Header />
-      <div class="flex-1 flex flex-col w-full">
+      <div class="flex-1 flex flex-col w-full p-5">
         <main class="flex-1 overflow-auto mt-12">
           <RouterView />
         </main>
