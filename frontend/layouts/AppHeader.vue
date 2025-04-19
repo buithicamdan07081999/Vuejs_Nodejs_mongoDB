@@ -26,7 +26,7 @@
 
         <!-- Thông báo -->
         <div>
-          <router-link to="/noti" class="header-link">{{ $t('notification') }}</router-link>
+          <router-link to="#" class="header-link">{{ $t('notification') }}</router-link>
         </div>
 
         <!-- Language Switcher -->
@@ -79,8 +79,6 @@
   <header v-else class="header-admin">
     <nav class="item-center-css">
       <router-link class="header-link" to="/">{{ $t('home') }}</router-link>
-      <router-link class="header-link" to="/admin">Admin</router-link>
-
       <div class="dropdown-container">
         <button class="header-link">{{ $t('admin') }}</button>
         <div class="dropdown-menu">
@@ -116,13 +114,14 @@
 
 
 <script setup>
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 const { locale } = useI18n()
 
+const isLangOpen = ref(false)
 function changeLanguage(lang) {
   locale.value = lang
   localStorage.setItem('locale', lang)

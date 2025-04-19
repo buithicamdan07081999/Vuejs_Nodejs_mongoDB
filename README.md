@@ -316,3 +316,5 @@ Kết nối API thật: npm i axios
 (fix sau khi đăng nhập mình nhấn reload (f5) thì nó mới hiển thị là xin chào admin@gmail.com)
 
 17/04/2025: Chức năng chuyển đổi ngôn ngữ
+19/04/2025: Làm sidebar có nút toggle ẩn/hiện (click để thu gọn/mở rộng)
+  - npm install @heroicons/vue

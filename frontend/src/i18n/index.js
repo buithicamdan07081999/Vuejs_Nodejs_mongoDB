@@ -7,6 +7,7 @@ import fr from './../locales/fr.json'
 const savedLocale = localStorage.getItem('locale') || 'vi'
 
 const i18n = createI18n({
+  legacy: false,
   locale: savedLocale,
   fallbackLocale: 'en',
   messages: {
