@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="p-6">
       <h2 class="text-3xl font-bold mb-4 text-black">Dashboard</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="p-4 bg-white shadow rounded-xl">

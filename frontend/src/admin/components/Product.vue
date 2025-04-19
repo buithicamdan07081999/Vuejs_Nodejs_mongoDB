@@ -1,7 +1,6 @@
 <template>
     <div class="p-6">
-      <h1 class="text-2xl font-bold mb-4 text-black">Quản lý sản phẩm</h1>
-      
+      <h1 class="text-2xl font-bold mb-4 text-black">Quản lý sản phẩm</h1>      
       <!-- Thanh tìm kiếm -->
       <div class="flex justify-between mb-4">
         <input
