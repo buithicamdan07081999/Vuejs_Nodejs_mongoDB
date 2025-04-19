@@ -1,11 +1,8 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { HomeIcon, CubeIcon, ClipboardDocumentListIcon } from '@heroicons/vue/24/outline'
-
 const emit = defineEmits(['hover-change'])
-
 const internalHover = ref(false)
-
 watch(internalHover, (newVal) => {
   emit('hover-change', newVal)
 })
