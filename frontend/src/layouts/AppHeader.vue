@@ -9,7 +9,6 @@
             class="h-6 sm:h-10 md:h-12 lg:h-14 xl:h-20 object-contain cursor-pointer" />
         </router-link>
       </div>
-
       <!-- Menu -->
       <div class="w-2/4 item-center-css">
         <!-- Bộ sưu tập Dropdown -->
@@ -74,52 +73,60 @@
       </div>
     </div>
   </header>
-
   <!-- Header cho trang Admin -->
   <header v-else class="header-admin w-full block item-center-css">
     <nav class="w-full flex justify-between items-center">
-  <!-- Left (Logo or Home) -->
-  <div class="w-1/4  item-center-css">
-    <router-link class="header-link" to="/">{{ $t('home') }}</router-link>
-  </div>
-
-  <!-- Center (Admin menu) -->
-  <div class="w-2/4  item-center-css">
-    <div class="dropdown-container">
-      <button class="header-link">{{ $t('admin') }}</button>
-      <div class="dropdown-menu">
-        <router-link to="/admin/products" class="header-link">{{ $t('manage_products') }}</router-link>
-        <router-link to="#" class="header-link">{{ $t('manage_orders') }}</router-link>
-        <router-link to="#" class="header-link">{{ $t('manage_accounts') }}</router-link>
-        <router-link to="#" class="header-link">{{ $t('manage_posts') }}</router-link>
+      <!-- Left (Logo or Home) -->
+      <div class="w-1/4 item-center-css">
+        <router-link to="/">
+          <img src="/images/logo/logo.webp" alt="Logo"
+            class="h-6 sm:h-10 md:h-12 lg:h-14 xl:h-20 object-contain cursor-pointer p-1" />
+        </router-link>
+        <!-- <router-link class="header-link" to="/">{{ $t('home') }}</router-link> -->
       </div>
-    </div>
-  </div>
 
-  <!-- Right (User info) -->
-  <div class="w-1/4  item-center-css">
-    <div v-if="auth.user">
-      <div class="dropdown-container">
-        <button class="header-link">
-          <span>👋 {{ $t('hello') }},&nbsp;</span>
-          <router-link to="/profile">{{ auth.user.name || auth.user.email }}</router-link>
-        </button>
-        <div class="dropdown-menu">
-          <router-link to="/profile" class="item-center-css header-link">{{ $t('manage_account') }}</router-link>
-          <button @click="handleLogout" class="header-link item-center-css text-red-500">{{ $t('logout') }}</button>
+      <!-- Center (Admin menu) -->
+      <div class="w-2/4 item-center-css">
+        <input type="text" placeholder="Search for datas & reports..."
+          class="w-full p-2 border rounded-md focus:outline-none focus:ring" />
+      </div>
+      <div class="p-8 flex items-center gap-4">
+        <div class="relative">
+          <span class="text-xl">🔔</span>
+          <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1">3</span>
         </div>
       </div>
-    </div>
-    <div v-else class="flex items-center space-x-1">
-      <router-link to="/login" class="text-blue-500 header-link">{{ $t('login') }}</router-link>
-      <span>|</span>
-      <router-link to="/login" class="text-blue-500 header-link">{{ $t('register') }}</router-link>
-    </div>
-  </div>
-</nav>
 
+      <!-- Right (User info) -->
+      <div class="w-1/4  item-center-css">
+        <div v-if="auth.user">
+          <div class="dropdown-container">
+            <button class="header-link">
+              <div class="flex items-center gap-2">
+                <img
+                  src="https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-6/463600900_2830541050455000_1706347478209980915_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeE9x_ogescp_k7V9L_rvXDvr1fXkBvnl-SvV9eQG-eX5NWVpXR3iMmQYfDEqcBRNiAlNCaIwjmxAfzGd5Zv-XaN&_nc_ohc=kXejn-3WRrAQ7kNvwELTAQf&_nc_oc=AdmLc3NSn554lhQjDdNBclgppWfGCu8OlQpZj0dYTYjooMxv4MqXuQiWwJSratR4TGM&_nc_zt=23&_nc_ht=scontent.fsgn5-9.fna&_nc_gid=DVtGZEvOL-v1xOX2QNEw0g&oh=00_AfFTN_i74RAUZ-y-lN1ZAA3rMe3KBzqYDmx_PYE4rdi8XA&oe=680946AC"
+                  class="rounded-full w-8 h-8" />
+                <span class="font-semibold">BUI DAN</span>
+              </div>
+              <!-- <span>👋 {{ $t('hello') }},&nbsp;</span> -->
+              <!-- <router-link to="/profile">{{ auth.user.name || auth.user.email }}</router-link> -->
+            </button>
+            <div class="dropdown-menu">
+              <router-link to="/profile" class="item-center-css header-link">{{ $t('manage_account') }}</router-link>
+              <button @click="handleLogout" class="header-link item-center-css text-red-500">{{ $t('logout') }}</button>
+            </div>
+          </div>
+        </div>
+        <div v-else class="flex items-center space-x-1">
+          <router-link to="/login" class="text-blue-500 header-link">{{ $t('login') }}</router-link>
+          <span>|</span>
+          <router-link to="/login" class="text-blue-500 header-link">{{ $t('register') }}</router-link>
+        </div>
+      </div>
+    </nav>
   </header>
 </template>
+
 
 
 <script setup>
