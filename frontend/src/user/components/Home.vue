@@ -2,13 +2,14 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css'; // Import CSS mặc định của Swiper
+import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
 
+// Tạo mảng chứa danh sanh sản phẩm
 const products = ref([]);
 const productslast = ref([]);
-
-// Hàm lấy danh sách sản phẩm từ API
+const productsprice = ref([]);
+// Hàm lấy danh sách tất cả sản phẩm
 const fetchProducts = async () => {
   try {
     const response = await axios.get('http://localhost:5000/api/products');
@@ -17,22 +18,24 @@ const fetchProducts = async () => {
     console.error('Lỗi khi lấy danh sách sản phẩm:', error);
   }
 };
-
+// Hàm lấy sản phẩm gần nhất
 const fetchlastestProducts = async () => {
   try {
     const response = await axios.get('http://localhost:5000/api/products/latest');
     productslast.value = response.data;
   } catch (error) {
-    console.error('Lỗi khi lấy danh sách 6 sản phẩm:', error);
+    console.error('Lỗi khi lấy sản phẩm mới nhất:', error);
   }
 };
-
-// Gọi API khi component được load
-onMounted(() => {
-  fetchProducts();
-  fetchlastestProducts();
-});
-
+// Hàm lấy sản phẩm theo giá
+const fetchpriceProducts = async () => {
+  try {
+    const response = await axios.get('http://localhost:5000/api/products/price');
+    productsprice.value = response.data;
+  } catch (error) {
+    console.error('Lỗi khi lấy sản phẩm theo giá:', error);
+  }
+};
 // Hàm xóa sản phẩm
 const deleteProduct = async (id) => {
   try {
@@ -43,7 +46,6 @@ const deleteProduct = async (id) => {
     console.error('Lỗi khi xóa sản phẩm:', error);
   }
 };
-
 // Banner images
 const bannerpics = [
   "/images/banners/banner1.webp",
@@ -51,7 +53,12 @@ const bannerpics = [
   "/images/banners/banner3.webp",
   "/images/banners/banner4.webp",
 ];
-
+// Gọi API khi component được load
+onMounted(() => {
+  fetchProducts();
+  fetchlastestProducts();
+  fetchpriceProducts();
+});
 </script>
 
 <template>
@@ -61,7 +68,6 @@ const bannerpics = [
       <p class="mt-2 text-lg text-yellow-300 marquee-text"> BAD HABITS STORE - BAD IS NOT BAD !</p>
     </section>
   </div>
-
   <!-- Banner -->
   <div class="banner w-full h-screen">
     <Swiper :modules="[Autoplay]" :autoplay="{ delay: 1000, disableOnInteraction: false }" :loop="true"
@@ -71,12 +77,11 @@ const bannerpics = [
       </SwiperSlide>
     </Swiper>
   </div>
-
-  <!-- Categories -->
+  <!-- Danh sách sản phẩm bán chạy-->
   <div class="categories p-6 text-center">
-    <h2 class="text-2xl font-bold">Danh sách 6 sản phẩm</h2>
+    <h2 class="text-2xl font-bold">Danh sách sản phẩm bán chạy</h2>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-      <div v-for="product in productslast" :key="product._id" class="category-card">
+      <div v-for="product in productsprice" :key="product._id" class="category-card">
         <img :src="product.image" :alt="product.name" class="category-img" />
         <p class="text-center font-medium">{{ product.name }}</p>
         <p class="text-center text-gray-700 font-medium">{{ product.category }}</p>
@@ -86,22 +91,22 @@ const bannerpics = [
       </div>
     </div>
   </div>
-
   <div class="home p-2 text-black">
     <section class="text-left rounded-lg">
       <h1 class="text-4xl font-bold">NEW ARRIVAL ART & DESIGN / STUDIO</h1>
       <p class="mt-2 text-lg gray-text">ARE YOU READY TO DARE TO BE OUT WITH BAD HABITS?</p>
     </section>
   </div>
-
+  <!-- Danh sách sản phẩm mới nhất -->
   <div class="categories p-6 text-center">
-    <h2 class="text-2xl font-bold">Danh sách sản phẩm</h2>
+    <h2 class="text-2xl font-bold">Danh sách sản phẩm mới nhất</h2>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-      <div v-for="product in products" :key="product._id" class="category-card">
+      <div v-for="product in productslast" :key="product._id" class="category-card">
         <img :src="product.image" :alt="product.name" class="category-img" />
         <p class="text-center font-medium">{{ product.name }}</p>
         <p class="text-center text-gray-700 font-medium">{{ product.category }}</p>
         <p class="text-red-500 font-bold">{{ product.price }} VNĐ</p>
+        <p class="text-yellow-500 font-bold">{{ product.createdAt }}</p>
         <button @click="deleteProduct(product._id)">Xóa</button><br />
         <router-link class="text-blue-500 font-bold" :to="'/products/' + product._id">Xem chi tiết</router-link>
       </div>
@@ -121,6 +126,7 @@ const bannerpics = [
   0% {
     transform: translateX(100%);
   }
+
   100% {
     transform: translateX(-100%);
   }
