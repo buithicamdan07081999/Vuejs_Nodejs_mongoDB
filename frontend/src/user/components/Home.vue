@@ -2,8 +2,10 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css'; // Import CSS mặc định của Swiper
+import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
+import { formatDate, daysAgo } from '@/format/dateFormat';
+
 
 // Tạo mảng chứa danh sanh sản phẩm
 const products = ref([]);
@@ -63,21 +65,7 @@ onMounted(() => {
   fetchpriceProducts();
 });
 
-// const formatDate = (dateStr) => {
-//   const date = new Date(dateStr);
-//   const day = String(date.getDate()).padStart(2, '0');
-//   const month = String(date.getMonth() + 1).padStart(2, '0');
-//   const year = date.getFullYear();
-//   return `${day}/${month}/${year}`;
-// };
 
-const daysAgo = (dateStr) => {
-  const createdDate = new Date(dateStr);
-  const today = new Date();
-  const diffTime = Math.abs(today - createdDate);
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  return diffDays;
-}
 </script>
 
 <template>
@@ -124,8 +112,9 @@ const daysAgo = (dateStr) => {
     <div v-for="product in productsprice" :key="product._id" class="category-card">
       <img :src="product.image" :alt="product.name" class="category-img" />
       <p class="text-yellow-500 font-bold">
-        <!-- {{ formatDate(product.createdAt) }} -->
         ( {{ daysAgo(product.createdAt) }} ngày trước )
+        <br/> 
+        {{ formatDate(product.createdAt) }}
       </p>
       <p class="text-center font-medium">{{ product.name }}</p>
       <p class="text-center text-gray-700 font-medium">{{ product.category }}</p>
