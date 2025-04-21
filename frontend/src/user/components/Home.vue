@@ -1,71 +1,9 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
-import { Autoplay } from 'swiper/modules';
 import { formatDate, daysAgo } from '@/format/dateFormat';
-
-
-// Tạo mảng chứa danh sanh sản phẩm
-const products = ref([]);
-const productslast = ref([]);
-const productsprice = ref([]);
-
-// Hàm lấy danh sách sản phẩm từ API
-const fetchProducts = async () => {
-  try {
-    const response = await axios.get('http://localhost:5000/api/products');
-    products.value = response.data;
-  } catch (error) {
-    console.error('Lỗi khi lấy danh sách sản phẩm:', error);
-  }
-};
-// Hàm lấy sản phẩm gần nhất
-const fetchlastestProducts = async () => {
-  try {
-    const response = await axios.get('http://localhost:5000/api/products/latest');
-    productslast.value = response.data;
-  } catch (error) {
-    console.error('Lỗi khi lấy sản phẩm mới nhất:', error);
-  }
-};
-// Hàm lấy sản phẩm theo giá
-const fetchpriceProducts = async () => {
-  try {
-    const response = await axios.get('http://localhost:5000/api/products/price');
-    productsprice.value = response.data;
-  } catch (error) {
-    console.error('Lỗi khi lấy sản phẩm theo giá:', error);
-  }
-};
-
-// Hàm xóa sản phẩm
-const deleteProduct = async (id) => {
-  try {
-    await axios.delete(`http://localhost:5000/api/products/${id}`);
-    alert('Xóa sản phẩm thành công!');
-    fetchProducts(); // Load lại danh sách
-  } catch (error) {
-    console.error('Lỗi khi xóa sản phẩm:', error);
-  }
-};
-const bannerpics = [
-  "/images/banners/banner1.webp",
-  "/images/banners/banner2.webp",
-  "/images/banners/banner3.webp",
-  "/images/banners/banner4.webp",
-];
-
-//swiper 
-
-onMounted(() => {
-  fetchProducts();
-  fetchlastestProducts();
-  fetchpriceProducts();
-});
-
-
+import { useProducts } from '@/composables/products/useProductsData';
+const { productslast, productsprice, deleteProduct } = useProducts();
+import '@/assets/styles/HomePage.css';  
+import BannerSlider from './Slider/BannerSlider.vue';
 </script>
 
 <template>
@@ -76,15 +14,7 @@ onMounted(() => {
     </section>
   </div>
   <!-- Banner -->
-  <div class="banner w-full h-screen">
-    <Swiper :modules="[Autoplay]" :autoplay="{ delay: 1000, disableOnInteraction: false }" :loop="true"
-      class="w-full h-full" :key="bannerpics.length">
-      <SwiperSlide v-for="(banner, index) in bannerpics" :key="index">
-        <img :src="banner" alt="Banner" class="banner-img w-full h-64 object-cover" />
-      </SwiperSlide>
-    </Swiper>
-  </div>
-
+  <BannerSlider />
   <!-- Sản phẩm bán chạy -->
   <div class="categories text-white">
     <h2 class="text-2xl font-bold">Danh sách sản phẩm bán chạy</h2>
@@ -109,7 +39,7 @@ onMounted(() => {
   <!-- Sản phẩm mới nhất -->
   <h2 class="text-2xl font-bold text-white">Danh sách sản phẩm mới</h2>
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-    <div v-for="product in productsprice" :key="product._id" class="category-card">
+    <div v-for="product in productslast" :key="product._id" class="category-card">
       <img :src="product.image" :alt="product.name" class="category-img" />
       <p class="text-yellow-500 font-bold">
         ( {{ daysAgo(product.createdAt) }} ngày trước )
