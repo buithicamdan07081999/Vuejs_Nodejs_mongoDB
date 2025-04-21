@@ -62,6 +62,22 @@ onMounted(() => {
   fetchlastestProducts();
   fetchpriceProducts();
 });
+
+// const formatDate = (dateStr) => {
+//   const date = new Date(dateStr);
+//   const day = String(date.getDate()).padStart(2, '0');
+//   const month = String(date.getMonth() + 1).padStart(2, '0');
+//   const year = date.getFullYear();
+//   return `${day}/${month}/${year}`;
+// };
+
+const daysAgo = (dateStr) => {
+  const createdDate = new Date(dateStr);
+  const today = new Date();
+  const diffTime = Math.abs(today - createdDate);
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+}
 </script>
 
 <template>
@@ -102,19 +118,22 @@ onMounted(() => {
       <p class="mt-2 text-lg text-gray-500">ARE YOU READY TO DARE TO BE OUT WITH BAD HABITS?</p>
     </section>
   </div>
-<!-- Sản phẩm mới nhất -->
-<h2 class="text-2xl font-bold text-white">Danh sách sản phẩm mới</h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-      <div v-for="product in productsprice" :key="product._id" class="category-card">
-        <img :src="product.image" :alt="product.name" class="category-img" />
-        <p class="text-center font-medium">{{ product.name }}</p>
-        <p class="text-center text-gray-700 font-medium">{{ product.category }}</p>
-        <p class="text-red-500 font-bold">{{ product.price }} VNĐ</p>
-        <p class="text-yellow-500 font-bold">{{ product.createdAt }}</p>
-        <button @click="deleteProduct(product._id)">Xóa</button><br />
-        <router-link class="text-blue-500 font-bold" :to="'/products/' + product._id">Xem chi tiết</router-link>
-      </div>
+  <!-- Sản phẩm mới nhất -->
+  <h2 class="text-2xl font-bold text-white">Danh sách sản phẩm mới</h2>
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+    <div v-for="product in productsprice" :key="product._id" class="category-card">
+      <img :src="product.image" :alt="product.name" class="category-img" />
+      <p class="text-yellow-500 font-bold">
+        <!-- {{ formatDate(product.createdAt) }} -->
+        ( {{ daysAgo(product.createdAt) }} ngày trước )
+      </p>
+      <p class="text-center font-medium">{{ product.name }}</p>
+      <p class="text-center text-gray-700 font-medium">{{ product.category }}</p>
+      <p class="text-red-500 font-bold">{{ product.price }} VNĐ</p>
+      <button @click="deleteProduct(product._id)">Xóa</button><br />
+      <router-link class="text-blue-500 font-bold" :to="'/products/' + product._id">Xem chi tiết</router-link>
     </div>
+  </div>
 </template>
 
 <style scoped>
@@ -132,6 +151,7 @@ onMounted(() => {
   0% {
     transform: translateX(100%);
   }
+
   100% {
     transform: translateX(-100%);
   }
