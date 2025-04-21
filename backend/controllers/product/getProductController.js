@@ -35,7 +35,7 @@ const getLatestProducts = async (req, res) => {
   // Lấy sản phẩm theo price
   const gettoppriceProducts = async (req, res) => {
     try {
-      const products = await Product.find().sort({ price: -1 }).limit(6);
+      const products = await Product.find().sort({ price: 1 }).limit(6);
       res.json(products);
     } catch (error) {
       console.error("Lỗi khi lấy sản phẩm theo giá:", error);

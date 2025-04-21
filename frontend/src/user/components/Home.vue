@@ -17,7 +17,7 @@ import BannerSlider from './Slider/BannerSlider.vue';
   <BannerSlider />
   <!-- Sản phẩm bán chạy -->
   <div class="categories text-white">
-    <h2 class="text-2xl font-bold">Danh sách sản phẩm bán chạy</h2>
+    <h2 class="text-2xl font-bold">Danh sách sản phẩm giá tốt</h2>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
       <div v-for="product in productsprice" :key="product._id" class="category-card">
         <img :src="product.image" :alt="product.name" class="category-img" />
