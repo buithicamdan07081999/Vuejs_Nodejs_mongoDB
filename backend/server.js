@@ -23,6 +23,8 @@ app.use(cors({
 }));
 
 app.use(morgan("dev"));
+// Serve static files từ thư mục /uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Kết nối MongoDB
 connectDB();
