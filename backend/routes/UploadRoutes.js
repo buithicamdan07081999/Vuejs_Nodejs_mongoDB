@@ -17,7 +17,7 @@ const upload = multer({ storage: storage });
 
 // API upload
 router.post("/", upload.single("image"), (req, res) => {
-  res.json({ image: `/uploads/products/${req.file.filename}` });
+    res.json({ image: `http://localhost:5000/uploads/products/${req.file.filename}` });
 });
 
 module.exports = router;

@@ -1,11 +1,22 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute, useRouter  } from 'vue-router';
 import axios from 'axios';
-
-const route = useRoute();
+import { computed } from 'vue';
 const router = useRouter();
+const route = useRoute();
 const productId = route.params.id;
+
+const formattedPrice = computed({
+    get() {
+        return product.value.price.toLocaleString('vi-VN'); // Hiển thị: 1.000.000
+    },
+    set(val) {
+        const numericValue = parseInt(val.replace(/\D/g, '')) || 0; // Bỏ dấu chấm, lấy số
+        product.value.price = numericValue;
+    }
+});
+
 
 const product = ref({
     name: '',
@@ -13,8 +24,12 @@ const product = ref({
     description: '',
     category: '',
     size: '',
-    image: '', // URL hoặc base64
+    image: '',
+    stock: 0,
+    gender: '',
+    variations: [],
 });
+
 
 const imagePreview = ref(null); // để hiển thị preview
 
@@ -30,33 +45,58 @@ const fetchProduct = async () => {
 };
 
 // Chọn ảnh từ máy => preview & lưu base64
-const handleImageUpload = (e) => {
+const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            imagePreview.value = reader.result;
-            product.value.image = reader.result; // base64 ảnh
-        };
-        reader.readAsDataURL(file);
+        imagePreview.value = URL.createObjectURL(file); // hiển thị preview nhanh
+        const imageUrl = await uploadImage(file);       // upload file
+        product.value.image = imageUrl;                 // gán đường dẫn
     }
 };
 
+
 onMounted(fetchProduct);
 
-// Hàm cập nhật
-const updateProduct = async () => {
-    console.log('Dữ liệu chuẩn bị gửi:<br/>', JSON.stringify(product.value, null, 2));
-      try {
-        await axios.put(`/products/${productId}`, product.value);
-        alert('Cập nhật thành công!');
-        router.push('/admin/products');
-      } catch (err) {
-        console.error('Lỗi cập nhật:', err);
-        alert('Cập nhật thất bại!');
-      }
+const uploadImage = async (file) => {
+    try {
+        const formData = new FormData();
+        formData.append('image', file);
+        const res = await axios.post('/upload', formData);
+        return res.data.image; // hoặc res.data.url tùy backend
+    } catch (err) {
+        console.error('Lỗi upload ảnh:', err);
+        alert('Không thể upload ảnh!');
+        return ''; // fallback
+    }
 };
 
+const addVariation = () => {
+    product.value.variations.push({
+        color: '',
+        size: '',
+        stock: 0
+    });
+};
+
+
+// Hàm cập nhật
+
+const updateProduct = async () => {
+    console.log('Dữ liệu chuẩn bị gửi:\n', JSON.stringify(product.value, null, 2));
+    const cleanData = { ...product.value };
+    delete cleanData.__v;
+    delete cleanData.updatedAt;
+    const url = `/products/${productId}`;
+    console.log('Đường dẫn PUT:', url); // 👈 In ra đường dẫn PUT
+    try {
+        await axios.put(url, cleanData);
+        alert('Cập nhật thành công!');
+        router.push('/admin/products');
+    } catch (err) {
+        console.error('Lỗi cập nhật:', err);
+        alert('Cập nhật thất bại!');
+    }
+};
 </script>
 
 <template>
@@ -71,8 +111,10 @@ const updateProduct = async () => {
 
             <div>
                 <label class="block font-medium mb-1">Giá (VNĐ)</label>
-                <input v-model="product.price" type="number" class="w-full border rounded px-3 py-2" required />
+                <input v-model="formattedPrice" type="text" inputmode="numeric" class="w-full border rounded px-3 py-2"
+                    required />
             </div>
+
 
             <div>
                 <label class="block font-medium mb-1">Mô tả</label>
@@ -84,10 +126,49 @@ const updateProduct = async () => {
                     <label class="block font-medium mb-1">Danh mục</label>
                     <input v-model="product.category" type="text" class="w-full border rounded px-3 py-2" />
                 </div>
-                <div>
-                    <label class="block font-medium mb-1">Kích thước</label>
-                    <input v-model="product.size" type="text" class="w-full border rounded px-3 py-2" />
+            </div>
+            <div>
+                <label class="block font-medium mb-1">Chi tiết biến thể</label>
+                <div v-for="(variation, index) in product.variations" :key="index" class="flex items-center gap-2 mb-2">
+                    <!-- Dropdown chọn màu -->
+                    <select v-model="variation.color" class="border px-2 py-1 rounded w-1/3">
+                        <option disabled value="">Chọn màu</option>
+                        <option>Black</option>
+                        <option>White</option>
+                        <option>Red</option>
+                        <option>Blue</option>
+                        <option>Green</option>
+                    </select>
+
+                    <!-- Dropdown chọn size -->
+                    <select v-model="variation.size" class="border px-2 py-1 rounded w-1/3">
+                        <option disabled value="">Chọn size</option>
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                        <option>XL</option>
+                    </select>
+
+                    <!-- Nhập tồn kho -->
+                    <input :value="variation.stock.toLocaleString('vi-VN')" @input="e => {
+                        const val = parseInt(e.target.value.replace(/\\D/g, '')) || 0;
+                        variation.stock = val;
+                    }" type="text" inputmode="numeric" placeholder="Tồn kho" class="border px-2 py-1 rounded w-1/3" />
+
+                    <!-- Xóa -->
+                    <button type="button" @click="product.variations.splice(index, 1)"
+                        class="text-red-600 font-bold ml-2">
+                        ✕
+                    </button>
                 </div>
+
+                <!-- Nút thêm -->
+                <!-- Nút thêm chi tiết: chỉ hiển thị khi chưa có variation -->
+                <button v-if="product.variations.length === 0" type="button" @click="addVariation"
+                    class="mt-2 text-blue-700 hover:underline font-medium">
+                    + Thêm Chi tiết
+                </button>
+
             </div>
 
             <div>
