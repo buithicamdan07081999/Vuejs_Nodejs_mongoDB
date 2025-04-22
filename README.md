@@ -349,3 +349,4 @@ header template https://colorlib.com/polygon/cooladmin/index.html
 
 load anh len frontend (doi duong dan thanh KDBD/backend/uploads/products/item1.webp)
 Bước 1: Cấu hình Express để serve static files
+npm install multer
