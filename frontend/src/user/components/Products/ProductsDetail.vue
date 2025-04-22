@@ -12,6 +12,7 @@ const fetchProduct = async () => {
   try {
     const response = await axios.get(`/products/${productId}`);
     product.value = response.data;
+    console.log(product.value);
   } catch (error) {
     console.error('Lỗi khi lấy sản phẩm:', error);
   }
