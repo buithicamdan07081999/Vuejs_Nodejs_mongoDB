@@ -1,12 +1,23 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import { computed } from 'vue';
+import Swal from 'sweetalert2';
 
 const router = useRouter();
 const route = useRoute();
 const productId = route.params.id;
+
+const formattedPrice = computed({
+    get() {
+        return product.value.price.toLocaleString('vi-VN'); // Hiển thị: 1.000.000
+    },
+    set(val) {
+        const numericValue = parseInt(val.replace(/\D/g, '')) || 0; // Bỏ dấu chấm, lấy số
+        product.value.price = numericValue;
+    }
+});
 
 const product = ref({
     name: '',
@@ -20,19 +31,9 @@ const product = ref({
     variations: [],
 });
 
-const formattedPrice = computed({
-    get() {
-        return product.value.price.toLocaleString('vi-VN');
-    },
-    set(val) {
-        const numericValue = parseInt(val.replace(/\D/g, '')) || 0;
-        product.value.price = numericValue;
-    }
-});
+const imagePreview = ref(null); // để hiển thị preview
 
-const imagePreview = ref(null);
-const selectedFile = ref(null);
-
+// Lấy sản phẩm cũ để hiển thị lên form
 const fetchProduct = async () => {
     try {
         const res = await axios.get(`/products/${productId}`);
@@ -43,11 +44,30 @@ const fetchProduct = async () => {
     }
 };
 
-const handleImageUpload = (e) => {
+// Chọn ảnh từ máy => preview & lưu base64
+const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-        selectedFile.value = file;
-        imagePreview.value = URL.createObjectURL(file);
+        imagePreview.value = URL.createObjectURL(file); // hiển thị preview nhanh
+        const imageUrl = await uploadImage(file);       // Gửi ảnh lên server
+        product.value.image = imageUrl;                 // gán đường dẫn
+    }
+};
+
+onMounted(fetchProduct);
+
+const uploadImage = async (file) => {
+    try {
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('oldImage', product.value.image); // gửi file ảnh cũ để xóa trong thư mục sau khi update
+        console.log('file:', file, 'oldImage', product.value.image);
+        const res = await axios.post('/upload', formData);
+        return res.data.image;
+    } catch (err) {
+        console.error('Lỗi upload ảnh:', err);
+        alert('Không thể upload ảnh!');
+        return '';
     }
 };
 
@@ -59,53 +79,61 @@ const addVariation = () => {
     });
 };
 
-const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-});
+// Hàm cập nhật
 const updateProduct = async () => {
-    try {
-        if (selectedFile.value) {
-            const formData = new FormData();
-            formData.append('image', selectedFile.value);
-            formData.append('oldImage', product.value.image);
+    // Cảnh báo xác nhận
+    const result = await Swal.fire({
+        title: 'Bạn có chắc chắn muốn cập nhật?',
+        text: 'Ảnh sản phẩm sẽ được thay đổi!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vâng, cập nhật!',
+        cancelButtonText: 'Huỷ'
+    });
 
-            const res = await axios.post('/upload', formData);
-            product.value.image = res.data.image;
+    if (result.isConfirmed) {
+        // Chỉ upload ảnh nếu cần thiết
+        let imageUrl = product.value.image; // Dùng ảnh cũ nếu không có ảnh mới
+
+        if (imagePreview.value !== product.value.image) {
+            // Nếu người dùng chọn ảnh mới, tiến hành upload ảnh
+            const fileInput = document.querySelector('input[type="file"]');
+            const file = fileInput.files[0];
+            if (file) {
+                imageUrl = await uploadImage(file);
+            }
         }
 
-        const cleanData = { ...product.value };
+        // Cập nhật dữ liệu sản phẩm
+        const cleanData = { ...product.value, image: imageUrl };
         delete cleanData.__v;
         delete cleanData.updatedAt;
 
-        await axios.put(`/products/${productId}`, cleanData);
-
-        // ✅ Toast thông báo thành công
-        Toast.fire({
-            icon: 'success',
-            title: 'Cập nhật thành công!'
-        });
-
-        router.push('/admin/products');
-    } catch (err) {
-        console.error('Lỗi cập nhật:', err);
-        Toast.fire({
-            icon: 'error',
-            title: 'Lỗi khi cập nhật!'
-        });
+        const url = `/products/${productId}`;
+        
+        try {
+            await axios.put(url, cleanData);
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Cập nhật thành công!',
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                    popup: 'animate-fade-in'
+                }
+            });
+            router.push('/admin/products');
+        } catch (err) {
+            console.error('Lỗi cập nhật:', err);
+            Swal.fire('Cập nhật thất bại!', 'Vui lòng thử lại.', 'error');
+        }
     }
 };
-
-onMounted(fetchProduct);
 </script>
-
 
 
 <template>
