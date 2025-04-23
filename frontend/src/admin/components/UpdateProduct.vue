@@ -1,22 +1,11 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRoute, useRouter  } from 'vue-router';
+import { ref, onMounted, computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
-import { computed } from 'vue';
+
 const router = useRouter();
 const route = useRoute();
 const productId = route.params.id;
-
-const formattedPrice = computed({
-    get() {
-        return product.value.price.toLocaleString('vi-VN'); // Hiển thị: 1.000.000
-    },
-    set(val) {
-        const numericValue = parseInt(val.replace(/\D/g, '')) || 0; // Bỏ dấu chấm, lấy số
-        product.value.price = numericValue;
-    }
-});
-
 
 const product = ref({
     name: '',
@@ -30,10 +19,20 @@ const product = ref({
     variations: [],
 });
 
+const formattedPrice = computed({
+    get() {
+        return product.value.price.toLocaleString('vi-VN');
+    },
+    set(val) {
+        const numericValue = parseInt(val.replace(/\D/g, '')) || 0;
+        product.value.price = numericValue;
+    }
+});
 
-const imagePreview = ref(null); // để hiển thị preview
+const imagePreview = ref(null);          // Hiển thị ảnh preview
+const selectedFile = ref(null);          // Lưu ảnh được chọn (nhưng chưa upload)
 
-// Lấy sản phẩm cũ để hiển thị lên form
+// Lấy dữ liệu sản phẩm
 const fetchProduct = async () => {
     try {
         const res = await axios.get(`/products/${productId}`);
@@ -44,31 +43,12 @@ const fetchProduct = async () => {
     }
 };
 
-// Chọn ảnh từ máy => preview & lưu base64
-const handleImageUpload = async (e) => {
+// Preview ảnh khi người dùng chọn
+const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-        imagePreview.value = URL.createObjectURL(file); // hiển thị preview nhanh
-        const imageUrl = await uploadImage(file);       // Gửi ảnh lên server
-        product.value.image = imageUrl;                 // gán đường dẫn
-    }
-};
-
-
-onMounted(fetchProduct);
-
-const uploadImage = async (file) => {
-    try {
-        const formData = new FormData();
-        formData.append('image', file);
-        formData.append('oldImage', product.value.image); // gửi file ảnh cũ để xóa trong thư mục sau khi update
-        console.log('file:', file, 'oldImage', product.value.image);
-        const res = await axios.post('/upload', formData);
-        return res.data.image;
-    } catch (err) {
-        console.error('Lỗi upload ảnh:', err);
-        alert('Không thể upload ảnh!');
-        return '';
+        selectedFile.value = file;
+        imagePreview.value = URL.createObjectURL(file); // preview
     }
 };
 
@@ -80,18 +60,24 @@ const addVariation = () => {
     });
 };
 
-
-// Hàm cập nhật
-
+// Gửi form: upload ảnh (nếu có) rồi cập nhật sản phẩm
 const updateProduct = async () => {
-    //console.log('Dữ liệu chuẩn bị gửi:\n', JSON.stringify(product.value, null, 2));
-    const cleanData = { ...product.value };
-    delete cleanData.__v;
-    delete cleanData.updatedAt;
-    const url = `/products/${productId}`;
- //   console.log('Đường dẫn PUT:', url);
     try {
-        await axios.put(url, cleanData);
+        // Nếu người dùng đã chọn ảnh mới => upload trước khi cập nhật
+        if (selectedFile.value) {
+            const formData = new FormData();
+            formData.append('image', selectedFile.value);
+            formData.append('oldImage', product.value.image); // xóa ảnh cũ trên server nếu cần
+
+            const res = await axios.post('/upload', formData);
+            product.value.image = res.data.image;
+        }
+
+        const cleanData = { ...product.value };
+        delete cleanData.__v;
+        delete cleanData.updatedAt;
+
+        await axios.put(`/products/${productId}`, cleanData);
         alert('Cập nhật thành công!');
         router.push('/admin/products');
     } catch (err) {
@@ -99,7 +85,10 @@ const updateProduct = async () => {
         alert('Cập nhật thất bại!');
     }
 };
+
+onMounted(fetchProduct);
 </script>
+
 
 <template>
     <div class="max-w-2xl mx-auto bg-blue-100 text-black p-6 rounded shadow mt-8">
