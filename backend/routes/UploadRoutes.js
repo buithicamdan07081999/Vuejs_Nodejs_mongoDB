@@ -17,26 +17,34 @@ router.post("/", upload.single("image"), async (req, res) => {
   try {
     const file = req.file;
     if (!file) {
-        return res.status(400).json({ error: 'No file uploaded' });
+      return res.status(400).json({ error: 'No file uploaded' });
     }
     // Xử lý xóa ảnh cũ nếu có
     const oldImg = req.body.oldImage?.split('/').pop(); // chỉ lấy tên file, tránh lỗi đường dẫn
-    if (oldImg) {      
-        const oldPath = path.join(uploadDir, oldImg);
-        if (fs.existsSync(oldPath)) {
-            fs.unlinkSync(oldPath); // xóa ảnh cũ
+    console.log("[BACKEND] oldImage from client:", req.body.oldImage);
+    console.log("[BACKEND] full path to delete:", path.join(uploadDir, req.body.oldImage?.split('/').pop()));
+
+    if (oldImg) {
+      const oldPath = path.join(uploadDir, oldImg);
+      if (fs.existsSync(oldPath)) {
+        try {
+          fs.unlinkSync(oldPath);
+          console.log("✅ Đã xóa ảnh cũ:", oldImg);
+        } catch (err) {
+          console.error("❌ Không xóa được ảnh cũ:", err.message);
         }
+      }
     }
 
     // Lưu file mới
     const imagePath = 'http://localhost:5000/uploads/products/' + file.filename;
     return res.json({ image: imagePath });
-} catch (err) {
+  } catch (err) {
     console.error('Upload failed:', err);
     return res.status(500).json({ error: 'Upload failed' });
-}
+  }
   // try {
-    
+
   //   const oldImage = req.body.oldImage; // Tên file cũ
   //   console.log(oldImage);
   //   if (oldImage) {
