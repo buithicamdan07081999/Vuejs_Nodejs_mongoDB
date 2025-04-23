@@ -59,6 +59,17 @@ const addVariation = () => {
     });
 };
 
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+});
 const updateProduct = async () => {
     try {
         if (selectedFile.value) {
@@ -76,18 +87,19 @@ const updateProduct = async () => {
 
         await axios.put(`/products/${productId}`, cleanData);
 
-        // SweetAlert thông báo thành công
-        await Swal.fire({
-            title: 'Cập nhật thành công!',
-            text: 'Thông tin sản phẩm đã được lưu.',
+        // ✅ Toast thông báo thành công
+        Toast.fire({
             icon: 'success',
-            confirmButtonText: 'OK',
+            title: 'Cập nhật thành công!'
         });
 
         router.push('/admin/products');
     } catch (err) {
         console.error('Lỗi cập nhật:', err);
-        Swal.fire('Lỗi!', 'Không thể cập nhật sản phẩm.', 'error');
+        Toast.fire({
+            icon: 'error',
+            title: 'Lỗi khi cập nhật!'
+        });
     }
 };
 
