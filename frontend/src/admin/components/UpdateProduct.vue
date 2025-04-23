@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const router = useRouter();
 const route = useRoute();
@@ -29,10 +30,9 @@ const formattedPrice = computed({
     }
 });
 
-const imagePreview = ref(null);          // Hiển thị ảnh preview
-const selectedFile = ref(null);          // Lưu ảnh được chọn (nhưng chưa upload)
+const imagePreview = ref(null);
+const selectedFile = ref(null);
 
-// Lấy dữ liệu sản phẩm
 const fetchProduct = async () => {
     try {
         const res = await axios.get(`/products/${productId}`);
@@ -43,12 +43,11 @@ const fetchProduct = async () => {
     }
 };
 
-// Preview ảnh khi người dùng chọn
 const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
         selectedFile.value = file;
-        imagePreview.value = URL.createObjectURL(file); // preview
+        imagePreview.value = URL.createObjectURL(file);
     }
 };
 
@@ -60,14 +59,12 @@ const addVariation = () => {
     });
 };
 
-// Gửi form: upload ảnh (nếu có) rồi cập nhật sản phẩm
 const updateProduct = async () => {
     try {
-        // Nếu người dùng đã chọn ảnh mới => upload trước khi cập nhật
         if (selectedFile.value) {
             const formData = new FormData();
             formData.append('image', selectedFile.value);
-            formData.append('oldImage', product.value.image); // xóa ảnh cũ trên server nếu cần
+            formData.append('oldImage', product.value.image);
 
             const res = await axios.post('/upload', formData);
             product.value.image = res.data.image;
@@ -78,16 +75,25 @@ const updateProduct = async () => {
         delete cleanData.updatedAt;
 
         await axios.put(`/products/${productId}`, cleanData);
-        alert('Cập nhật thành công!');
+
+        // SweetAlert thông báo thành công
+        await Swal.fire({
+            title: 'Cập nhật thành công!',
+            text: 'Thông tin sản phẩm đã được lưu.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+        });
+
         router.push('/admin/products');
     } catch (err) {
         console.error('Lỗi cập nhật:', err);
-        alert('Cập nhật thất bại!');
+        Swal.fire('Lỗi!', 'Không thể cập nhật sản phẩm.', 'error');
     }
 };
 
 onMounted(fetchProduct);
 </script>
+
 
 
 <template>
