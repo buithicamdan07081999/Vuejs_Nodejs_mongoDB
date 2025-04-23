@@ -49,7 +49,7 @@ const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
         imagePreview.value = URL.createObjectURL(file); // hiển thị preview nhanh
-        const imageUrl = await uploadImage(file);       // upload file
+        const imageUrl = await uploadImage(file);       // Gửi ảnh lên server
         product.value.image = imageUrl;                 // gán đường dẫn
     }
 };
@@ -61,12 +61,14 @@ const uploadImage = async (file) => {
     try {
         const formData = new FormData();
         formData.append('image', file);
+        formData.append('oldImage', product.value.image); // gửi file ảnh cũ để xóa trong thư mục sau khi update
+        console.log('file:', file, 'oldImage', product.value.image);
         const res = await axios.post('/upload', formData);
-        return res.data.image; // hoặc res.data.url tùy backend
+        return res.data.image;
     } catch (err) {
         console.error('Lỗi upload ảnh:', err);
         alert('Không thể upload ảnh!');
-        return ''; // fallback
+        return '';
     }
 };
 
@@ -82,12 +84,12 @@ const addVariation = () => {
 // Hàm cập nhật
 
 const updateProduct = async () => {
-    console.log('Dữ liệu chuẩn bị gửi:\n', JSON.stringify(product.value, null, 2));
+    //console.log('Dữ liệu chuẩn bị gửi:\n', JSON.stringify(product.value, null, 2));
     const cleanData = { ...product.value };
     delete cleanData.__v;
     delete cleanData.updatedAt;
     const url = `/products/${productId}`;
-    console.log('Đường dẫn PUT:', url); // 👈 In ra đường dẫn PUT
+ //   console.log('Đường dẫn PUT:', url);
     try {
         await axios.put(url, cleanData);
         alert('Cập nhật thành công!');
