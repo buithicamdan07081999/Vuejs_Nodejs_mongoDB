@@ -24,7 +24,13 @@ const Routes = [
         path: 'OrdersPage',
         name: 'OrdersPage',
         component: () => import('@/admin/views/OrdersPage.vue'),
+      },
+      {
+        path: 'products/add',
+        name: 'AddProduct',
+        component: () => import('@/admin/components/Products/AddProduct.vue')
       }
+      
     ]
   }
 ];

@@ -4,7 +4,9 @@
     <!-- Thanh tìm kiếm -->
     <div class="flex justify-between mb-4">
       <input v-model="search" type="text" placeholder="Tìm kiếm sản phẩm..." class="border p-2 rounded w-1/3" />
-      <button @click="openAddModal" class="bg-blue-500 text-white px-4 py-2 rounded">+ Thêm sản phẩm</button>
+      <router-link to="/admin/products/add" class="bg-blue-500 text-white px-4 py-2 rounded inline-block text-center">
+        + Thêm sản phẩm
+      </router-link>
     </div>
 
     <!-- Bảng danh sách sản phẩm -->
@@ -38,7 +40,6 @@
     </table>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -49,16 +50,15 @@ export default {
   },
   computed: {
     filteredProducts() {
-      return this.products.filter((p) => p.name.toLowerCase().includes(this.search.toLowerCase()));
+      return this.products.filter((p) =>
+        p.name.toLowerCase().includes(this.search.toLowerCase())
+      );
     },
   },
   methods: {
     async fetchProducts() {
       const res = await fetch("http://localhost:5000/api/products");
       this.products = await res.json();
-    },
-    openAddModal() {
-      console.log("Mở modal thêm sản phẩm");
     },
     deleteProduct(id) {
       console.log("Xóa sản phẩm", id);
