@@ -1,5 +1,5 @@
 <script setup>
-import UpdateProduct from '../components/UpdateProduct.vue';
+import UpdateProduct from '../../components/Products/UpdateProduct.vue';
 </script>
 <template>
   <div>

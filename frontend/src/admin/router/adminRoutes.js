@@ -18,7 +18,7 @@ const Routes = [
       {
         path: 'products/edit/:id',
         name: 'EditProduct',
-        component: () => import('@/admin/views/UpdateProduct.vue'),
+        component: () => import('@/admin/views/Products/UpdateProduct.vue'),
       },
       {
         path: 'OrdersPage',
