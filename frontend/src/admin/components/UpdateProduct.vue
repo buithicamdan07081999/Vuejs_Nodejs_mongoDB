@@ -45,12 +45,12 @@ const fetchProduct = async () => {
 };
 
 // Chọn ảnh từ máy => preview & lưu base64
+const newImageFile = ref(null); // lưu file mới tạm thời
 const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
         imagePreview.value = URL.createObjectURL(file); // hiển thị preview nhanh
-        const imageUrl = await uploadImage(file);       // Gửi ảnh lên server
-        product.value.image = imageUrl;                 // gán đường dẫn
+        newImageFile.value = file;                      // lưu tạm ảnh mới, CHƯA upload
     }
 };
 
@@ -96,13 +96,9 @@ const updateProduct = async () => {
     if (result.isConfirmed) {
         // Chỉ upload ảnh nếu cần thiết
         let imageUrl = product.value.image; // Dùng ảnh cũ nếu không có ảnh mới
-
         if (imagePreview.value !== product.value.image) {
-            // Nếu người dùng chọn ảnh mới, tiến hành upload ảnh
-            const fileInput = document.querySelector('input[type="file"]');
-            const file = fileInput.files[0];
-            if (file) {
-                imageUrl = await uploadImage(file);
+            if (newImageFile.value) {
+                imageUrl = await uploadImage(newImageFile.value);
             }
         }
 
