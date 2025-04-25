@@ -33,7 +33,9 @@
               class="bg-yellow-500 text-white px-2 py-1 rounded inline-block text-center">
               Sửa
             </router-link>
-            <button @click="deleteProduct(product.id)" class="bg-red-500 text-white px-2 py-1 rounded ml-2">Xóa</button>
+            <button @click="deleteProduct(product._id)" class="bg-red-500 text-white px-2 py-1 rounded ml-2">
+              Xóa
+            </button>
           </td>
         </tr>
       </tbody>
@@ -41,6 +43,7 @@
   </div>
 </template>
 <script>
+import Swal from 'sweetalert2';
 export default {
   data() {
     return {
@@ -56,12 +59,44 @@ export default {
     },
   },
   methods: {
+    // hiển thị
     async fetchProducts() {
       const res = await fetch("http://localhost:5000/api/products");
       this.products = await res.json();
     },
-    deleteProduct(id) {
-      console.log("Xóa sản phẩm", id);
+    // xóa
+    async deleteProduct(id) {
+      const result = await Swal.fire({
+        title: 'Bạn có chắc chắn?',
+        text: 'Sản phẩm sẽ bị xoá vĩnh viễn!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Vâng, xoá!',
+        cancelButtonText: 'Huỷ'
+      });
+
+      if (result.isConfirmed) {
+        try {
+          await fetch(`http://localhost:5000/api/products/${id}`, {
+            method: 'DELETE'
+          });
+
+          // Load lại danh sách
+          await this.fetchProducts();
+          Swal.fire({
+            title: 'Đã xoá!',
+            text: 'Sản phẩm đã được xoá.',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false
+          });
+        } catch (err) {
+          console.error('❌ Lỗi xoá sản phẩm:', err);
+          Swal.fire('Thất bại', 'Không thể xoá sản phẩm', 'error');
+        }
+      }
     },
   },
   mounted() {

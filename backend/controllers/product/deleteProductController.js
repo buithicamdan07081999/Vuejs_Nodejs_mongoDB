@@ -1,16 +1,17 @@
-const Product = require("../../models/Products/ProductsModels");
+const Product = require('../../models/Products/ProductsModels');
 
-// Xóa sản phẩm
 const deleteProduct = async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id);
-        if (!product) return res.status(404).json({ message: "Không tìm thấy sản phẩm để xóa" });
-
-        await product.deleteOne();
-        res.json({ message: "Sản phẩm đã được xóa" });
-    } catch (error) {
-        res.status(400).json({ message: "Lỗi khi xóa sản phẩm", error: error.message });
+  try {
+    const { id } = req.params;
+    const deleted = await Product.findByIdAndDelete(id);
+    if (!deleted) {
+      return res.status(404).json({ message: 'Không tìm thấy sản phẩm để xoá.' });
     }
+    res.status(200).json({ message: 'Xoá thành công', deleted });
+  } catch (err) {
+    console.error('Lỗi xoá sản phẩm:', err.message);
+    res.status(500).json({ message: 'Lỗi server khi xoá sản phẩm', error: err.message });
+  }
 };
 
 module.exports = { deleteProduct };
