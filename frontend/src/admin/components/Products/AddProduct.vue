@@ -95,7 +95,17 @@ const addProduct = async () => {
 
         try {
             await axios.post('/products', cleanData);
-            Swal.fire('Thêm thành công!', '', 'success');
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Thêm thành công!',
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                    popup: 'animate-fade-in'
+                }   
+            });
             router.push('/admin/products');
         } catch (err) {
             console.error('Lỗi thêm sản phẩm:', err);
