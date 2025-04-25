@@ -110,6 +110,8 @@ const isFormValid = computed(() => {
     const hasValidPrice = product.value.price >= 1000;
     const hasValiddescription = product.value.description.trim().length > 0;
     const hasValidCategory = product.value.category.trim().length > 0;
+    const hasValidGender = product.value.gender.trim().length > 0;
+
     const allVariationsValid = product.value.variations.every(variation => {
         return (
             variation.color &&
@@ -117,21 +119,23 @@ const isFormValid = computed(() => {
             variation.stock >= 0
         );
     });
-    return hasValidName && hasValidPrice && hasValiddescription && hasValidCategory && allVariationsValid;
+    return hasValidName && hasValidPrice && hasValiddescription && hasValidCategory && hasValidGender && allVariationsValid;
 });
 const errors = ref({
-    //variations sẽ là một mảng lỗi tương ứng với từng biến thể (theo index).
     name: '',
     price: '',
     category: '',
     description: '',
-    variations: [],
+    gender: '',
+    variations: []
 });
+
 watch(product, (newProduct) => {
     // Reset lỗi
     errors.value.name = '';
     errors.value.price = '';
     errors.value.category = '';
+    errors.value.gender = '';
     errors.value.description = '';
     errors.value.variations = [];
 
@@ -149,6 +153,9 @@ watch(product, (newProduct) => {
 
     if (!newProduct.category.trim()) {
         errors.value.category = 'Danh mục không được để trống.';
+    }
+    if (!newProduct.gender) {
+        errors.value.gender = 'Vui lòng chọn giới tính sản phẩm.';
     }
 
     // Validate biến thể
@@ -201,6 +208,19 @@ watch(product, (newProduct) => {
                     </select>
                 </div>
             </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-medium mb-1">Giới tính</label>
+                    <div v-if="errors.gender" class="text-red-600 text-sm mt-1">{{ errors.gender }}</div>
+                    <select v-model="product.gender" class="w-full border rounded px-3 py-2">
+                        <option disabled value="">Chọn giới tính</option>
+                        <option value="male">Nam</option>
+                        <option value="female">Nữ</option>
+                        <option value="unisex">Unisex</option>
+                    </select>
+                </div>
+            </div>
+
             <div>
                 <label class="block font-medium mb-1">Chi tiết biến thể</label>
                 <div v-for="(variation, index) in product.variations" :key="index" class="flex items-center gap-2 mb-2">
