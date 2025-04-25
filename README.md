@@ -437,3 +437,5 @@ Bước 1: Cấu hình Express để serve static files
 npm install multer
 
 23/04/2025 : npm install sweetalert2
+25/04/2025: npm install browser-image-compression
+

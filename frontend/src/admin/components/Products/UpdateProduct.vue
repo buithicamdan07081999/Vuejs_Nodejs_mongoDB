@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 import { computed } from 'vue';
 import Swal from 'sweetalert2';
+import imageCompression from 'browser-image-compression';
 
 const router = useRouter();
 const route = useRoute();
@@ -45,8 +46,12 @@ const newImageFile = ref(null); // lưu file mới tạm thời
 const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-        imagePreview.value = URL.createObjectURL(file); // hiển thị preview nhanh
-        newImageFile.value = file;                      // lưu tạm ảnh mới, CHƯA upload
+        imagePreview.value = URL.createObjectURL(file); // preview
+        const compressedFile = await imageCompression(file, {
+            maxSizeMB: 0.5, // nén về ~500KB
+            maxWidthOrHeight: 1024,
+        });
+        newImageFile.value = compressedFile;
     }
 };
 onMounted(fetchProduct);
@@ -74,10 +79,14 @@ const addVariation = () => {
 };
 const getCleanProductData = (product, imageUrl) => {
     const cleanData = { ...product, image: imageUrl };
-    delete cleanData.__v;
-    delete cleanData.updatedAt;
+    Object.keys(cleanData).forEach((key) => {
+        if (cleanData[key] === '') {
+            delete cleanData[key];
+        }
+    });
     return cleanData;
 };
+
 // Hàm cập nhật
 const updateProduct = async () => {
     // Cảnh báo xác nhận

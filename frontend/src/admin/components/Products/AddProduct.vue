@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { computed } from 'vue';
 import Swal from 'sweetalert2';
+import imageCompression from 'browser-image-compression';
 
 const categories = ref([
     'Áo thun',
@@ -41,8 +42,12 @@ const newImageFile = ref(null); // lưu file mới tạm thời
 const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-        imagePreview.value = URL.createObjectURL(file); // hiển thị preview nhanh
-        newImageFile.value = file;                      // lưu tạm ảnh mới, CHƯA upload
+        imagePreview.value = URL.createObjectURL(file); // preview
+        const compressedFile = await imageCompression(file, {
+            maxSizeMB: 0.5, // nén về ~500KB
+            maxWidthOrHeight: 1024,
+        });
+        newImageFile.value = compressedFile;
     }
 };
 const uploadImage = async (file) => {
@@ -69,10 +74,14 @@ const addVariation = () => {
 };
 const getCleanProductData = (product, imageUrl) => {
     const cleanData = { ...product, image: imageUrl };
-    delete cleanData.__v;
-    delete cleanData.updatedAt;
+    Object.keys(cleanData).forEach((key) => {
+        if (cleanData[key] === '') {
+            delete cleanData[key];
+        }
+    });
     return cleanData;
 };
+
 // Hàm cập nhật
 const addProduct = async () => {
     const result = await Swal.fire({
@@ -104,7 +113,7 @@ const addProduct = async () => {
                 timer: 1500,
                 customClass: {
                     popup: 'animate-fade-in'
-                }   
+                }
             });
             router.push('/admin/products');
         } catch (err) {
