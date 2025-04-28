@@ -12,9 +12,17 @@
     </div>
 
     <!-- Bảng sản phẩm -->
+    <div v-if="selectedProducts.length" class="mb-4">
+      <button @click="deleteSelected" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+        🗑 Xoá đã chọn ({{ selectedProducts.length }})
+      </button>
+    </div>
     <table class="w-full text-black bg-white shadow rounded-xl">
       <thead class="bg-gray-100 text-lg font-bold">
         <tr>
+          <th class="border p-2 w-12 text-center">
+            <input type="checkbox" v-model="selectAll" @change="toggleSelectAll" />
+          </th>
           <th class="border p-2 w-12 text-center">STT</th>
           <th class="border p-2 text-center">Tên</th>
           <th class="border p-2 text-center">Giá</th>
@@ -25,6 +33,9 @@
       </thead>
       <tbody>
         <tr v-for="(product, index) in products" :key="product._id" class="hover:bg-gray-100 transition text-center">
+          <td class="border p-2 text-center">
+            <input type="checkbox" v-model="selectedProducts" :value="product._id" />
+          </td>
           <td class="border p-2">{{ index + 1 + (page - 1) * limit }}</td>
           <td class="border p-2">{{ product.name }}</td>
           <td class="border p-2">{{ product.price.toLocaleString() }}</td>
@@ -87,6 +98,8 @@ export default {
       limit: 10,
       totalPages: 1,
       debounceTimer: null,
+      selectedProducts: [], // Các sản phẩm đã chọn
+      selectAll: false, // Check chọn tất cả
     };
   },
   methods: {
@@ -97,6 +110,7 @@ export default {
       const { products, totalPages } = await res.json();
       this.products = products;
       this.totalPages = totalPages;
+      this.syncSelected();
     },
     handleSearch() {
       clearTimeout(this.debounceTimer);
@@ -126,11 +140,55 @@ export default {
       if (result.isConfirmed) {
         try {
           await fetch(`http://localhost:5000/api/products/${id}`, { method: "DELETE" });
-          this.fetchProducts();
-          Swal.fire("Đã xoá!", "", "success");
+          await this.fetchProducts();
+          Swal.fire("Đã xoá!", "Sản phẩm đã được xoá.", "success");
         } catch (err) {
           console.error("Lỗi xoá sản phẩm:", err);
           Swal.fire("Lỗi", "Không thể xoá sản phẩm", "error");
+        }
+      }
+    },
+    toggleSelectAll() {
+      if (this.selectAll) {
+        this.selectedProducts = this.products.map(p => p._id);
+      } else {
+        this.selectedProducts = [];
+      }
+    },
+    syncSelected() {
+      // Khi load page mới, giữ trạng thái đã chọn nếu có
+      const currentIds = this.products.map(p => p._id);
+      this.selectedProducts = this.selectedProducts.filter(id => currentIds.includes(id));
+      this.selectAll = this.selectedProducts.length === this.products.length;
+    },
+    async deleteSelected() {
+      if (!this.selectedProducts.length) return;
+
+      const result = await Swal.fire({
+        title: `Bạn muốn xoá ${this.selectedProducts.length} sản phẩm?`,
+        text: "Hành động này không thể hoàn tác!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Vâng, xoá tất cả!",
+        cancelButtonText: "Huỷ",
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+      });
+
+      if (result.isConfirmed) {
+        try {
+          await Promise.all(
+            this.selectedProducts.map(id =>
+              fetch(`http://localhost:5000/api/products/${id}`, { method: "DELETE" })
+            )
+          );
+          this.selectedProducts = [];
+          this.selectAll = false;
+          await this.fetchProducts();
+          Swal.fire("Đã xoá!", "Các sản phẩm đã được xoá.", "success");
+        } catch (err) {
+          console.error("Lỗi xoá nhiều sản phẩm:", err);
+          Swal.fire("Lỗi", "Không thể xoá các sản phẩm", "error");
         }
       }
     },
