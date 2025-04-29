@@ -438,4 +438,9 @@ npm install multer
 
 23/04/2025 : npm install sweetalert2
 25/04/2025: npm install browser-image-compression
-
+29/04/2025 : Tao danh muc sp:
+- Backend
+1. models/CategoryModel.js
+2. categoryController.js
+3. CategoryRoutes.js
+4. server.js

@@ -1,56 +1,42 @@
-const express = require("express"); // for routes
-const mongoose = require("mongoose"); // for models
+// Những thư viện gốc cần import
+const express = require("express");
+const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const cors = require("cors"); // for router or model?
-
-
-// Hệ thống mặc định  phải có
+const cors = require("cors");
 const path = require("path");
-dotenv.config({ path: path.resolve(__dirname, ".env") });
 const morgan = require("morgan");
-const connectDB = require("./config/db");
-// Hệ thống mặc định  phải có
 
-// for use Routes
-dotenv.config();
+// Khởi tạo Express, đọc biến môi trường
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 const app = express();
-app.use(express.json());
-// app.use(cors());
-app.use(cors({
-  origin: 'http://localhost:5173', // Hoặc cổng của frontend (Vite mặc định là 5173)
-  methods: 'GET,POST,PUT,DELETE',
-  allowedHeaders: 'Content-Type,Authorization'
-}));
 
-app.use(morgan("dev"));
-// Serve static files từ thư mục /uploads
+// Cấu hình CORS, đọc JSON, log request
+app.use(express.json()); // Cho phép đọc JSON từ request
+app.use(cors({
+  origin: 'http://localhost:5173', // Cổng frontend (Vite)
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type,Authorization',
+}));
+app.use(morgan("dev")); // Ghi log request
+
+// Dùng cho ảnh upload (hiển thị trong FE)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Kết nối MongoDB
-connectDB();
+// Kết nối tới database
+const connectDB = require("./config/db");
+connectDB(); // Gọi hàm kết nối
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
-// Kết nối MongoDB
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.error("❌ MongoDB Error:", err));
 
-// Import routes
-// Product
-const productRoutes = require("./routes/ProductRoutes");
-app.use("/api/products", productRoutes); 
-// Accout
-const authRoutes = require("./routes/AuthRoutes");
-app.use("/api/auth", authRoutes);
-// Upload Pictures
-const uploadRoutes = require("./routes/UploadRoutes");
-app.use("/api/upload", uploadRoutes);
+// Nơi import và khai báo các API
+app.use("/api/products", require("./routes/ProductRoutes"));       // Sản phẩm
+app.use("/api/categories", require("./routes/CategoryRoutes"));    // Danh mục
+app.use("/api/auth", require("./routes/AuthRoutes"));              // Tài khoản / đăng nhập
+app.use("/api/upload", require("./routes/UploadRoutes"));          // Upload ảnh
 
-// NOTE: SAME FILE NAME WITH FILE IN ROUTES
-// for use Routes
-
-
-// Hệ thống mặc định  phải có
+// Lắng nghe cổng 5000 hoặc từ .env
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
-// Hệ thống mặc định phải có
