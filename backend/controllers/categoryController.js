@@ -1,4 +1,4 @@
-const Category = require('../models/CategoryModel');
+const Category = require('../models/Products/CategoryModel');
 
 // Lấy tất cả danh mục
 exports.getAllCategories = async (req, res) => {
