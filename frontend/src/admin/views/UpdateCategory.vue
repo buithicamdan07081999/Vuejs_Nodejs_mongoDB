@@ -1,5 +1,5 @@
 <script setup>
-import UpdateCategorie from '../components/Categorys/UpdateCategorie.vue';
+import UpdateCategorie from '../components/Categories/UpdateCategorie.vue';
 </script>
 <template>
   <div>
