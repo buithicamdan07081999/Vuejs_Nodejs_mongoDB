@@ -18,30 +18,3 @@ const variationSchema = new mongoose.Schema({
   
 
 module.exports = mongoose.model("ProductModels", productSchema);
-// http://localhost:5000/api/products/67e26a680f74a700c20c2642
-// {
-//     "price": 1000000,
-//     "stock": 100,
-//     "variations": [
-//         {
-//             "color": "Red",
-//             "size": "M",
-//             "stock": 10
-//         },
-//         {
-//             "color": "Red",
-//             "size": "L",
-//             "stock": 5
-//         },
-//         {
-//             "color": "Black",
-//             "size": "M",
-//             "stock": 7
-//         },
-//         {
-//             "color": "Black",
-//             "size": "L",
-//             "stock": 2
-//         }
-//     ]
-// }

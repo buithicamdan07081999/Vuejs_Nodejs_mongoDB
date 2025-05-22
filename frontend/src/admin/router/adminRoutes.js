@@ -8,17 +8,17 @@ const Routes = [
       {
         path: '',
         name: 'Dashboard',
-        component:  () => import('@/admin/views/Dashboard.vue'), 
+        component: () => import('@/admin/views/Dashboard.vue'),
       },
       {
         path: 'products',
         name: 'ProductList',
-        component:  () => import('@/admin/views/ProductList.vue'), 
+        component: () => import('@/admin/views/ProductList.vue'),
       },
       {
         path: 'products/edit/:id',
         name: 'EditProduct',
-        component: () => import('@/admin/views/Products/UpdateProduct.vue'),
+        component: () => import('@/admin/views/UpdateProduct.vue'),
       },
       {
         path: 'OrdersPage',
@@ -29,8 +29,13 @@ const Routes = [
         path: 'products/add',
         name: 'AddProduct',
         component: () => import('@/admin/components/Products/AddProduct.vue')
-      }
-      
+      },
+      // Category
+      {
+        path: 'categories',
+        name: 'categories',
+        component: () => import('@/admin/views/UpdateCategory.vue'),
+      },
     ]
   }
 ];
