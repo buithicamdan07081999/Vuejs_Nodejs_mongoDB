@@ -39,6 +39,16 @@ const Routes = [
         name: 'categories',
         component: () => import('@/admin/components/Categories/CategoryPage.vue'),
       },
+      {
+        path: 'categories/add',
+        name: 'Addcategories',
+        component: () => import('@/admin/components/Categories/AddCategory.vue'),
+      },
+      {
+        path: 'categories/edit/:id',
+        name: 'Editcategories',
+        component: () => import('@/admin/components/Categories/UpdateCategory.vue'),
+      }
     ]
   }
 ];
