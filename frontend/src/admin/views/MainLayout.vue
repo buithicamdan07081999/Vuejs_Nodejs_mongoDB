@@ -15,7 +15,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import Sidebar from './../components/Sidebar.vue';
+import Sidebar from '@/layouts//Sidebar.vue';
 import Header from '@/layouts/AppHeader.vue'
 
 const isSidebarHovered = ref(false)
