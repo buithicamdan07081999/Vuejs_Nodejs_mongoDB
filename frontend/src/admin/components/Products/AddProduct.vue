@@ -225,11 +225,11 @@ watch(product, (newProduct) => {
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block font-medium mb-1">Danh mục</label>
-                    <!-- <p class="text-sm mt-1">
+                    <p class="text-sm mt-1">
                         Không có danh mục phù hợp?
                         <router-link to="/admin/categories/add" class="text-blue-600 underline">Thêm danh
                             mục</router-link>
-                    </p> -->
+                    </p>
                     <div v-if="errors.category" class="text-red-600 text-sm mt-1">{{ errors.category }}</div>
                     <select v-model="product.category" class="w-full border rounded px-3 py-2">
                         <option disabled value="">Chọn danh mục</option>
