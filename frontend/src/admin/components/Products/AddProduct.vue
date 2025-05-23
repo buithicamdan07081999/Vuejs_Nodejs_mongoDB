@@ -1,28 +1,15 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { computed } from 'vue';
 import Swal from 'sweetalert2';
 import imageCompression from 'browser-image-compression';
 
-const categories = ref([
-    'Áo thun',
-    'Quần jean',
-    'Giày thể thao',
-    'Phụ kiện',
-]);
 
+// Khai báo biến lưu danh mục, ban đầu là mảng rỗng, sẽ load từ API
 const router = useRouter();
-const formattedPrice = computed({
-    get() {
-        return product.value.price.toLocaleString('vi-VN'); // Hiển thị: 1.000.000
-    },
-    set(val) {
-        const numericValue = parseInt(val.replace(/\D/g, '')) || 0; // Bỏ dấu chấm, lấy số
-        product.value.price = numericValue;
-    }
-});
+const categories = ref([]);
 const product = ref({
     name: '',
     price: 0,
@@ -35,7 +22,32 @@ const product = ref({
     variations: [],
 });
 const imagePreview = ref(null); // để hiển thị preview
-// Lấy sản phẩm cũ để hiển thị lên form
+const formattedPrice = computed({
+    get() {
+        return product.value.price.toLocaleString('vi-VN'); // Hiển thị: 1.000.000
+    },
+    set(val) {
+        const numericValue = parseInt(val.replace(/\D/g, '')) || 0; // Bỏ dấu chấm, lấy số
+        product.value.price = numericValue;
+    }
+});
+
+
+// Hàm gọi API lấy danh mục sản phẩm
+const loadCategories = async () => {
+    try {
+        const res = await axios.get('http://localhost:5000/api/categories'); // Giả sử endpoint lấy danh mục là /categories
+        categories.value = res.data;
+        console.log("Kết quả categories API:", res.data);
+    } catch (err) {
+        console.error('Lỗi lấy danh mục:', err);
+        categories.value = []; // Đặt mảng rỗng nếu lỗi
+    }
+};
+// Gọi loadCategories khi component được mount
+onMounted(() => {
+    loadCategories();
+});
 
 // Chọn ảnh từ máy => preview & lưu base64
 const newImageFile = ref(null); // lưu file mới tạm thời
@@ -221,8 +233,8 @@ watch(product, (newProduct) => {
                     <div v-if="errors.category" class="text-red-600 text-sm mt-1">{{ errors.category }}</div>
                     <select v-model="product.category" class="w-full border rounded px-3 py-2">
                         <option disabled value="">Chọn danh mục</option>
-                        <option v-for="category in categories" :key="category" :value="category">
-                            {{ category }}
+                        <option v-for="cat in categories" :key="cat._id" :value="cat._id">
+                            {{ cat.name }}
                         </option>
                     </select>
                 </div>
