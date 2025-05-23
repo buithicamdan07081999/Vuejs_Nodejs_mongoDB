@@ -4,10 +4,8 @@
 
     <!-- Nút Thêm (canh phải) -->
     <div class="flex justify-end mb-4">
-      <router-link
-        to="/admin/categories/add"
-        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-      >
+      <router-link to="/admin/categories/add"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
         + Thêm danh mục
       </router-link>
     </div>
@@ -22,25 +20,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="(category, index) in categories"
-          :key="category._id"
-          class="hover:bg-gray-100 transition"
-        >
+        <tr v-for="(category, index) in categories" :key="category._id" class="hover:bg-gray-100 transition">
           <td class="border p-2 text-center">{{ index + 1 }}</td>
           <td class="border p-2">{{ category.name }}</td>
           <td class="border p-2 text-center">
             <div class="flex justify-center gap-2">
-              <router-link
-                :to="`/admin/categories/edit/${category._id}`"
-                class="bg-yellow-500 text-white px-3 py-1 rounded"
-              >
+              <router-link :to="`/admin/categories/edit/${category._id}`"
+                class="bg-yellow-500 text-white px-3 py-1 rounded">
                 Sửa
               </router-link>
-              <button
-                @click="deleteCategory(category._id)"
-                class="bg-red-500 text-white px-3 py-1 rounded"
-              >
+              <button @click="deleteCategory(category._id)" class="bg-red-500 text-white px-3 py-1 rounded">
                 Xoá
               </button>
             </div>
@@ -63,7 +52,7 @@ export default {
   },
   methods: {
     async fetchCategories() {
-      const res = await axios.get("/api/categories");
+      const res = await axios.get("/categories");
       this.categories = res.data;
     },
     async deleteCategory(id) {
@@ -77,10 +66,27 @@ export default {
       });
 
       if (result.isConfirmed) {
-        await axios.delete(`/api/categories/${id}`);
-        this.fetchCategories();
+        try {
+          await axios.delete(`/categories/${id}`);
+          this.fetchCategories();
+          // Hiển thị toast thông báo thành công
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: 'Đã xoá danh mục',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+          });
+
+        } catch (err) {
+          console.error('Lỗi khi xoá:', err);
+          Swal.fire('Lỗi', 'Không thể xoá danh mục', 'error');
+        }
       }
-    },
+    }
+    ,
   },
   mounted() {
     this.fetchCategories();
