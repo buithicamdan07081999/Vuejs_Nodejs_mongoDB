@@ -14,7 +14,17 @@
         />
       </div>
 
-      <div class="flex justify-end">
+      <div class="flex justify-between">
+        <!-- Nút quay lại -->
+        <button
+          type="button"
+          @click="backToPrevious"
+          class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded transition"
+        >
+          Quay lại
+        </button>
+
+        <!-- Nút thêm danh mục -->
         <button
           type="submit"
           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition"
@@ -28,18 +38,39 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const router = useRouter();
+const route = useRoute();
+
 const name = ref('');
 
-// Gửi request thêm danh mục
+// Hàm điều hướng quay lại trang trước, có xử lý state nếu đến từ trang thêm sản phẩm
+const backToPrevious = () => {
+  if (route.query.from === 'add-product') {
+    // Lấy dữ liệu state nếu có
+    const productData = route.query.state ? JSON.parse(route.query.state) : null;
+
+    router.push({
+      path: '/admin/products/add',
+      query: {
+        restored: 'true',
+        // Nếu productData null thì stringify sẽ trả về null chuỗi
+        state: productData ? JSON.stringify(productData) : '',
+      },
+    });
+  } else {
+    router.push('/admin/categories'); // Mặc định quay về trang danh sách danh mục
+  }
+};
+
+// Hàm thêm danh mục mới
 const addCategory = async () => {
   try {
     await axios.post('/categories', { name: name.value });
-    // ✅ Toast góc phải khi thành công
+
     Swal.fire({
       toast: true,
       position: 'top-end',
@@ -47,14 +78,30 @@ const addCategory = async () => {
       title: 'Đã thêm danh mục mới',
       showConfirmButton: false,
       timer: 2000,
-      timerProgressBar: true
+      timerProgressBar: true,
     });
-    router.push('/admin/categories');
+
+    if (route.query.from === 'add-product') {
+      const state = route.query.state || ''
+      router.push({
+        path: '/admin/products/add',
+        query: {
+          restored: 'true',
+          state,
+        }
+      });
+    } else {
+      router.push('/admin/categories');
+    }
   } catch (err) {
     console.error('Lỗi thêm danh mục:', err);
 
-    // ❌ Giữ alert nếu lỗi để người dùng dễ thấy
-    Swal.fire('Lỗi', err.response?.data?.message || 'Không thể thêm danh mục', 'error');
+    Swal.fire(
+      'Lỗi',
+      err.response?.data?.message || 'Không thể thêm danh mục',
+      'error'
+    );
   }
 };
+
 </script>

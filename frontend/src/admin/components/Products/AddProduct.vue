@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import axios from 'axios';
 import { computed } from 'vue';
 import Swal from 'sweetalert2';
@@ -9,6 +10,10 @@ import imageCompression from 'browser-image-compression';
 
 // Khai báo biến lưu danh mục, ban đầu là mảng rỗng, sẽ load từ API
 const router = useRouter();
+const route = useRoute();
+const goToAddCategory = () => {
+    router.push({ name: 'AddCategory', query: { from: 'add-product' } })
+}
 const categories = ref([]);
 const product = ref({
     name: '',
@@ -38,7 +43,7 @@ const loadCategories = async () => {
     try {
         const res = await axios.get('http://localhost:5000/api/categories'); // Giả sử endpoint lấy danh mục là /categories
         categories.value = res.data;
-        console.log("Kết quả categories API:", res.data);
+     //   console.log("Kết quả categories API:", res.data);
     } catch (err) {
         console.error('Lỗi lấy danh mục:', err);
         categories.value = []; // Đặt mảng rỗng nếu lỗi
@@ -46,6 +51,10 @@ const loadCategories = async () => {
 };
 // Gọi loadCategories khi component được mount
 onMounted(() => {
+    const queryState = route.query.state;
+    if (queryState) {
+        Object.assign(product.value, JSON.parse(queryState));
+    }
     loadCategories();
 });
 
@@ -54,6 +63,9 @@ const newImageFile = ref(null); // lưu file mới tạm thời
 const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
+        if (imagePreview.value) {
+            URL.revokeObjectURL(imagePreview.value);
+        }
         imagePreview.value = URL.createObjectURL(file); // preview
         const compressedFile = await imageCompression(file, {
             maxSizeMB: 0.5, // nén về ~500KB
@@ -85,7 +97,11 @@ const addVariation = () => {
     ); errors.value.variations.push('');
 };
 const getCleanProductData = (product, imageUrl) => {
-    const cleanData = { ...product, image: imageUrl };
+    const cleanData = {
+        ...product,
+        image: imageUrl,
+        variations: product.variations.map(v => ({ ...v })) // Chuyển reactive -> plain object
+    };
     Object.keys(cleanData).forEach((key) => {
         if (cleanData[key] === '') {
             delete cleanData[key];
@@ -94,8 +110,14 @@ const getCleanProductData = (product, imageUrl) => {
     return cleanData;
 };
 
+
 // Hàm cập nhật
+const isSubmitting = ref(false);
 const addProduct = async () => {
+    if (isSubmitting.value) return;
+    isSubmitting.value = true;
+
+
     const result = await Swal.fire({
         title: 'Bạn có chắc chắn muốn thêm sản phẩm?',
         icon: 'question',
@@ -104,54 +126,52 @@ const addProduct = async () => {
         cancelButtonText: 'Huỷ'
     });
 
-    if (result.isConfirmed) {
-        let imageUrl = '';
-        if (newImageFile.value) {
-            imageUrl = await uploadImage(newImageFile.value);
-        }
+    if (!result.isConfirmed) return;
 
-        const cleanData = getCleanProductData(product.value, imageUrl);
-        // ✅ Ghi log dữ liệu ra console trước khi gửi
-        console.log('Dữ liệu JSON sẽ gửi:', cleanData);
+    let imageUrl = '';
+    if (newImageFile.value) {
+        imageUrl = await uploadImage(newImageFile.value);
+    }
+    const cleanData = getCleanProductData(product.value, imageUrl);
+    console.log('Dữ liệu JSON sẽ gửi:', cleanData);
+    try {
+        await axios.post('/products', cleanData);
 
-        try {
-            await axios.post('/products', cleanData);
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'success',
-                title: 'Thêm thành công!',
-                showConfirmButton: false,
-                timer: 1500,
-                customClass: {
-                    popup: 'animate-fade-in'
-                }
-            });
-            router.push('/admin/products');
-        } catch (err) {
-            console.error('Lỗi thêm sản phẩm:', err);
-            Swal.fire('Thêm thất bại!', 'Vui lòng thử lại.', 'error');
-        }
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: 'Thêm thành công!',
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+                popup: 'animate-fade-in'
+            }
+        });
+        router.push('/admin/products');
+
+    } catch (err) {
+        console.error('Lỗi thêm sản phẩm:', err);
+       // Swal.fire('Thêm thất bại!', 'Vui lòng thử lại.', 'error');
+    } finally {
+        isSubmitting.value = false;
     }
 };
 
-// Thêm UI 
-const isFormValid = computed(() => {
-    const hasValidName = product.value.name.trim().length > 0;
-    const hasValidPrice = product.value.price >= 1000;
-    const hasValiddescription = product.value.description.trim().length > 0;
-    const hasValidCategory = product.value.category.trim().length > 0;
-    const hasValidGender = product.value.gender.trim().length > 0;
 
-    const allVariationsValid = product.value.variations.every(variation => {
-        return (
-            variation.color &&
-            variation.size &&
-            variation.stock >= 0
-        );
-    });
-    return hasValidName && hasValidPrice && hasValiddescription && hasValidCategory && hasValidGender && allVariationsValid;
+// Thêm UI 
+const validateVariations = () => {
+    return product.value.variations.every(v => v.color && v.size && v.stock >= 0);
+};
+const isFormValid = computed(() => {
+    return product.value.name.trim() &&
+        product.value.price >= 1000 &&
+        product.value.description.trim() &&
+        product.value.category.trim() &&
+        product.value.gender.trim() &&
+        validateVariations();
 });
+
 const errors = ref({
     name: '',
     price: '',
@@ -226,9 +246,12 @@ watch(product, (newProduct) => {
                 <div>
                     <label class="block font-medium mb-1">Danh mục</label>
                     <p class="text-sm mt-1">
-                        Không có danh mục phù hợp?
-                        <router-link to="/admin/categories/add" class="text-blue-600 underline">Thêm danh
-                            mục</router-link>
+                        <button @click="goToAddCategory">Không có danh mục phù hợp?</button>
+                        <router-link
+                            :to="{ path: '/admin/categories/add', query: { from: 'add-product', state: JSON.stringify(product) } }"
+                            class="text-blue-600 underline">
+                            Thêm danh mục
+                        </router-link>
                     </p>
                     <div v-if="errors.category" class="text-red-600 text-sm mt-1">{{ errors.category }}</div>
                     <select v-model="product.category" class="w-full border rounded px-3 py-2">
