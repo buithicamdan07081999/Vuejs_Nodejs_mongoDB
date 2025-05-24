@@ -1,4 +1,4 @@
-// controllers/Auth/AuthController.js
+// login, register
 const User = require("../../models/Auth/UserModels");
 const bcrypt = require("bcryptjs");
 
@@ -7,11 +7,19 @@ const AuthController = {
     try {
       const { email, password, role } = req.body;
 
+      // 👇 THÊM: kiểm tra email đã tồn tại
+      const existedUser = await User.findOne({ email });
+      if (existedUser) return res.status(400).json({ message: "Email đã được sử dụng" });
+
       const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = new User({ email, password: hashedPassword, role });
+      const newUser = new User({
+        email,
+        password: hashedPassword,
+        role: role || "user" // 👈 thêm mặc định nếu chưa có role
+      });
 
       await newUser.save();
-      res.status(201).json({ message: "User registered successfully", user: newUser });
+      res.status(201).json({ message: "Đăng ký thành công", user: newUser });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -27,24 +35,14 @@ const AuthController = {
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) return res.status(401).json({ message: "Sai mật khẩu" });
 
-      res.status(200).json({ message: "Đăng nhập thành công", user });
+      // 👇 ẨN MẬT KHẨU trước khi trả về
+      const { password: _, ...userWithoutPassword } = user._doc;
+
+      res.status(200).json({ message: "Đăng nhập thành công", user: userWithoutPassword });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
   },
-
-  update: async (req, res) => {
-    try {
-      const updated = await User.findByIdAndUpdate(
-        req.params.id,
-        { $set: req.body },
-        { new: true }
-      );
-      res.status(200).json(updated);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  }
 };
 
 module.exports = AuthController;

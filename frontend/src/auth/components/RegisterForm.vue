@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-center min-h-screen w-100 bg-gray-100">
     <form @submit.prevent="handleRegister" class="bg-white p-8 rounded shadow-md w-full max-w-sm">
-      <h2 class="text-2xl font-bold mb-6">Đăng ký</h2>
+      <h2 class="text-2xl font-bold mb-6 text-black">Đăng ký</h2>
       <input v-model="email" type="email" placeholder="Email" class="input" />
       <input v-model="password" type="password" placeholder="Mật khẩu" class="input" />
       <button type="submit" class="btn">Đăng ký</button>

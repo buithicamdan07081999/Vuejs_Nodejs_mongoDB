@@ -30,11 +30,11 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.error("❌ MongoDB Error:", err));
 
 // Nơi import và khai báo các API
-app.use("/api/products", require("./routes/ProductRoutes"));       // Sản phẩm
-app.use("/api/categories", require("./routes/CategoryRoutes"));    // Danh mục
-app.use("/api/auth", require("./routes/AuthRoutes"));              // Tài khoản / đăng nhập
-app.use("/api/upload", require("./routes/UploadRoutes"));          // Upload ảnh
-
+app.use("/api/products", require("./routes/Product/ProductRoutes"));       // Sản phẩm
+app.use("/api/categories", require("./routes/Product/CategoryRoutes"));    // Danh mục
+app.use("/api/upload", require("./routes/Product/UploadRoutes"));          // Upload ảnh
+app.use("/api/users", require("./routes/Auth/UserRoutes")); // /api/users
+app.use("/api/auth", require("./routes/Auth/AuthRoutes")); // /api/auth/login, /api/auth/register
 // Lắng nghe cổng 5000 hoặc từ .env
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

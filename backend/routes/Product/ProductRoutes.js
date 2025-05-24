@@ -1,8 +1,8 @@
 const express = require("express");
-const { updateProduct } = require("../controllers/Product/updateProductController");
-const { getAllProducts, getProductById, getLatestProducts, gettoppriceProducts } = require("../controllers/product/getProductController");
-const { createProduct } = require("../controllers/Product/createProductController"); 
-const { deleteProduct } = require('../controllers/Product/deleteProductController');
+const { updateProduct } = require("../../controllers/Product/updateProductController");
+const { getAllProducts, getProductById, getLatestProducts, gettoppriceProducts } = require("../../controllers/product/getProductController");
+const { createProduct } = require("../../controllers/Product/createProductController"); 
+const { deleteProduct } = require('../../controllers/Product/deleteProductController');
 
 const router = express.Router();
 

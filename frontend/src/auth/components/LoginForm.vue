@@ -4,8 +4,8 @@
       <h2 class="text-2xl font-bold mb-6">Đăng nhập</h2>
       <input v-model="email" type="email" placeholder="Email" class="input" />
       <input v-model="password" type="password" placeholder="Mật khẩu" class="input" />
-      <!-- <button type="submit" class="btn">Đăng nhập</button>
-        -->
+      <router-link :to="{ path: '/Register' }" class="text-blue-600 underline">Chưa có tài khoản?
+      </router-link>
       <button :disabled="isLoading" type="submit" class="btn">
         {{ isLoading ? 'Đang đăng nhập...' : 'Đăng nhập' }}
       </button>

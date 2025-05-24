@@ -9,6 +9,7 @@ watch(internalHover, (newVal) => {
 
 const menuItems = [
   { label: 'Dashboard', path: '/admin', icon: HomeIcon },
+  { label: 'Users', path: '/users', icon: HomeIcon },
   { label: 'Products', path: '/admin/products', icon: CubeIcon },
   { label: 'Categories', path: '/admin/categories', icon: CubeIcon },
   { label: 'Orders', path: '/admin/OrdersPage', icon: ClipboardDocumentListIcon },
