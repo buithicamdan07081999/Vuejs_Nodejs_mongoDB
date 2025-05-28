@@ -3,21 +3,28 @@ const Order = require('../../models/Order/OrderModel')
 // Tạo đơn hàng mới
 exports.createOrder = async (req, res) => {
   try {
-    const { userId, items, totalPrice } = req.body
+    const { orderItems, shippingAddress, totalPrice } = req.body
+    if (!orderItems || orderItems.length === 0) {
+      return res.status(400).json({ message: "No order items" });
+    }
 
-    const newOrder = new Order({ userId, items, totalPrice })
-    const savedOrder = await newOrder.save()
-
-    res.status(201).json(savedOrder)
+    const order = new Order({
+      user: req.user._id,
+      orderItems,
+      shippingAddress,
+      totalPrice,
+    });
+    const createdOrder = await order.save();
+    res.status(201).json(createdOrder)
   } catch (error) {
-    res.status(500).json({ message: 'Lỗi tạo đơn hàng', error })
+    res.status(500).json({ message: 'Server error', error })
   }
 }
 
 // Lấy tất cả đơn hàng (admin)
 exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find().populate('userId', 'username').sort({ createdAt: -1 })
+    const orders = await Order.find().populate('user', 'username').sort({ createdAt: -1 })
     res.json(orders)
   } catch (error) {
     res.status(500).json({ message: 'Lỗi lấy danh sách đơn hàng', error })
@@ -27,9 +34,9 @@ exports.getAllOrders = async (req, res) => {
 // Lấy đơn hàng theo user (user tự xem đơn mình)
 exports.getOrdersByUser = async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.params.userId }).sort({ createdAt: -1 })
-    res.json(orders)
+    const orders = await Order.find({ user: req.user._id }).populate("orderItems.product", "name price");
+    res.json(orders);
   } catch (error) {
-    res.status(500).json({ message: 'Lỗi lấy đơn hàng theo user', error })
+    res.status(500).json({ message: "Server error", error });
   }
 }

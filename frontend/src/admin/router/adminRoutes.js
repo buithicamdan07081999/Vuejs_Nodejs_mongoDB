@@ -28,8 +28,8 @@ const Routes = [
       },
       // Order
       {
-        path: 'OrdersPage',
-        name: 'OrdersPage',
+        path: 'Orders',
+        name: 'Orders',
         component: () => import('@/admin/components/Order/OrdersPage.vue'),
       },
 

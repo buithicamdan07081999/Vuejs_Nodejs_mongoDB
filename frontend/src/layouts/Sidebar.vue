@@ -20,7 +20,7 @@ const menuItems = [
   { label: 'Users', path: '/users', icon: UserIcon },
   { label: 'Products', path: '/admin/products', icon: ShoppingBagIcon },
   { label: 'Categories', path: '/admin/categories', icon: Squares2X2Icon },
-  { label: 'Orders', path: '/admin/OrdersPage', icon: ClipboardDocumentListIcon },
+  { label: 'Orders', path: '/admin/Orders', icon: ClipboardDocumentListIcon },
 ]
 </script>
 
