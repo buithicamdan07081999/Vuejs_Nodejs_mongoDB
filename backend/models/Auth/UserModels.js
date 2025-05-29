@@ -1,24 +1,45 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Vui lòng nhập tên người dùng"],
+    },
+    email: {
+      type: String,
+      required: [true, "Vui lòng nhập email"],
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: [true, "Vui lòng nhập mật khẩu"],
+    },
+    phone: {
+      type: String,
+      default: "",
+    },
+    address: {
+      type: String,
+      default: "",
+    },
+    avatar: {
+      type: String,
+      default: "", // URL hình đại diện
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  role: {
-    type: String,
-    enum: ["user", "admin"],
-    default: "user",
-  },
-  avatar: {
-    type: String,
-    default: "",
-  },
-}, { timestamps: true });
+  {
+    timestamps: true,
+  }
+);
 
 module.exports = mongoose.model("User", userSchema);
