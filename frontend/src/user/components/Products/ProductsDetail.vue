@@ -1,12 +1,16 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
 
 const product = ref({});
 const route = useRoute();
+const router = useRouter()
 const productId = route.params.id;
 
+const handleBuyNow = () => {
+  router.push({ name: 'CheckoutPage', query: { productId: product.value._id } })
+}
 // Hàm lấy thông tin sản phẩm từ API
 const fetchProduct = async () => {
   try {
@@ -48,7 +52,7 @@ onMounted(fetchProduct);
         <!-- Thông tin thêm -->
         <div class="border-t pt-4 text-sm space-y-2 font-medium">
           <p>
-            <span>Danh mục: </span><span class="text-yellow-200">{{ product.category }}</span> 
+            <span>Danh mục: </span><span class="text-yellow-200">{{ product.category }}</span>
           </p>
           <p v-if="product.size">
             <span class="">Kích thước:</span>
@@ -60,11 +64,14 @@ onMounted(fetchProduct);
           class="w-full mt-4 bg-blue-500 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow hover:shadow-lg transition duration-300">
           Thêm vào giỏ hàng
         </button>
+        <button @click="handleBuyNow"
+          class="w-full mt-4 bg-blue-500 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow hover:shadow-lg transition duration-300">
+          Mua ngay
+        </button>
       </div>
     </div>
   </div>
   <div v-else>
     <p class="text-center">Product does not exist!</p>
   </div>
-
 </template>

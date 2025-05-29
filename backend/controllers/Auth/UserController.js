@@ -83,6 +83,11 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const getProfile = (req, res) => {
+  res.json(req.user);
+};
+
+
 module.exports = {
   getAllUsers,
   getUserById,

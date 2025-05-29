@@ -1,22 +1,18 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/Auth/UserModels'); // sửa path nếu user model của bạn khác
+const jwt = require('jsonwebtoken')
+const User = require('../models/Auth/UserModels')
 
-exports.protect = async (req, res, next) => {
-  let token;
+const protect = async (req, res, next) => {
+  let token = req.headers.authorization?.split(' ')[1]
+
+  if (!token) return res.status(401).json({ message: 'Chưa đăng nhập' })
+
   try {
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer")
-    ) {
-      token = req.headers.authorization.split(" ")[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      req.user = await User.findById(decoded.id).select("-password");
-      next();
-    } else {
-      return res.status(401).json({ message: "Not authorized, no token" });
-    }
-  } catch (error) {
-    return res.status(401).json({ message: "Not authorized, token failed" });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    req.user = await User.findById(decoded.id).select('-password')
+    next()
+  } catch (err) {
+    res.status(401).json({ message: 'Token không hợp lệ' })
   }
-};
+}
+
+module.exports = { protect }

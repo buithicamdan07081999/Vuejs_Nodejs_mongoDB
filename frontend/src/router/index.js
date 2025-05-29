@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import userRoutes from "@/user/router/userRoutes";
 import adminRoutes from "@/admin/router/adminRoutes";
-import authRoutes from "@/auth/router"; // Đảm bảo có export default là array
+import authRoutes from "@/auth/router"; 
 
 const routesOperator = [
   ...authRoutes,
