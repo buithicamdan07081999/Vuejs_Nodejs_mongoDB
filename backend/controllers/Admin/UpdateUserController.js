@@ -27,6 +27,4 @@ const UpdateUser = async (req, res) => {
   }
 };
 
-module.exports = {
-  UpdateUser,
-};
+module.exports = UpdateUser;

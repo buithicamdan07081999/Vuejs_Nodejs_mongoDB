@@ -6,6 +6,4 @@ const GetProfile = (req, res) => {
   res.json(req.user);
 };
 
-module.exports = {
-  GetProfile,
-};
+module.exports = GetProfile;

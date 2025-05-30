@@ -13,6 +13,4 @@ const GetUserById = async (req, res) => {
   }
 };
 
-module.exports = {
-  GetUserById,
-};
+module.exports = GetUserById;

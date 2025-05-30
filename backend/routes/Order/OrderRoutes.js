@@ -1,21 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const {
-  createOrder,
-  getAllOrders,
-  getMyOrders
-} = require('../../controllers/Order/OrderController');
+const CreateOrder = require('../../controllers/Order/CreateOrderController');
+const GetAllOrder = require('../../controllers/Order/GetAllOrderController');
+const GetMyOrder = require('../../controllers/Order/GetMyOrderController');
 
-const { protect } = require('../../middlewares/authMiddleware');
+const protect = require('../../middlewares/authMiddleware');
 
-// POST - Tạo đơn hàng (phải đăng nhập)
-router.post('/', protect, createOrder);
-
-// GET - Admin xem tất cả đơn hàng (giả sử cần đăng nhập và là admin)
-router.get('/', protect, getAllOrders);
-
-// GET - User xem đơn hàng của chính mình
-router.get('/my-orders', protect, getMyOrders);
+router.post('/', protect, CreateOrder);
+router.get('/', protect, GetAllOrder);
+router.get('/listorder', protect, GetMyOrder);
 
 module.exports = router;
