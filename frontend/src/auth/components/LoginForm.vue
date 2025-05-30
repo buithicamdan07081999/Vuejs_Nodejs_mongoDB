@@ -1,74 +1,61 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-gray-100 w-100 text-black">
-    <form @submit.prevent="handleLogin" class="bg-white p-10 rounded shadow-md w-full max-w-sm">
-      <h2 class="text-2xl font-bold mb-6">Đăng nhập</h2>
-      <input v-model="email" type="email" placeholder="Email" class="input" />
-      <input v-model="password" type="password" placeholder="Mật khẩu" class="input" />
-      <router-link :to="{ path: '/Register' }" class="text-blue-600 underline">Chưa có tài khoản?
-      </router-link>
-      <button :disabled="isLoading" type="submit" class="btn">
-        {{ isLoading ? 'Đang đăng nhập...' : 'Đăng nhập' }}
-      </button>
-    </form>
+  <div class="relative min-h-screen">
+    <div class="fixed inset-0 bg-cover bg-center z-0" :style="`background-image: url('${bgImage}')`"></div>
+    <div class="fixed inset-0 bg-black bg-opacity-60 z-0"></div>
+
+    <div class="relative z-10 flex items-center justify-center min-h-screen">
+      <div class="bg-black bg-opacity-70 p-8 rounded-md w-full max-w-md">
+        <h2 class="text-white text-3xl font-semibold mb-6 text-center">Đăng nhập</h2>
+
+        <form @submit.prevent="handleLogin" class="flex flex-col gap-4">
+          <input v-model="email" type="email" placeholder="Email" class="bg-gray-800 text-white px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500" />
+          <input v-model="password" type="password" placeholder="Mật khẩu" class="bg-gray-800 text-white px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500" />
+
+          <router-link to="/register" class="text-red-400 underline text-sm text-center">Chưa có tài khoản?</router-link>
+
+          <button type="submit" class="bg-red-600 hover:bg-red-700 text-white py-2 rounded font-bold">
+            {{ isLoading ? 'Đang đăng nhập...' : 'Đăng nhập' }}
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { login as loginAPI } from '@/auth/services/authService'
-import { useAuthStore } from '@/stores/auth'
+import { ref } from "vue"
+import { useRouter } from "vue-router"
+import { useAuthStore } from "@/stores/auth"
+import { login as loginAPI } from "@/auth/services/authService"
+import Swal from "sweetalert2"
 
 const router = useRouter()
 const auth = useAuthStore()
-
-const email = ref('')
-const password = ref('')
-
+const email = ref("")
+const password = ref("")
 const isLoading = ref(false)
+
+const bgImage = new URL("@/assets/register.webp", import.meta.url).href
+
 const handleLogin = async () => {
   isLoading.value = true
   try {
     const res = await loginAPI(email.value, password.value)
     const { token, user } = res.data
     auth.login(token, user)
-    // router.push(user.role === 'admin' ? '/admin' : '/profile')
-    if (user.role === 'admin') {
-      router.push('/admin')
-    } else {
-      router.push('/profile')
-    }
-
+    Swal.fire({
+      icon: 'success',
+      title: 'Đăng nhập thành công',
+      toast: true,
+      position: 'top-end',
+      timer: 2000,
+      showConfirmButton: false
+    })
+    router.push(user.role === 'admin' ? '/admin' : '/profile')
   } catch (err) {
-    console.log('Email:', email.value)
-    console.log('Password:', password.value)
-    console.error('Đăng nhập lỗi:', err)
-    console.log('Full response:', err.response)
-    alert('Đăng nhập thất bại: ' + (err.response?.data?.message || 'Lỗi không xác định'))
+    Swal.fire({ icon: 'error', text: err.response?.data?.message || 'Đăng nhập thất bại' })
   } finally {
     isLoading.value = false
   }
 }
 </script>
-
-
-
-<style scoped>
-.input {
-  display: block;
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-.btn {
-  width: 100%;
-  background-color: black;
-  color: white;
-  padding: 0.75rem;
-  border-radius: 6px;
-  font-weight: bold;
-}
-</style>
