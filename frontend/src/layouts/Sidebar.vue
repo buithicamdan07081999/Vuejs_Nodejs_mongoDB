@@ -17,7 +17,7 @@ watch(internalHover, (newVal) => {
 
 const menuItems = [
   { label: 'Dashboard', path: '/admin', icon: HomeIcon },
-  { label: 'Users', path: '/users', icon: UserIcon },
+  { label: 'Users', path: '/admin/userslist', icon: UserIcon },
   { label: 'Products', path: '/admin/products', icon: ShoppingBagIcon },
   { label: 'Categories', path: '/admin/categories', icon: Squares2X2Icon },
   { label: 'Orders', path: '/admin/Orders', icon: ClipboardDocumentListIcon },

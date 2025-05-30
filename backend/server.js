@@ -26,6 +26,7 @@ app.use("/api/products", require("./routes/Product/ProductRoutes"));
 app.use("/api/categories", require("./routes/Product/CategoryRoutes"));
 app.use("/api/upload", require("./routes/Product/UploadRoutes"));
 app.use("/api/user", require("./routes/Auth/UserRoutes"));
+// file liên quan 
 app.use("/api/admin", require("./routes/Auth/AdminRoutes"));
 app.use('/api/orders', require("./routes/Order/OrderRoutes"))
 // Lắng nghe cổng 5000 hoặc từ .env

@@ -7,12 +7,12 @@ const DeleteUser = require("../../controllers/Admin/DeleteUserController");
 const CreateUser = require("../../controllers/Admin/CreateUserController"); 
 const GetProfile = require("../../controllers/Admin/GetProfileUserController"); 
 
-
-router.get("/", GetAllUsers);
+router.post("/", CreateUser);
+router.get("/profile", GetProfile);
+router.get("/userlist", GetAllUsers);
+// nên đặt /:id ở phía dưới 
 router.get("/:id", GetUserById);
 router.put("/:id", UpdateUser);
 router.delete("/:id", DeleteUser);
-router.post("/", CreateUser);
-router.get("/profile", GetProfile);
 
 module.exports = router;

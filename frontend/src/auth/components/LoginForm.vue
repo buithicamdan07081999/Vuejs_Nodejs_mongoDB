@@ -8,11 +8,15 @@
         <h2 class="text-white text-3xl font-semibold mb-6 text-center">Đăng nhập</h2>
 
         <form @submit.prevent="handleLogin" class="flex flex-col gap-4">
-          <input v-model="email" type="email" placeholder="Email" class="bg-gray-800 text-white px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500" />
-          <input v-model="password" type="password" placeholder="Mật khẩu" class="bg-gray-800 text-white px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500" />
+          <input v-model="email" type="email" placeholder="Email"
+            class="bg-gray-800 text-white px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            autocomplete="email" />
 
-          <router-link to="/register" class="text-red-400 underline text-sm text-center">Chưa có tài khoản?</router-link>
-
+          <input v-model="password" type="password" placeholder="Mật khẩu"
+            class="bg-gray-800 text-white px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+            autocomplete="current-password" />
+          <router-link to="/register" class="text-red-400 underline text-sm text-center">Chưa có tài
+            khoản?</router-link>
           <button type="submit" class="bg-red-600 hover:bg-red-700 text-white py-2 rounded font-bold">
             {{ isLoading ? 'Đang đăng nhập...' : 'Đăng nhập' }}
           </button>

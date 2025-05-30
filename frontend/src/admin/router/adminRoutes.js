@@ -10,6 +10,13 @@ const Routes = [
         name: 'Dashboard',
         component: () => import('@/admin/components/Pages/Dashboard.vue'),
       },
+      //UserList
+      {
+        path: 'userslist',
+        name: 'userslist',
+        component: () => import('@/admin/components/Auth/UserList.vue'),
+      },
+
       // Product
       {
         path: 'products',
