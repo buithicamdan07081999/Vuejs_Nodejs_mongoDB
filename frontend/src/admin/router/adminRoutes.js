@@ -1,5 +1,7 @@
 import MainLayout from "@/admin/views/MainLayout.vue";
-
+// ĐƯỜNG DẪN USER CẦN NHẬP
+// Gửi request đến backend
+// Nhận data và render bảng danh sách
 const Routes = [
   {
     path: '/admin',
@@ -15,6 +17,11 @@ const Routes = [
         path: 'userslist',
         name: 'userslist',
         component: () => import('@/admin/components/Auth/UserList.vue'),
+      },
+      {
+        path: 'edit/user/:id',
+        name: 'EditUser',
+        component: () => import('@/admin/components/Auth/UpdateUser.vue'),
       },
 
       // Product

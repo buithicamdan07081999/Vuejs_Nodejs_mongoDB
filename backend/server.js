@@ -5,6 +5,10 @@ const cors = require("cors");
 const path = require("path");
 const morgan = require("morgan");
 
+//Trả về dữ liệu -> để client (frontend) gọi.
+//Nhận request từ frontend
+//Trả JSON (danh sách user)
+
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 const app = express();
 app.use(express.json());
@@ -32,5 +36,5 @@ app.use('/api/orders', require("./routes/Order/OrderRoutes"))
 // Lắng nghe cổng 5000 hoặc từ .env
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`✅ Server: http://localhost:${PORT}`);
 });
