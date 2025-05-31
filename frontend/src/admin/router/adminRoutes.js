@@ -15,11 +15,16 @@ const Routes = [
       //UserList
       {
         path: 'userslist',
-        name: 'userslist',
+        name: 'UsersList',
         component: () => import('@/admin/components/Auth/UserList.vue'),
       },
       {
-        path: 'edit/user/:id',
+        path: 'adduser',
+        name: 'AddUser',
+        component: () => import('@/admin/components/Products/AddProduct.vue')
+      },
+      {
+        path: 'update/user/:id',
         name: 'EditUser',
         component: () => import('@/admin/components/Auth/UpdateUser.vue'),
       },

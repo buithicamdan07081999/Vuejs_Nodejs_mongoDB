@@ -10,11 +10,11 @@ const GetProfile = require("../../controllers/Admin/GetProfileUserController");
 
 // Routes: không thêm /api/admin ở đây
 
-router.post("/adduser", CreateUser);           // POST /api/admin/adduser
+router.post("/create/user", CreateUser);           // POST /api/admin/adduser
 router.get("/userslist", GetAllUsers);         // GET /api/admin/userslist
-router.get("/userprofile/:id", GetProfile);    // GET /api/admin/userprofile/:id
-router.get("/getuser/:id", GetUserById);       // GET /api/admin/getuser/:id
-router.put("/putuser/:id", UpdateUser);        // PUT /api/admin/putuser/:id
-router.delete("/deluser/:id", DeleteUser);     // DELETE /api/admin/deluser/:id
+router.get("/profile/users/:id", GetProfile);    // GET /api/admin/userprofile/:id
+router.get("/get/user/:id", GetUserById);       // GET /api/admin/getuser/:id frontend\src\admin\components\Auth\UpdateUser.vue
+router.put("/update/user/:id", UpdateUser);        // PUT /api/admin/putuser/:id
+router.delete("/delete/user/:id", DeleteUser);     // DELETE /api/admin/deluser/:id
 
 module.exports = router;

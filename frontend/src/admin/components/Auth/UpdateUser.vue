@@ -1,64 +1,89 @@
 <template>
-  <div class="p-6">
-    <h1 class="text-2xl font-bold mb-4 text-black">Quản lý người dùng</h1>
+  <div class="max-w-md mx-auto p-6 bg-white rounded-xl shadow">
+    <h2 class="text-2xl font-bold mb-4 text-black">Cập nhật người dùng</h2>
 
-    <!-- Trạng thái -->
     <div v-if="loading" class="text-gray-500 mb-4">Đang tải dữ liệu...</div>
     <div v-else-if="error" class="text-red-500 mb-4">{{ error }}</div>
 
-    <!-- Bảng danh sách -->
-    <table v-else class="w-full text-black bg-white shadow rounded-xl">
-      <thead class="bg-gray-100 text-lg font-bold">
-        <tr>
-          <th class="border p-2 text-left">Email</th>
-          <th class="border p-2 text-center w-40">Vai trò</th>
-          <th class="border p-2 text-center w-52">Ngày tạo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="user in users"
-          :key="user._id"
-          class="hover:bg-gray-100 transition text-sm"
+    <form @submit.prevent="updateUser" v-if="!loading">
+      <!-- Email -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input
+          type="email"
+          v-model="user.email"
+          required
+          class="w-full border px-3 py-2 rounded focus:outline-none focus:ring focus:border-blue-300"
+        />
+      </div>
+
+      <!-- Vai trò -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Vai trò</label>
+        <select
+          v-model="user.role"
+          required
+          class="w-full border px-3 py-2 rounded focus:outline-none focus:ring focus:border-blue-300"
         >
-          <td class="border p-2">{{ user.email }}</td>
-          <td class="border p-2 text-center capitalize">{{ user.role }}</td>
-          <td class="border p-2 text-center">
-            {{ new Date(user.createdAt).toLocaleString("vi-VN") }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+        </select>
+      </div>
+
+      <!-- Nút submit -->
+      <button
+        type="submit"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
+        Lưu thay đổi
+      </button>
+    </form>
   </div>
 </template>
 
-<script>
-import axios from "axios";
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
-export default {
-  data() {
-    return {
-      users: [],
-      loading: true,
-      error: null,
-    };
-  },
-  methods: {
-    async fetchUsers() {
-      try {
-        const res = await axios.get("/admin/userslist");
-        console.log("Đường dẫn",res);        
-        this.users = res.data.data;
-      } catch (err) {
-        this.error = "Lỗi khi tải người dùng.";
-        console.error(err);
-      } finally {
-        this.loading = false;
-      }
-    },
-  },
-  mounted() {
-    this.fetchUsers();
-  },
+const route = useRoute();
+const router = useRouter();
+const userId = route.params.id;
+
+const user = ref({
+  email: '',
+  role: ''
+});
+
+const loading = ref(true);
+const error = ref(null);
+
+// Lấy dữ liệu người dùng
+const fetchUser = async () => {
+  try {
+    const res = await axios.get(`/admin/get/user/${userId}`);
+    user.value = res.data.data;
+  } catch (err) {
+    error.value = 'Lỗi khi tải người dùng.';
+    console.error(err);
+  } finally {
+    loading.value = false;
+  }
 };
+
+// Cập nhật người dùng
+const updateUser = async () => {
+  try {
+    await axios.put(`/admin/update/users/${userId}`, user.value); 
+    //link \backend\routes\Auth\AdminRoutes.js
+    Swal.fire("Thành công", "Người dùng đã được cập nhật.", "success");
+    router.push("/admin/users");
+  } catch (err) {
+    Swal.fire("Lỗi", "Không thể cập nhật người dùng.", "error");
+    console.error(err);
+  }
+};
+
+onMounted(fetchUser);
 </script>
