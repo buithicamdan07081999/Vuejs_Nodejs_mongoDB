@@ -20,19 +20,29 @@
     <table v-else class="w-full text-black bg-white shadow rounded-xl">
       <thead class="bg-gray-100 text-sm font-bold">
         <tr>
+          <th class="border p-2 w-12 text-center">STT</th>
+          <th class="border p-2 text-left">Tên người dùng</th>
           <th class="border p-2 text-left">Email</th>
+          <th class="border p-2 text-center w-52">Địa chỉ</th>
+          <th class="border p-2 text-center w-52">Số điện thoại</th>
           <th class="border p-2 text-center w-40">Vai trò</th>
-          <th class="border p-2 text-center w-52">Ngày tạo</th>
           <th class="border p-2 text-center w-40">Hành động</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in filteredUsers" :key="user._id" class="hover:bg-gray-50 transition text-sm">
+        <tr v-for="(user, index) in filteredUsers" :key="user._id"
+          class="text-center hover:bg-gray-50 transition text-sm">
+          <td class="border p-2">{{ index + 1 + (page - 1) * limit }}</td>
+          <td class="border p-2">{{ user.name }}</td>
           <td class="border p-2">{{ user.email }}</td>
-          <td class="border p-2 text-center capitalize">{{ user.role }}</td>
           <td class="border p-2 text-center">
-            {{ new Date(user.createdAt).toLocaleString("vi-VN") }}
+            {{ user.address }}
           </td>
+          <!-- <td class="border p-2 text-center">
+            {{ new Date(user.createdAt).toLocaleString("vi-VN") }}
+          </td> -->
+          <td class="border p-2">{{ user.phone }}</td>
+          <td class="border p-2 ">{{ user.role }}</td>
           <td class="border p-2">
             <div class="flex justify-center gap-2">
               <router-link :to="`/admin/update/user/${user._id}`"
@@ -61,6 +71,10 @@ export default {
       loading: true,
       error: null,
       searchQuery: "",
+      page: 1,
+      limit: 10,
+      totalPages: 1,
+      search: "",
     };
   },
   computed: {

@@ -22,9 +22,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const connectDB = require("./config/db");
 connectDB();
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected"))
+  // .then(() => console.log("✅ MongoDB Connected"))
   .catch(err => console.error("❌ MongoDB Error:", err));
-
 // Nơi import và khai báo các API
 app.use("/api/products", require("./routes/Product/ProductRoutes"));
 app.use("/api/categories", require("./routes/Product/CategoryRoutes"));

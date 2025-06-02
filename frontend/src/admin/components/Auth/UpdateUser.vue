@@ -33,11 +33,12 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
 const route = useRoute()
+const router = useRouter()
 const userId = route.params.id
 const user = ref(null)
 
@@ -52,12 +53,36 @@ const fetchUser = async () => {
 }
 
 const updateUser = async () => {
-  try {
-    const res = await axios.put(`/admin/get/user/${userId}`, user.value)
-    Swal.fire('Thành công', 'Người dùng đã được cập nhật', 'success')
-  } catch (error) {
-    console.error('Lỗi cập nhật:', error)
-    Swal.fire('Lỗi', 'Không thể cập nhật người dùng', 'error')
+  const result = await Swal.fire({
+    title: 'Bạn có chắc chắn muốn cập nhật?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Cập nhật!',
+    cancelButtonText: 'Huỷ'
+  })
+
+  if (result.isConfirmed) {
+    try {
+      user.value.role = user.value.isAdmin ? 'admin' : 'user'
+      await axios.put(`/admin/update/user/${userId}`, user.value)
+
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Cập nhật thành công!',
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: { popup: 'animate-fade-in' }
+      })
+
+      router.push('/admin/userslist')
+    } catch (err) {
+      console.error('Lỗi cập nhật:', err)
+      Swal.fire('Cập nhật thất bại!', 'Vui lòng thử lại.', 'error')
+    }
   }
 }
 

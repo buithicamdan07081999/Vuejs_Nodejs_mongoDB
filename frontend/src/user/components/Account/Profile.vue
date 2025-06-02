@@ -5,7 +5,7 @@
       <!-- Avatar -->
       <div class="w-32 h-32 mb-4">
         <img
-          :src="user.avatar || 'https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-6/463600900_2830541050455000_1706347478209980915_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeE9x_ogescp_k7V9L_rvXDvr1fXkBvnl-SvV9eQG-eX5NWVpXR3iMmQYfDEqcBRNiAlNCaIwjmxAfzGd5Zv-XaN&_nc_ohc=kXejn-3WRrAQ7kNvwELTAQf&_nc_oc=AdmLc3NSn554lhQjDdNBclgppWfGCu8OlQpZj0dYTYjooMxv4MqXuQiWwJSratR4TGM&_nc_zt=23&_nc_ht=scontent.fsgn5-9.fna&_nc_gid=DVtGZEvOL-v1xOX2QNEw0g&oh=00_AfFTN_i74RAUZ-y-lN1ZAA3rMe3KBzqYDmx_PYE4rdi8XA&oe=680946AC'"
+          :src="user.avatar"
           alt="Avatar"
           class="rounded-full w-32 h-32 object-cover"
         />
