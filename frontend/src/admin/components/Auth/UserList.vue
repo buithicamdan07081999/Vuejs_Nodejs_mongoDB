@@ -3,20 +3,16 @@
     <h1 class="text-2xl font-bold mb-4 text-black">Quản lý người dùng</h1>
 
     <div class="flex justify-between mb-4 w-full">
-      <input v-model="search" @input="handleSearch" type="text" placeholder="Tìm kiếm người dùng..."
+      <input v-model="search" type="text" placeholder="Tìm kiếm người dùng..."
         class="border text-blue-800 p-2 rounded w-full" />
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
-        <router-link to="/admin/adduser" class="bg-blue-500 text-white px-4 py-2 rounded">
-          Thêm
-        </router-link>
-      </button>
+      <router-link to="/admin/adduser" class="bg-blue-500 text-white px-4 py-2 rounded ml-2">
+        Thêm
+      </router-link>
     </div>
 
-    <!-- Trạng thái -->
     <div v-if="loading" class="text-gray-500 mb-4">Đang tải dữ liệu...</div>
     <div v-else-if="error" class="text-red-500 mb-4">{{ error }}</div>
 
-    <!-- Bảng danh sách -->
     <table v-else class="w-full text-black bg-white shadow rounded-xl">
       <thead class="bg-gray-100 text-sm font-bold">
         <tr>
@@ -24,9 +20,9 @@
           <th class="border p-2 text-left">Tên người dùng</th>
           <th class="border p-2 text-left">Email</th>
           <th class="border p-2 text-center w-52">Địa chỉ</th>
-          <th class="border p-2 text-center w-52">Số điện thoại</th>
+          <th class="border p-2 text-center w-52">SĐT</th>
           <th class="border p-2 text-center w-40">Vai trò</th>
-          <th class="border p-2 text-center w-40">Hành động</th>
+          <th class="border p-2 text-center w-40">Cập nhật</th>
         </tr>
       </thead>
       <tbody>
@@ -35,16 +31,15 @@
           <td class="border p-2">{{ index + 1 + (page - 1) * limit }}</td>
           <td class="border p-2">{{ user.name }}</td>
           <td class="border p-2">{{ user.email }}</td>
-          <td class="border p-2 text-center">
-            {{ user.address }}
-          </td>
-          <!-- <td class="border p-2 text-center">
-            {{ new Date(user.createdAt).toLocaleString("vi-VN") }}
-          </td> -->
+          <td class="border p-2">{{ user.address }}</td>
           <td class="border p-2">{{ user.phone }}</td>
-          <td class="border p-2 ">{{ user.role }}</td>
+          <td class="border p-2">{{ user.role }}</td>
           <td class="border p-2">
             <div class="flex justify-center gap-2">
+              <router-link :to="`/admin/reset-password/${user._id}`"
+              class="bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-600">
+              Reset
+            </router-link>
               <router-link :to="`/admin/update/user/${user._id}`"
                 class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
                 Sửa
@@ -70,17 +65,18 @@ export default {
       users: [],
       loading: true,
       error: null,
-      searchQuery: "",
+      search: "",
       page: 1,
       limit: 10,
-      totalPages: 1,
-      search: "",
     };
   },
   computed: {
     filteredUsers() {
-      const q = this.searchQuery.trim().toLowerCase();
-      return this.users.filter((user) => user.email.toLowerCase().includes(q));
+      const q = this.search.trim().toLowerCase();
+      return this.users.filter(user =>
+        user.email.toLowerCase().includes(q) ||
+        user.name.toLowerCase().includes(q)
+      );
     },
   },
   methods: {
@@ -95,17 +91,10 @@ export default {
         this.loading = false;
       }
     },
-    handleSearch() {
-      clearTimeout(this.debounceTimer);
-      this.debounceTimer = setTimeout(() => {
-        this.page = 1;
-        this.fetchProducts();
-      }, 300);
-    },
     async deleteUser(id) {
       const result = await Swal.fire({
         title: "Bạn có chắc chắn?",
-        text: "Bạn đang xóa user với id là: " + id,
+        text: "Bạn đang xóa user với ID: " + id,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
@@ -117,7 +106,7 @@ export default {
       if (result.isConfirmed) {
         try {
           await axios.delete(`/admin/users/${id}`);
-          this.users = this.users.filter((u) => u._id !== id);
+          this.users = this.users.filter(u => u._id !== id);
           Swal.fire("Đã xóa!", "Người dùng đã bị xóa.", "success");
         } catch (err) {
           Swal.fire("Lỗi!", "Không thể xóa người dùng.", "error");

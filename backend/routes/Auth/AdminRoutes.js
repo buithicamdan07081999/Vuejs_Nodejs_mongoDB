@@ -7,6 +7,7 @@ const UpdateUser = require("../../controllers/Admin/UpdateUserController");
 const DeleteUser = require("../../controllers/Admin/DeleteUserController");
 const CreateUser = require("../../controllers/Admin/CreateUserController");
 const GetProfile = require("../../controllers/Admin/GetProfileUserController");
+const ResetUserPassword = require("../../controllers/Admin/ResetUserPassword");
 
 // Routes: không thêm /api/admin ở đây
 
@@ -16,4 +17,5 @@ router.get("/profile/user/:id", GetProfile);    // GET /api/admin/get/profile/us
 router.get("/get/user/:id", GetUserById);       // GET /api/admin//get/user/:id frontend\src\admin\components\Auth\UpdateUser.vue
 router.put("/update/user/:id", UpdateUser);        // PUT /api/admin/update/user/:id
 router.delete("/delete/user/:id", DeleteUser);     // DELETE /api/admin/delete/user/:id
+router.put("/admin/reset-password/:id", ResetUserPassword); // PUT api/admin/reset-password/
 module.exports = router;

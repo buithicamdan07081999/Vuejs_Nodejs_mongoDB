@@ -24,11 +24,10 @@ const Routes = [
         component: () => import('@/admin/components/Products/AddProduct.vue')
       },
       {
-        path: 'update/user/:id',
-        name: 'EditUser',
-        component: () => import('@/admin/components/Auth/UpdateUser.vue'),
+        path: "/reset-password/:id",
+        name: "ResetPassword",
+        component: () => import("@/admin/components/Auth/ForgotPassword.vue"),
       },
-
       // Product
       {
         path: 'products',
