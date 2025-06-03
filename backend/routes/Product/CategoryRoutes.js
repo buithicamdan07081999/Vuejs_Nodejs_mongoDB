@@ -6,9 +6,9 @@ const { deleteCategory } = require('../../controllers/Category/deleteCategoryCon
 
 const router = express.Router();
 
-router.get("/", getAllCategories); // GET /api/categories
-router.get("/:id", getCategoryById); // GET /api/categories/:id
-router.put("/:id", updateCategory); // PUT /api/categories/:id
+router.get("/", getAllCategories); 
+router.get("/:id", getCategoryById);
+router.put("/:id", updateCategory);
 router.post('/', createCategory);
 router.put('/:id', updateCategory);
 router.delete('/:id', deleteCategory);

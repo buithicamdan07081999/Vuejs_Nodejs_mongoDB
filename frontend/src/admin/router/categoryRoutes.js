@@ -1,7 +1,7 @@
 import MainLayout from "@/admin/views/MainLayout.vue";
 
 export default [{
-  path: "categorie",
+  path: "category",
   component: MainLayout,
   children: [
     {

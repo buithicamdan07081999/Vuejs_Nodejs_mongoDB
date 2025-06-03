@@ -41,7 +41,7 @@ const formattedPrice = computed({
 // Hàm gọi API lấy danh mục sản phẩm
 const loadCategories = async () => {
     try {
-        const res = await axios.get('http://localhost:5000/api/categories'); // Giả sử endpoint lấy danh mục là /categories
+        const res = await axios.get('http://localhost:5000/api/category');
         categories.value = res.data;
      //   console.log("Kết quả categories API:", res.data);
     } catch (err) {
@@ -248,7 +248,7 @@ watch(product, (newProduct) => {
                     <p class="text-sm mt-1">
                         <button @click="goToAddCategory">Không có danh mục phù hợp?</button>
                         <router-link
-                            :to="{ path: '/admin/categories/add', query: { from: 'add-product', state: JSON.stringify(product) } }"
+                            :to="{ path: '/admin/category/add', query: { from: 'add-product', state: JSON.stringify(product) } }"
                             class="text-blue-600 underline">
                             Thêm danh mục
                         </router-link>

@@ -41,7 +41,7 @@ const name = ref('');
 // Lấy danh mục theo id
 const fetchCategory = async () => {
   try {
-    const res = await axios.get(`/categories/${categoryId}`);
+    const res = await axios.get(`/category/${categoryId}`);
     name.value = res.data.name;
   } catch (err) {
     console.error('Lỗi khi tải danh mục:', err);
@@ -52,7 +52,7 @@ const fetchCategory = async () => {
 // Cập nhật danh mục
 const updateCategory = async () => {
   try {
-    await axios.put(`/categories/${categoryId}`, { name: name.value });
+    await axios.put(`/category/${categoryId}`, { name: name.value });
     // ✅ Toast góc phải khi thành công
     Swal.fire({
       toast: true,
@@ -63,7 +63,7 @@ const updateCategory = async () => {
       timer: 2000,
       timerProgressBar: true
     });
-    router.push('/admin/categories');
+    router.push('/admin/category');
   } catch (err) {
     console.error('Lỗi cập nhật danh mục:', err);
     Swal.fire('Lỗi', err.response?.data?.message || 'Không thể cập nhật', 'error');

@@ -62,14 +62,14 @@ const backToPrevious = () => {
       },
     });
   } else {
-    router.push('/admin/categories'); // Mặc định quay về trang danh sách danh mục
+    router.push('/admin/category'); // Mặc định quay về trang danh sách danh mục
   }
 };
 
 // Hàm thêm danh mục mới
 const addCategory = async () => {
   try {
-    await axios.post('/categories', { name: name.value });
+    await axios.post('/category', { name: name.value });
 
     Swal.fire({
       toast: true,
@@ -91,7 +91,7 @@ const addCategory = async () => {
         }
       });
     } else {
-      router.push('/admin/categories');
+      router.push('/admin/category');
     }
   } catch (err) {
     console.error('Lỗi thêm danh mục:', err);

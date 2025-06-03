@@ -4,7 +4,7 @@
 
     <!-- Nút Thêm (canh phải) -->
     <div class="flex justify-end mb-4">
-      <router-link to="/admin/categories/add"
+      <router-link to="/admin/category/add"
         class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
         + Thêm danh mục
       </router-link>
@@ -25,7 +25,7 @@
           <td class="border p-2">{{ category.name }}</td>
           <td class="border p-2 text-center">
             <div class="flex justify-center gap-2">
-              <router-link :to="`/admin/categories/edit/${category._id}`"
+              <router-link :to="`/admin/category/edit/${category._id}`"
                 class="bg-yellow-500 text-white px-3 py-1 rounded">
                 Sửa
               </router-link>
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     async fetchCategories() {
-      const res = await axios.get("/categories");
+      const res = await axios.get("/category");
       this.categories = res.data;
     },
     async deleteCategory(id) {
@@ -67,7 +67,7 @@ export default {
 
       if (result.isConfirmed) {
         try {
-          await axios.delete(`/categories/${id}`);
+          await axios.delete(`/category/${id}`);
           this.fetchCategories();
           // Hiển thị toast thông báo thành công
           Swal.fire({

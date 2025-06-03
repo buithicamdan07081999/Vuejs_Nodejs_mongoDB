@@ -43,30 +43,6 @@ router.post("/", upload.single("image"), async (req, res) => {
     console.error('Upload failed:', err);
     return res.status(500).json({ error: 'Upload failed' });
   }
-  // try {
-
-  //   const oldImage = req.body.oldImage; // Tên file cũ
-  //   console.log(oldImage);
-  //   if (oldImage) {
-  //     const oldImagePath = path.join(uploadDir, oldImage);
-  //     console.log('Tên file cũ để xóa: ',oldImage,'_',oldImagePath);
-  //     try {
-  //       //await fs.access(oldImagePath); // Kiểm tra tồn tại
-  //       //await fs.unlink(oldImagePath); // Xóa file
-  //       console.log("Đã xóa ảnh cũ:", oldImage);
-  //     } catch (err) {
-  //       console.log("Không tìm thấy ảnh cũ hoặc lỗi khi xóa:", err.message);
-  //     }
-  //   }
-
-  //   // Trả về đường dẫn ảnh mới
-  //   return res.json({
-  //     //image: `http://localhost:5000/uploads/products/${req.file.filename}`,
-  //   });
-  // } catch (error) {
-  //   console.error("Lỗi khi upload ảnh:", error);
-  //   return res.status(500).json({ message: "Lỗi server" });
-  // }
 });
 
 module.exports = router;

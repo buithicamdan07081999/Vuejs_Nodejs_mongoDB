@@ -19,7 +19,7 @@ const menuItems = [
   { label: 'Dashboard', path: '/admin', icon: HomeIcon },
   { label: 'Users', path: '/admin/user', icon: UserIcon },
   { label: 'Products', path: '/admin/product', icon: ShoppingBagIcon },
-  { label: 'Categories', path: '/admin/categorie', icon: Squares2X2Icon },
+  { label: 'category', path: '/admin/category', icon: Squares2X2Icon },
   { label: 'Orders', path: '/admin/order', icon: ClipboardDocumentListIcon },
 ]
 </script>
