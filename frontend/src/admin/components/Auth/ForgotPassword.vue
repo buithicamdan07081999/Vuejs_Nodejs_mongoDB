@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-md mx-auto p-6 bg-white rounded-xl shadow space-y-4">
+  <div class="mt-24 max-w-md mx-auto p-6 bg-white rounded-xl shadow space-y-4">
     <h2 class="text-xl font-semibold text-center">Đặt lại mật khẩu</h2>
 
     <form @submit.prevent="handleReset">

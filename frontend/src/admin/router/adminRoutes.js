@@ -24,7 +24,8 @@ const Routes = [
         component: () => import('@/admin/components/Products/AddProduct.vue')
       },
       {
-        path: "/reset-password/:id",
+        //  path: "/reset-password/:id", // ❌ Đường dẫn tuyệt đối, không nằm trong /admin
+        path: "reset-password/:id",
         name: "ResetPassword",
         component: () => import("@/admin/components/Auth/ForgotPassword.vue"),
       },
