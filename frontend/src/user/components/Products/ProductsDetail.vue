@@ -14,7 +14,7 @@ const handleBuyNow = () => {
 // Hàm lấy thông tin sản phẩm từ API
 const fetchProduct = async () => {
   try {
-    const response = await axios.get(`/products/${productId}`);
+    const response = await axios.get(`/product/${productId}`);
     product.value = response.data;
     console.log(product.value);
   } catch (error) {

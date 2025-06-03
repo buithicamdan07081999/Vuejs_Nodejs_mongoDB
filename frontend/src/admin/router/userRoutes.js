@@ -36,11 +36,6 @@ export default
       name: "UpdateUser",
       component: () => import("@/admin/components/Auth/UpdateUser.vue"),
     },
-    {
-      path: "delete/:id",
-      name: "DeleteUser",
-      component: () => import("@/admin/components/Auth/UserList.vue"),
-    },
   ],
 }
 ];

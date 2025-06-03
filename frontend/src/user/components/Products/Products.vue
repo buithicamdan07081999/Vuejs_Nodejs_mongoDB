@@ -22,7 +22,7 @@
         <p class="text-sm text-gray-500 mb-2 text-center">{{ product.description }}</p>
         <p class="text-red-500 font-bold text-center mb-4">Giá: {{ product.price }} VNĐ</p>
         <button>
-          <router-link class="bg-blue-500 hover:bg-blue-800 text-sm px-4 py-2 rounded transition duration-200 text-white-300 font-bold" :to="'/products/' + product._id">Xem chi tiết</router-link>
+          <router-link class="bg-blue-500 hover:bg-blue-800 text-sm px-4 py-2 rounded transition duration-200 text-white-300 font-bold" :to="'/product/' + product._id">Xem chi tiết</router-link>
         </button>
       </div>
     </div>
@@ -40,7 +40,7 @@ const maxPrice = ref('')
 
 const fetchProducts = async () => {
   try {
-    const response = await axios.get('/products')
+    const response = await axios.get('/product')
     products.value = response.data
   } catch (error) {
     console.error('Lỗi khi lấy danh sách sản phẩm:', error)

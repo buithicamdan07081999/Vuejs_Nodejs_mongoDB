@@ -53,7 +53,7 @@
           <!-- Căn giữa nút Sửa Xóa -->
           <td class="border p-2">
             <div class="flex gap-2 justify-center items-center">
-              <router-link :to="`/admin/products/edit/${product._id}`"
+              <router-link :to="`/admin/product/edit/${product._id}`"
                 class="bg-yellow-500 text-white px-3 py-1 rounded">
                 Sửa
               </router-link>
@@ -107,7 +107,7 @@ export default {
   methods: {
     async fetchProducts() {
       const res = await fetch(
-        `http://localhost:5000/api/products?search=${this.search}&page=${this.page}&limit=${this.limit}`
+        `http://localhost:5000/api/product?search=${this.search}&page=${this.page}&limit=${this.limit}`
       );
       const { products, totalPages } = await res.json();
       this.products = products;
@@ -141,7 +141,7 @@ export default {
 
       if (result.isConfirmed) {
         try {
-          await fetch(`http://localhost:5000/api/products/${id}`, { method: "DELETE" });
+          await fetch(`http://localhost:5000/api/product/${id}`, { method: "DELETE" });
           await this.fetchProducts();
           Swal.fire("Đã xoá!", "Sản phẩm đã được xoá.", "success");
         } catch (err) {
@@ -181,7 +181,7 @@ export default {
         try {
           await Promise.all(
             this.selectedProducts.map(id =>
-              fetch(`http://localhost:5000/api/products/${id}`, { method: "DELETE" })
+              fetch(`http://localhost:5000/api/product/${id}`, { method: "DELETE" })
             )
           );
           this.selectedProducts = [];

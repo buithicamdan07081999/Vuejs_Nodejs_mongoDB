@@ -5,15 +5,20 @@ const fs = require('fs');
 const path = require('path');
 const uploadDir = path.join(__dirname, "../uploads/products");
 
-// Cấu hình Multer
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
+  destination(req, file, cb) {
+    cb(null, path.resolve(__dirname, '..', '..', 'uploads', 'products'));
+  },
+  filename(req, file, cb) {
+    const ext = path.extname(file.originalname) || '.webp';
+    cb(null, `${Date.now()}${ext}`);
+  }
 });
-const upload = multer({ storage });
 
+const upload = multer({ storage });
 // API upload
 router.post("/", upload.single("image"), async (req, res) => {
+  console.log("Uploaded file:", req.file);
   try {
     const file = req.file;
     if (!file) {

@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGO_URI)
 // Nơi import và khai báo các API
 app.use("/api/product", require("./routes/Product/ProductRoutes"));
 app.use("/api/category", require("./routes/Product/CategoryRoutes"));
-app.use("/api/upload", require("./routes/Product/UploadRoutes"));
+app.use("/api/uploads", require("./routes/Product/UploadRoutes"));
 app.use("/api/user", require("./routes/Auth/UserRoutes"));
 // file liên quan 
 app.use("/api/admin", require("./routes/Auth/AdminRoutes"));

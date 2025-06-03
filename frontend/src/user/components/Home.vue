@@ -25,7 +25,7 @@ import BannerSlider from './Slider/BannerSlider.vue';
         <p class="text-gray-700 font-medium">{{ product.category }}</p>
         <p class="text-red-500 font-bold">{{ product.price }} VNĐ</p>
         <button @click="deleteProduct(product._id)">Xóa</button><br />
-        <router-link class="text-blue-500 font-bold" :to="'/products/' + product._id">Xem chi tiết</router-link>
+        <router-link class="text-blue-500 font-bold" :to="'/product/' + product._id">Xem chi tiết</router-link>
       </div>
     </div>
   </div>
@@ -50,7 +50,7 @@ import BannerSlider from './Slider/BannerSlider.vue';
       <p class="text-center text-gray-700 font-medium">{{ product.category }}</p>
       <p class="text-red-500 font-bold">{{ product.price }} VNĐ</p>
       <button @click="deleteProduct(product._id)">Xóa</button><br />
-      <router-link class="text-blue-500 font-bold" :to="'/products/' + product._id">Xem chi tiết</router-link>
+      <router-link class="text-blue-500 font-bold" :to="'/product/' + product._id">Xem chi tiết</router-link>
     </div>
   </div>
 </template>

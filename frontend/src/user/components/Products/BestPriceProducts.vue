@@ -15,7 +15,7 @@ defineEmits(['delete']);
         <p class="text-gray-700 font-medium">{{ p.category }}</p>
         <p class="text-red-500 font-bold">{{ p.price }} VNĐ</p>
         <button @click="$emit('delete', p._id)">Xóa</button><br/>
-        <router-link class="text-blue-500 font-bold" :to="`/products/${p._id}`">Xem chi tiết</router-link>
+        <router-link class="text-blue-500 font-bold" :to="`/product/${p._id}`">Xem chi tiết</router-link>
       </div>
     </div>
   </div>

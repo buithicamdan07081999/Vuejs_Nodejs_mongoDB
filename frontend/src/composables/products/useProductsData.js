@@ -8,7 +8,7 @@ export function useProducts() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/products');
+      const res = await axios.get('http://localhost:5000/api/product');
       products.value = res.data;
     } catch (err) {
       console.error('Lỗi fetchProducts:', err);
@@ -17,7 +17,7 @@ export function useProducts() {
 
   const fetchlastestProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/products/latest');
+      const res = await axios.get('http://localhost:5000/api/product/latest');
       productslast.value = res.data;
     } catch (err) {
       console.error('Lỗi fetchlatest:', err);
@@ -26,7 +26,7 @@ export function useProducts() {
 
   const fetchpriceProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/products/price');
+      const res = await axios.get('http://localhost:5000/api/product/price');
       productsprice.value = res.data;
     } catch (err) {
       console.error('Lỗi fetchprice:', err);
@@ -35,7 +35,7 @@ export function useProducts() {
 
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/products/${id}`);
+      await axios.delete(`http://localhost:5000/api/product/${id}`);
       alert('Xóa thành công!');
       await fetchProducts();
     } catch (err) {

@@ -54,7 +54,7 @@ const backToPrevious = () => {
     const productData = route.query.state ? JSON.parse(route.query.state) : null;
 
     router.push({
-      path: '/admin/products/add',
+      path: '/admin/product/add',
       query: {
         restored: 'true',
         // Nếu productData null thì stringify sẽ trả về null chuỗi
@@ -84,7 +84,7 @@ const addCategory = async () => {
     if (route.query.from === 'add-product') {
       const state = route.query.state || ''
       router.push({
-        path: '/admin/products/add',
+        path: '/admin/product/add',
         query: {
           restored: 'true',
           state,

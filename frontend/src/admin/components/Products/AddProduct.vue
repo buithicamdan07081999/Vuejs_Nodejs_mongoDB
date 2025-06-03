@@ -80,7 +80,7 @@ const uploadImage = async (file) => {
         formData.append('image', file);
         formData.append('oldImage', product.value.image); // gửi file ảnh cũ để xóa trong thư mục sau khi update
         console.log('file:', file, 'oldImage', product.value.image);
-        const res = await axios.post('/upload', formData);
+        const res = await axios.post('/uploads', formData);
         return res.data.image;
     } catch (err) {
         console.error('Lỗi upload ảnh:', err);
@@ -135,7 +135,7 @@ const addProduct = async () => {
     const cleanData = getCleanProductData(product.value, imageUrl);
     console.log('Dữ liệu JSON sẽ gửi:', cleanData);
     try {
-        await axios.post('/products', cleanData);
+        await axios.post('/product', cleanData);
 
         Swal.fire({
             toast: true,
@@ -148,7 +148,7 @@ const addProduct = async () => {
                 popup: 'animate-fade-in'
             }
         });
-        router.push('/admin/products');
+        router.push('/admin/product');
 
     } catch (err) {
         console.error('Lỗi thêm sản phẩm:', err);

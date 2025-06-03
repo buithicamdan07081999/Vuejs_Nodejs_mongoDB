@@ -34,7 +34,7 @@ const imagePreview = ref(null); // để hiển thị preview
 // Lấy sản phẩm cũ để hiển thị lên form
 const fetchProduct = async () => {
     try {
-        const res = await axios.get(`/products/${productId}`);
+        const res = await axios.get(`/product/${productId}`);
         product.value = res.data;
         imagePreview.value = res.data.image;
     } catch (err) {
@@ -59,9 +59,12 @@ const uploadImage = async (file) => {
     try {
         const formData = new FormData();
         formData.append('image', file);
+        console.log('file:', file);
+        console.log('file.name:', file.name);
+        console.log('file.type:', file.type);
         formData.append('oldImage', product.value.image); // gửi file ảnh cũ để xóa trong thư mục sau khi update
         console.log('file:', file, 'oldImage', product.value.image);
-        const res = await axios.post('/upload', formData);
+        const res = await axios.post('/uploads', formData);
         return res.data.image;
     } catch (err) {
         console.error('Lỗi upload ảnh:', err);
@@ -107,13 +110,14 @@ const updateProduct = async () => {
         if (imagePreview.value !== product.value.image) {
             if (newImageFile.value) {
                 imageUrl = await uploadImage(newImageFile.value);
+                console.log("HINH",newImageFile.value);
             }
         }
 
         // Cập nhật dữ liệu sản phẩm
         const cleanData = getCleanProductData(product.value, imageUrl);
 
-        const url = `/products/${productId}`;
+        const url = `/product/${productId}`;
 
         try {
             await axios.put(url, cleanData);
@@ -128,7 +132,7 @@ const updateProduct = async () => {
                     popup: 'animate-fade-in'
                 }
             });
-            router.push('/admin/products');
+            router.push('/admin/product');
         } catch (err) {
             console.error('Lỗi cập nhật:', err);
             Swal.fire('Cập nhật thất bại!', 'Vui lòng thử lại.', 'error');

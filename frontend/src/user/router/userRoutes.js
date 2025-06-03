@@ -7,9 +7,9 @@ import CheckoutPage from '@/user/components/Cart/CheckoutPage.vue';
 
 const UserRoutes = [
   { path: '/', name: 'HomeView', component: HomeView },
-  { path: '/Profile', name: 'ProfileView', component: ProfileView },
-  { path: '/Products/', name: 'ProductsView', component: ProductsView },
-  { path: '/Products/:id', name: 'ProductsDetailView', component: ProductsDetailView },
+  { path: '/profile', name: 'ProfileView', component: ProfileView },
+  { path: '/product/', name: 'ProductsView', component: ProductsView },
+  { path: '/product/:id', name: 'ProductsDetailView', component: ProductsDetailView },
   { path: '/cart', name: 'CartPage', component: CartPage } ,
   { path: '/checkout', name: 'CheckoutPage', component: CheckoutPage }
 ]

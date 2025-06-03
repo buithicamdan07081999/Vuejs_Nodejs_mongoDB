@@ -14,12 +14,12 @@
         <!-- Bộ sưu tập Dropdown -->
         <div class="dropdown-container">
           <button class="px-4">
-            <router-link to="/products" class="header-link">{{ $t('collection') }}</router-link>
+            <router-link to="/product" class="header-link">{{ $t('collection') }}</router-link>
           </button>
           <div class="dropdown-menu">
-            <router-link to="/products" class="header-link">{{ $t('best_seller') }}</router-link>
-            <router-link to="/products" class="header-link">{{ $t('newest') }}</router-link>
-            <router-link to="/products" class="header-link">{{ $t('discount') }}</router-link>
+            <router-link to="/product" class="header-link">{{ $t('best_seller') }}</router-link>
+            <router-link to="/product" class="header-link">{{ $t('newest') }}</router-link>
+            <router-link to="/product" class="header-link">{{ $t('discount') }}</router-link>
           </div>
         </div>
 
@@ -46,7 +46,7 @@
 
         <!-- Giỏ hàng -->
         <div>
-          <router-link to="/products" class="header-link">{{ $t('cart') }}</router-link>
+          <router-link to="/product" class="header-link">{{ $t('cart') }}</router-link>
         </div>
       </div>
 
