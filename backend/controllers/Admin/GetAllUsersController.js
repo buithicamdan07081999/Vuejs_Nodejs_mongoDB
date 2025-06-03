@@ -1,6 +1,6 @@
 const User = require("../../models/Auth/UserModels");
 
-// GET /api/admin/userslist → Trả danh sách tất cả user trong DB
+// GET /api/admin/user/list → Trả danh sách tất cả user trong DB
 const GetProfile = async (req, res) => {
   try {
     const users = await User.find().select("-password"); // không trả mật khẩu

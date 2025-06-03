@@ -1,10 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import userRoutes from "@/user/router/userRoutes";
-import adminRoutes from "@/admin/router/adminRoutes";
-import authRoutes from "@/auth/router"; 
+import adminRoutes from "@/admin/router"; // <- không dùng dấu {}
 
 const routesOperator = [
-  ...authRoutes,
   ...userRoutes,
   ...adminRoutes
 ];

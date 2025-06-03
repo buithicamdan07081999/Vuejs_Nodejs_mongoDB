@@ -44,7 +44,7 @@ const user = ref(null)
 
 const fetchUser = async () => {
   try {
-    const { data } = await axios.get(`/admin/get/user/${userId}`)
+    const { data } = await axios.get(`/admin/user/get/${userId}`)
     user.value = data
   } catch (error) {
     console.error('Lỗi lấy dữ liệu người dùng:', error)
@@ -66,7 +66,7 @@ const updateUser = async () => {
   if (result.isConfirmed) {
     try {
       user.value.role = user.value.isAdmin ? 'admin' : 'user'
-      await axios.put(`/admin/update/user/${userId}`, user.value)
+      await axios.put(`/admin/user/update/${userId}`, user.value)
 
       Swal.fire({
         toast: true,
@@ -78,7 +78,7 @@ const updateUser = async () => {
         customClass: { popup: 'animate-fade-in' }
       })
 
-      router.push('/admin/userslist')
+      router.push('/admin/user')
     } catch (err) {
       console.error('Lỗi cập nhật:', err)
       Swal.fire('Cập nhật thất bại!', 'Vui lòng thử lại.', 'error')

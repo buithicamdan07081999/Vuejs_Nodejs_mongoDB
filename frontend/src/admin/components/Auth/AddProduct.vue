@@ -40,7 +40,7 @@
               class="bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-600">
               Reset
             </router-link>
-              <router-link :to="`/admin/user/update/${user._id}`"
+              <router-link :to="`/admin/update/user/${user._id}`"
                 class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
                 Sửa
               </router-link>

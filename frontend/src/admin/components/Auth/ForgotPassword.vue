@@ -42,7 +42,7 @@ const handleReset = async () => {
   }
 
   try {
-    const res = await axios.put(`/api/admin/reset-password/${userId}`, {
+    const res = await axios.put(`/api/admin/user/reset-password/${userId}`, {
       newPassword: newPassword.value,
     })
     message.value = res.data.message

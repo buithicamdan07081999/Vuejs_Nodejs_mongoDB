@@ -5,17 +5,17 @@ const GetAllUsers = require("../../controllers/Admin/GetAllUsersController");
 const GetUserById = require("../../controllers/Admin/GetUserByIdController");
 const UpdateUser = require("../../controllers/Admin/UpdateUserController");
 const DeleteUser = require("../../controllers/Admin/DeleteUserController");
-const CreateUser = require("../../controllers/Admin/CreateUserController");
+const AddUser = require("../../controllers/Admin/AddUserController");
 const GetProfile = require("../../controllers/Admin/GetProfileUserController");
 const ResetUserPassword = require("../../controllers/Admin/ResetUserPassword");
 
 // Routes: không thêm /api/admin ở đây
 
-router.post("/create/user", CreateUser);           // POST /api/admin/create/user
-router.get("/userslist", GetAllUsers);         // GET /api/admin/userslist
-router.get("/profile/user/:id", GetProfile);    // GET /api/admin/get/profile/user/:id
-router.get("/get/user/:id", GetUserById);       // GET /api/admin//get/user/:id frontend\src\admin\components\Auth\UpdateUser.vue
-router.put("/update/user/:id", UpdateUser);        // PUT /api/admin/update/user/:id
-router.delete("/delete/user/:id", DeleteUser);     // DELETE /api/admin/delete/user/:id
-router.put("/admin/reset-password/:id", ResetUserPassword); // PUT api/admin/reset-password/
+router.post("/user/add", AddUser);           // POST /api/admin/user/add
+router.get("/user/list", GetAllUsers);         // GET /api/admin/user/list
+router.get("/user/profile/:id", GetProfile);    // GET /api/admin/get/user/:id/profile
+router.get("/user/get/:id", GetUserById);       // GET /api/admin/user/get/:id frontend\src\admin\components\Auth\UpdateUser.vue
+router.put("/user/update/:id", UpdateUser);        // PUT /api/admin/user/update/:id
+router.delete("/user/delete/:id", DeleteUser);     // DELETE /api/admin/delete/user/:id
+router.put("/user/reset-password/:id", ResetUserPassword); // PUT api/admin/user/reset-password/
 module.exports = router;
