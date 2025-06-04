@@ -14,7 +14,7 @@ export default
     {
       path: "add",
       name: "AddUser",
-      component: () => import("@/admin/components/Auth/AddProduct.vue"),
+      component: () => import("@/admin/components/Auth/AddUser.vue"),
     },
     {
       path: "reset-password/:id",

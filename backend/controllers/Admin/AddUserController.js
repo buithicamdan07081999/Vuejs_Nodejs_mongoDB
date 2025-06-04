@@ -2,28 +2,36 @@
 const User = require("../../models/Auth/UserModels");
 const bcrypt = require("bcryptjs");
 
-// ✅ Tạo user mới - Admin tạo
-const CreateUser = async (req, res) => {
+const AddUser = async (req, res) => {
   try {
-    const { email, password, role, avatar } = req.body;
-    if (!email || !password) return res.status(400).json({ message: "Email và mật khẩu là bắt buộc" });
+    const { name, email, password, phone, address, role } = req.body;
 
-    const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json({ message: "Email đã tồn tại" });
+    // Validate đơn giản
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'Thiếu thông tin bắt buộc.' });
+    }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ message: 'Email đã được sử dụng.' });
+    }
 
-    const newUser = await User.create({
+    const newUser = new User({
+      name,
       email,
-      password: hashedPassword,
-      role: role || "user",
-      avatar: avatar || "",
+      password, // nên hash bằng bcrypt ở đây
+      phone,
+      address,
+      role: role || 'user',
     });
 
-    res.status(201).json({ message: "Tạo tài khoản thành công", user: newUser });
-  } catch (err) {
-    res.status(500).json({ message: "Lỗi khi tạo tài khoản", error: err.message });
+    await newUser.save();
+
+    res.status(201).json({ message: 'Tạo người dùng thành công.' });
+  } catch (error) {
+    console.error('Lỗi tạo người dùng:', error);
+    res.status(500).json({ message: 'Lỗi server.' });
   }
 };
 
-module.exports = CreateUser;
+module.exports = AddUser;

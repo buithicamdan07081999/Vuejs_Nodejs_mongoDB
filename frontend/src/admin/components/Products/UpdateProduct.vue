@@ -110,7 +110,6 @@ const updateProduct = async () => {
         if (imagePreview.value !== product.value.image) {
             if (newImageFile.value) {
                 imageUrl = await uploadImage(newImageFile.value);
-                console.log("HINH",newImageFile.value);
             }
         }
 
