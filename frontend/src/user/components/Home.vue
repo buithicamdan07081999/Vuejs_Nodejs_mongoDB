@@ -1,7 +1,10 @@
 <script setup>
+defineOptions({
+  name: 'HomeIndex'
+})
 import { formatDate, daysAgo } from '@/format/dateFormat';
-import { useProducts } from '@/composables/products/useProductsData';
-const { productslast, productsprice, deleteProduct } = useProducts();
+import { useProducts } from '../composables/products/useProductsData';
+const { productslast, productsprice} = useProducts();
 import '@/assets/styles/HomePage.css';  
 import BannerSlider from './Slider/BannerSlider.vue';
 </script>
@@ -19,12 +22,12 @@ import BannerSlider from './Slider/BannerSlider.vue';
   <div class="categories text-white">
     <h2 class="text-2xl font-bold">Danh sách sản phẩm giá tốt</h2>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+    <!-- productsprice do API trả về từ frontend -->
       <div v-for="product in productsprice" :key="product._id" class="category-card">
         <img :src="product.image" :alt="product.name" class="category-img" />
         <p class=" font-medium">{{ product.name }}</p>
         <p class="text-gray-700 font-medium">{{ product.category }}</p>
         <p class="text-red-500 font-bold">{{ product.price }} VNĐ</p>
-        <button @click="deleteProduct(product._id)">Xóa</button><br />
         <router-link class="text-blue-500 font-bold" :to="'/product/' + product._id">Xem chi tiết</router-link>
       </div>
     </div>
@@ -49,7 +52,6 @@ import BannerSlider from './Slider/BannerSlider.vue';
       <p class="text-center font-medium">{{ product.name }}</p>
       <p class="text-center text-gray-700 font-medium">{{ product.category }}</p>
       <p class="text-red-500 font-bold">{{ product.price }} VNĐ</p>
-      <button @click="deleteProduct(product._id)">Xóa</button><br />
       <router-link class="text-blue-500 font-bold" :to="'/product/' + product._id">Xem chi tiết</router-link>
     </div>
   </div>

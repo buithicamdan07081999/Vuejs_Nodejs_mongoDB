@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 import imageCompression from 'browser-image-compression';
 
 
-// Khai báo biến lưu danh mục, ban đầu là mảng rỗng, sẽ load từ API
 const router = useRouter();
 const route = useRoute();
 const goToAddCategory = () => {
@@ -26,7 +25,7 @@ const product = ref({
     gender: '',
     variations: [],
 });
-const imagePreview = ref(null); // để hiển thị preview
+const imagePreview = ref(null); 
 const formattedPrice = computed({
     get() {
         return product.value.price.toLocaleString('vi-VN'); // Hiển thị: 1.000.000
@@ -41,7 +40,7 @@ const formattedPrice = computed({
 // Hàm gọi API lấy danh mục sản phẩm
 const loadCategories = async () => {
     try {
-        const res = await axios.get('http://localhost:5000/api/category');
+        const res = await axios.get('/category');
         categories.value = res.data;
      //   console.log("Kết quả categories API:", res.data);
     } catch (err) {

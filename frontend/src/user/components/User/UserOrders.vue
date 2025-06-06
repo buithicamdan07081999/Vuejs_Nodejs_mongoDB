@@ -16,13 +16,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import axios from 'A/axios';
 
 const orders = ref([]);
 
 onMounted(async () => {
   const token = localStorage.getItem('token');
-  const res = await axios.get('/api/orders/my-orders', {
+  const res = await axios.get('/orders/my-orders', {
     headers: { Authorization: `Bearer ${token}` }
   });
   orders.value = res.data;

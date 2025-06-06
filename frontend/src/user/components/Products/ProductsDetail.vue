@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import axios from 'axios';
+import axios from '@/axios';
 
 const product = ref({});
 const route = useRoute();
@@ -22,7 +22,6 @@ const fetchProduct = async () => {
   }
 };
 
-// Khi component được load thì gọi API
 onMounted(fetchProduct);
 </script>
 

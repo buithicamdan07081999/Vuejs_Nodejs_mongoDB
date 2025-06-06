@@ -1,11 +1,10 @@
+<!-- MainLayouts.vue -->
 <template>
   <div>
-    <!-- Header cố định -->
-    <Header />
-    <!-- Nội dung chính -->
-    <div class="pt-16 flex flex-col h-screen">
-      <main class="flex-1 overflow-aut">
-        <div class="pt-16 px-4">
+    <component :is="headerComponent" />
+    <div class="pt-16 flex flex-col min-h-screen">
+      <main class="flex-1 overflow-auto">
+        <div class="pt-4 px-4">
           <RouterView />
         </div>
       </main>
@@ -13,7 +12,16 @@
     </div>
   </div>
 </template>
+
 <script setup>
-import Header from "@/layouts/AppHeader.vue"
-import Footer from "@/layouts/AppFooter.vue"
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import AppHeaderUser from '@/layouts/UserLayout/UserHeader.vue'
+import AppHeaderAdmin from '@/layouts/AdminLayout/AdminHeader.vue'
+import Footer from '@/layouts/AppFooter.vue'
+
+const route = useRoute()
+const headerComponent = computed(() =>
+  route.path.startsWith('/admin') ? AppHeaderAdmin : AppHeaderUser
+)
 </script>

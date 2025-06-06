@@ -1,8 +1,22 @@
 <script setup>
-defineProps({
-  items: Array
-});
-defineEmits(['delete']);
+import { ref, onMounted } from 'vue'
+import axios from '@/axios'
+
+const items = ref([])
+
+const fetchProducts = async () => {
+  const res = await axios.get('/product/price')
+  items.value = res.data
+  console.log('items.value:', items.value)
+}
+
+onMounted(fetchProducts)
+
+const emit = defineEmits(['delete'])
+
+const deleteItem = (id) => {
+  emit('delete', id)
+}
 </script>
 
 <template>
@@ -14,7 +28,7 @@ defineEmits(['delete']);
         <p class="font-medium">{{ p.name }}</p>
         <p class="text-gray-700 font-medium">{{ p.category }}</p>
         <p class="text-red-500 font-bold">{{ p.price }} VNĐ</p>
-        <button @click="$emit('delete', p._id)">Xóa</button><br/>
+        <button @click="deleteItem(p._id)">Xóa</button><br />
         <router-link class="text-blue-500 font-bold" :to="`/product/${p._id}`">Xem chi tiết</router-link>
       </div>
     </div>

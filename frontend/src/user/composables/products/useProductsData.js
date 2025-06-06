@@ -1,5 +1,5 @@
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import axios from '@/axios';
 
 export function useProducts() {
   const products = ref([]);
@@ -7,17 +7,18 @@ export function useProducts() {
   const productsprice = ref([]);
 
   const fetchProducts = async () => {
+    // console.error('Đường dẫn APIProducts:', axios.defaults.baseURL);
     try {
-      const res = await axios.get('http://localhost:5000/api/product');
+      const res = await axios.get('/product');
       products.value = res.data;
     } catch (err) {
-      console.error('Lỗi fetchProducts:', err);
+      console.error('Lỗi get APIProducts:', err);
     }
   };
 
   const fetchlastestProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/product/latest');
+      const res = await axios.get('/product/latest');
       productslast.value = res.data;
     } catch (err) {
       console.error('Lỗi fetchlatest:', err);
@@ -26,7 +27,7 @@ export function useProducts() {
 
   const fetchpriceProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/product/price');
+      const res = await axios.get('/product/price');
       productsprice.value = res.data;
     } catch (err) {
       console.error('Lỗi fetchprice:', err);
@@ -35,7 +36,7 @@ export function useProducts() {
 
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/product/${id}`);
+      await axios.delete(`/product/${id}`);
       alert('Xóa thành công!');
       await fetchProducts();
     } catch (err) {

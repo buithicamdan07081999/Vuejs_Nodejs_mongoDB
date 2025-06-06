@@ -74,7 +74,6 @@ const createUser = async () => {
       ...user.value,
       role: user.value.isAdmin ? 'admin' : 'user'
     }
-
     await axios.post('/admin/user/add', payload)
 
     Swal.fire({

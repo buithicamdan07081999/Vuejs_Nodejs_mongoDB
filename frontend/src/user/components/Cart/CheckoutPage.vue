@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import axios from 'axios'
+import axios from '@/axios'
 import Swal from 'sweetalert2'
 
 const route = useRoute()
@@ -21,7 +21,7 @@ onMounted(async () => {
     router.push('/login')
     return
   }
-  const res = await axios.get('/api/users/profile', {
+  const res = await axios.get('/users/profile', {
     headers: { Authorization: `Bearer ${authStore.token}` }
   })
   user.value = res.data
@@ -41,7 +41,7 @@ const handleSubmit = async () => {
     totalPrice: 1 // → load từ API nếu cần
   }
 
-  const res = await axios.post('/api/orders', order, {
+  const res = await axios.post('/orders', order, {
     headers: { Authorization: `Bearer ${authStore.token}` }
   })
 

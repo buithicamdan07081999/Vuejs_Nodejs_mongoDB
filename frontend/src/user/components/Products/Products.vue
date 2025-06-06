@@ -1,9 +1,9 @@
 <template>
-  <div class="pt-10 px-6 bg-grey text-white min-h-screen">
+  <div class="pt-10 px-6 text-white min-h-screen">
     <div class="flex flex-col md:flex-row gap-4 mb-6 justify-center items-center">
       <input v-model="searchQuery" type="text" placeholder="Tìm theo tên..."
-        class="border border-gray-300 rounded px-4 py-2 w-1/3" />
-      <select v-model="sortOrder" class="border border-gray-300 rounded px-4 py-2 w-1/3">
+        class="border border-gray-300 rounded px-4 py-2 w-1/3 text-black" />
+      <select v-model="sortOrder" class="text-black border border-gray-300 rounded px-4 py-2 w-1/3">
         <option value="">Sắp xếp theo giá</option>
         <option value="asc">Giá tăng dần</option>
         <option value="desc">Giá giảm dần</option>
@@ -16,14 +16,16 @@
     <h2 class="text-3xl font-bold mb-8 text-center">Danh sách sản phẩm</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <div v-for="product in filteredProducts" :key="product._id"
-        class="category-card bg-grey rounded-xl shadow-md overflow-hidden flex flex-col items-center p-4">
+        class="category-card rounded-xl shadow-md overflow-hidden flex flex-col items-center p-4">
         <img :src="product.image" alt="Hình ảnh" class="w-full h-120 object-cover mb-4 rounded-md" />
         <h3 class="text-lg font-semibold mb-1 text-center">{{ product.name }}</h3>
         <p class="text-sm text-gray-500 mb-2 text-center">{{ product.description }}</p>
         <p class="text-red-500 font-bold text-center mb-4">Giá: {{ product.price }} VNĐ</p>
-        <button>
-          <router-link class="bg-blue-500 hover:bg-blue-800 text-sm px-4 py-2 rounded transition duration-200 text-white-300 font-bold" :to="'/product/' + product._id">Xem chi tiết</router-link>
-        </button>
+        <router-link
+          class="bg-blue-500 hover:bg-blue-800 text-sm px-4 py-2 rounded transition duration-200 text-white font-bold"
+          :to="'/product/' + product._id">
+          Xem chi tiết
+        </router-link>
       </div>
     </div>
   </div>
@@ -31,7 +33,11 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import axios from 'axios'
+import axios from '@/axios'
+
+defineOptions({
+  name: 'ProductList'
+})
 
 const products = ref([])
 const searchQuery = ref('')
@@ -41,11 +47,13 @@ const maxPrice = ref('')
 const fetchProducts = async () => {
   try {
     const response = await axios.get('/product')
-    products.value = response.data
+    console.log("Dữ liệu API", response.data.products);
+    products.value = response.data.products;
   } catch (error) {
     console.error('Lỗi khi lấy danh sách sản phẩm:', error)
   }
 }
+
 
 onMounted(fetchProducts)
 
@@ -86,5 +94,4 @@ const filteredProducts = computed(() => {
   padding: 10px;
   text-align: center;
 }
-
 </style>

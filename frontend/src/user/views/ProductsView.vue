@@ -1,8 +1,8 @@
 <script setup>
-import Products from '../components/Products/Products.vue';
+import ProductList from '../components/Products/Products.vue';
 </script>
 <template>
   <div>
-    <Products />
+    <ProductList />
   </div>
 </template>
