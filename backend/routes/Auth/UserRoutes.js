@@ -7,7 +7,7 @@ const Login = require("../../controllers/User/LoginController");
 const GetProfile = require("../../controllers/User/GetProfileAdminController");
 const UpdateProfile = require("../../controllers/User/UpdateProfileAdminController");
 
-router.post("/register", Register);
+router.post("/register", Register); //api/user/register
 router.post("/login", Login);
 router.get("/profile", protect, GetProfile);
 router.put("/profile", protect, UpdateProfile);

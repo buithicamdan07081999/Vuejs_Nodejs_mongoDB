@@ -1,14 +1,26 @@
-// authService.js
-import axios from '@/axios'
+import axios from "@/axios";
 
-export const login = (email, password) =>
-  axios.post('/user/login', { email, password })
+// Base URL: /api/user đã được dùng trong main.js hoặc proxy
+export const register = (name, email, password) => {
+  return axios.post("/user/register", { name, email, password });
+};
 
-export const register = (email, password) =>
-  axios.post('/user/register', { email, password })
+export const login = (email, password) => {
+  return axios.post("/user/login", { email, password });
+};
 
-export const loginAdmin = (email, password) =>
-  axios.post('/admin/login', { email, password })
+export const getProfile = () => {
+  return axios.get("/user/profile", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+};
 
-export const registerAdmin = (email, password) =>
-  axios.post('/admin/register', { email, password })
+export const updateProfile = (data) => {
+  return axios.put("/user/profile", data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+};
