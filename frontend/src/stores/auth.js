@@ -19,6 +19,6 @@ export const useAuthStore = defineStore('auth', () => {
   
     return { token, user, isLoggedIn, login, logout }
   }, {
-    persist: true // 👉 sẽ tự lưu vào localStorage
+    persist: true
   })
   
