@@ -1,19 +1,16 @@
 <template>
   <div class="p-4 text-black">
-    <h2 class="text-2xl font-bold mb-4">Thêm người dùng mới</h2>
+    <h2 class="text-2xl font-bold mb-4">Cập nhật thông tin người dùng</h2>
 
-    <form @submit.prevent="addUser" class="space-y-4">
+    <!-- Chỉ hiển thị form khi user đã có dữ liệu -->
+    <form v-if="user" @submit.prevent="updateUser" class="space-y-4">
       <div>
         <label class="block">Tên:</label>
-        <input v-model="user.name" type="text" class="input" required />
+        <input v-model="user.name" type="text" class="input" />
       </div>
       <div>
         <label class="block">Email:</label>
-        <input v-model="user.email" type="email" class="input" required />
-      </div>
-      <div>
-        <label class="block">Mật khẩu:</label>
-        <input v-model="user.password" type="password" class="input" required />
+        <input v-model="user.email" type="email" class="input" />
       </div>
       <div>
         <label class="block">Số điện thoại:</label>
@@ -27,54 +24,69 @@
         <label>Admin:</label>
         <input v-model="user.isAdmin" type="checkbox" />
       </div>
-      <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-        Thêm người dùng
-      </button>
+      <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Cập nhật</button>
     </form>
+
+    <div v-else class="text-gray-500">Đang tải dữ liệu người dùng...</div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import axios from '@/axios'
 import Swal from 'sweetalert2'
 
+const route = useRoute()
 const router = useRouter()
+const userId = route.params.id
+const user = ref(null)
 
-const user = ref({
-  name: '',
-  email: '',
-  password: '',
-  phone: '',
-  address: '',
-  isAdmin: false
-})
-
-const addUser = async () => {
+const fetchUser = async () => {
   try {
-    const payload = {
-      ...user.value,
-      role: user.value.isAdmin ? 'admin' : 'user'
-    }
-
-    await axios.post('/admin/user/create', payload)
-
-    Swal.fire({
-      icon: 'success',
-      title: 'Tạo người dùng thành công!',
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 1500
-    })
-
-    router.push('/admin/user')
-  } catch (err) {
-    console.error('Lỗi tạo người dùng:', err)
-    Swal.fire('Lỗi', 'Không thể tạo người dùng. Vui lòng thử lại.', 'error')
+    const { data } = await axios.get(`/admin/user/get/${userId}`)
+    user.value = data
+  } catch (error) {
+    console.error('Lỗi lấy dữ liệu người dùng:', error)
+    Swal.fire('Lỗi', 'Không thể lấy dữ liệu người dùng', 'error')
   }
 }
+
+const updateUser = async () => {
+  const result = await Swal.fire({
+    title: 'Bạn có chắc chắn muốn cập nhật?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Cập nhật!',
+    cancelButtonText: 'Huỷ'
+  })
+
+  if (result.isConfirmed) {
+    try {
+      user.value.role = user.value.isAdmin ? 'admin' : 'user'
+      await axios.put(`/admin/user/update/${userId}`, user.value)
+
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Cập nhật thành công!',
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: { popup: 'animate-fade-in' }
+      })
+
+      router.push('/admin/user')
+    } catch (err) {
+      console.error('Lỗi cập nhật:', err)
+      Swal.fire('Cập nhật thất bại!', 'Vui lòng thử lại.', 'error')
+    }
+  }
+}
+
+onMounted(fetchUser)
 </script>
 
 <style scoped>

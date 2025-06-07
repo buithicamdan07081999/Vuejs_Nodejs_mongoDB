@@ -44,7 +44,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
+import axios from '@/axios'
 import Swal from 'sweetalert2'
 
 const router = useRouter()

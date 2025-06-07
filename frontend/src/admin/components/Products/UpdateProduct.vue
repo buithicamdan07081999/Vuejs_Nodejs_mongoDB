@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import axios from 'axios';
+import axios from '@/axios';
 import { computed } from 'vue';
 import Swal from 'sweetalert2';
 import imageCompression from 'browser-image-compression';
