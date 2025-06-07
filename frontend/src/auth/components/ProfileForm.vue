@@ -46,10 +46,13 @@
 
 <script setup>
 import { useAuthStore } from '@/stores/auth'
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const auth = useAuthStore()
 
-function editProfile() {
-  alert("Tính năng cập nhật sẽ được bổ sung sớm 😄")
+
+const editProfile = () => {
+  router.push('/profile/edit')
 }
+
 </script>
