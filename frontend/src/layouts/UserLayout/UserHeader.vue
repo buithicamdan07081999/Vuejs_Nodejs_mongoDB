@@ -20,7 +20,7 @@
           <div class="dropdown-menu">
             <router-link to="/product/bestprice" class="header-link">{{ $t('best_seller') }}</router-link>
             <router-link to="/product/newest" class="header-link">{{ $t('newest') }}</router-link>
-            <!-- <router-link to="/product" class="header-link">{{ $t('discount') }}</router-link> -->
+            <router-link to="/product" class="header-link">{{ $t('products') }}</router-link>
           </div>
         </div>
 

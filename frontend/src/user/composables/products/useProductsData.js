@@ -7,7 +7,6 @@ export function useProducts() {
   const productsprice = ref([]);
 
   const fetchProducts = async () => {
-    // console.error('Đường dẫn APIProducts:', axios.defaults.baseURL);
     try {
       const res = await axios.get('/product');
       products.value = res.data;
