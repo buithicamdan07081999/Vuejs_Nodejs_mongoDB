@@ -90,6 +90,7 @@
 
 <script>
 import Swal from "sweetalert2";
+import axios from "@/axios";
 
 export default {
   data() {
@@ -106,10 +107,14 @@ export default {
   },
   methods: {
     async fetchProducts() {
-      const res = await fetch(
-        `http://localhost:5000/api/product?search=${this.search}&page=${this.page}&limit=${this.limit}`
-      );
-      const { products, totalPages } = await res.json();
+      const res = await axios.get("/product", {
+        params: {
+          search: this.search,
+          page: this.page,
+          limit: this.limit,
+        }
+      });
+      const { products, totalPages } = res.data;
       this.products = products;
       this.totalPages = totalPages;
       this.syncSelected();
@@ -141,7 +146,7 @@ export default {
 
       if (result.isConfirmed) {
         try {
-          await fetch(`http://localhost:5000/api/product/${id}`, { method: "DELETE" });
+          await axios.delete(`/product/${id}`);
           await this.fetchProducts();
           Swal.fire("Đã xoá!", "Sản phẩm đã được xoá.", "success");
         } catch (err) {
@@ -181,7 +186,7 @@ export default {
         try {
           await Promise.all(
             this.selectedProducts.map(id =>
-              fetch(`http://localhost:5000/api/product/${id}`, { method: "DELETE" })
+              axios.delete(`/product/${id}`)
             )
           );
           this.selectedProducts = [];

@@ -7,7 +7,7 @@ export default [{
     {
       path: "",
       name: "Product",
-      component: () => import("@/admin/components/Products/ProductPage.vue"),
+      component: () => import("@/admin/components/Products/ProductList.vue"),
     },
     {
       path: "add",
