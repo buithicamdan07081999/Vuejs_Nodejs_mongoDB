@@ -32,13 +32,15 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import axios from '@/axios'
 import Swal from 'sweetalert2'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const authStore = useAuthStore()
 
-// Tạo formData sao chép từ authStore.user
+// ✅ Sử dụng _id thay vì id
 const formData = ref({
+  _id: authStore.user?._id || '',
   name: authStore.user?.name || '',
-  id: authStore.user?.id || '',
   email: authStore.user?.email || '',
   phone: authStore.user?.phone || '',
   address: authStore.user?.address || ''
@@ -46,11 +48,10 @@ const formData = ref({
 
 const updateProfile = async () => {
   try {
-    const { data } = await axios.put('/user/update/', formData.value.id)
-    console.log("Value: ", formData.value.id, formData.value.name)
-    // Cập nhật lại user trong authStore
+    console.log("formData: ", formData.value, "\n___authStore", authStore.user)
+    const { data } = await axios.put(`/user/update/${formData.value._id}`, formData.value)
     authStore.setUser(data)
-
+    localStorage.setItem('auth', JSON.stringify(authStore.$state))
     Swal.fire({
       toast: true,
       position: 'top-end',
@@ -59,6 +60,7 @@ const updateProfile = async () => {
       showConfirmButton: false,
       timer: 1500
     })
+    router.push('/profile')
   } catch (err) {
     console.error('Lỗi khi cập nhật:', err)
     Swal.fire('Lỗi', 'Không thể cập nhật hồ sơ.', 'error')

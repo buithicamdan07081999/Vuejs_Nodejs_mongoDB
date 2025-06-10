@@ -32,7 +32,11 @@
           <span>{{ auth.user.phone || 'Chưa cập nhật' }}</span>
         </div>
       </div>
-
+      <div class="mt-4 text-right flex justify-center">
+        <router-link to="/profile/change/password" class="text-blue-600 hover:underline text-sm">
+          Đổi mật khẩu
+        </router-link>
+      </div>
       <!-- Nút cập nhật -->
       <div class="flex justify-center mt-8">
         <button @click="editProfile"
