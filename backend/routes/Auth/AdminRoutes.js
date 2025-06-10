@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const adminMiddleware = require('../../middlewares/authMiddleware')
 const GetAllUsers = require("../../controllers/Admin/GetAllUsersController");
 const GetUserById = require("../../controllers/Admin/GetUserByIdController");
 const UpdateUser = require("../../controllers/Admin/UpdateUserController");
@@ -17,5 +17,5 @@ router.get("/user/profile/:id", GetProfile);    // GET /api/admin/get/user/:id/p
 router.get("/user/get/:id", GetUserById);       // GET /api/admin/user/get/:id frontend\src\admin\components\Auth\UpdateUser.vue
 router.put("/user/update/:id", UpdateUser);        // PUT /api/admin/user/update/:id
 router.delete("/user/delete/:id", DeleteUser);     // DELETE /api/admin/delete/user/:id
-router.put("/user/reset-password/:id", ResetUserPassword); // PUT api/admin/user/reset-password/
+router.put('/user/reset/password/:id', adminMiddleware, ResetUserPassword); // PUT api/admin/user/reset-password/
 module.exports = router;

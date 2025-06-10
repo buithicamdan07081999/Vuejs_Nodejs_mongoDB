@@ -1,23 +1,25 @@
 const User = require('../../models/Auth/UserModels')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
-const ResetUserPassword = async (req, res) => {
-  const { id } = req.params
-  const { newPassword } = req.body
-
+const changeUserPassword = async (req, res) => {
   try {
-    const user = await User.findById(id)
+    const userId = req.params.id
+    const { newPassword } = req.body
+
+    const user = await User.findById(userId)
     if (!user) return res.status(404).json({ message: 'Không tìm thấy người dùng' })
 
-    const hashed = await bcrypt.hash(newPassword, 10)
-    user.password = hashed
+    if (!newPassword || newPassword.length < 6) {
+      return res.status(400).json({ message: 'Mật khẩu mới không hợp lệ (ít nhất 6 ký tự)' })
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10)
     await user.save()
 
-    res.json({ message: 'Cập nhật mật khẩu thành công' })
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({ message: 'Lỗi server' })
+    res.json({ message: 'Đã cập nhật mật khẩu cho người dùng' })
+  } catch (err) {
+    res.status(500).json({ message: 'Lỗi khi đổi mật khẩu người dùng', error: err.message })
   }
 }
 
-module.exports = ResetUserPassword
+module.exports = changeUserPassword

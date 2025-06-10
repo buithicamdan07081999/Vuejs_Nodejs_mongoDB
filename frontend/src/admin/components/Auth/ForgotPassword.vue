@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-24 max-w-md mx-auto p-6 bg-white rounded-xl shadow space-y-4">
+  <div class="text-black mt-24 max-w-md mx-auto p-6 bg-white rounded-xl shadow space-y-4">
     <h2 class="text-xl font-semibold text-center">Đặt lại mật khẩu</h2>
 
     <form @submit.prevent="handleReset">
@@ -13,7 +13,7 @@
     <p v-if="error" class="text-center text-red-500 mt-2">{{ error }}</p>
 
     <div class="text-center mt-4">
-      <router-link to="/login" class="text-blue-600 hover:underline">Quay lại đăng nhập</router-link>
+      <router-link to="/admin/user" class="text-blue-600 hover:underline">Quay lại</router-link>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@ const handleReset = async () => {
   }
 
   try {
-    const res = await axios.put(`/api/admin/user/reset-password/${userId}`, {
+    const res = await axios.put(`/admin/user/reset/password/${userId}`, {
       newPassword: newPassword.value,
     })
     message.value = res.data.message
