@@ -1,5 +1,5 @@
 <script setup>
-import { useCartStore } from '@/stores/cartStore'
+import { useCartStore } from '@/cart/stores/cartStore'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'

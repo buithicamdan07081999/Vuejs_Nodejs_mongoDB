@@ -1,12 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
 import authRoutes from "@/auth/router/authRoutes";
 import userRoutes from "@/user/router/userRoutes";
-import adminRoutes from "@/admin/router"; // <- không dùng dấu {}
+import adminRoutes from "@/admin/router";
+import cartRoutes from "@/cart/router";
 
 const routesOperator = [
   ...authRoutes,
   ...userRoutes,
-  ...adminRoutes
+  ...adminRoutes,
+  ...cartRoutes,
 ];
 
 const router = createRouter({

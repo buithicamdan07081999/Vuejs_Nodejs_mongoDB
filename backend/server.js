@@ -31,7 +31,8 @@ app.use("/api/uploads", require("./routes/Product/UploadRoutes"));
 app.use("/api/user", require("./routes/Auth/UserRoutes"));
 // file liên quan 
 app.use("/api/admin", require("./routes/Auth/AdminRoutes"));
-app.use('/api/order', require("./routes/Order/OrderRoutes"))
+app.use("/api/cart", require("./routes/Cart/CartRoutes"));
+// app.use('/api/order', require("./routes/Order/OrderRoutes"))
 // Lắng nghe cổng 5000 hoặc từ .env
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

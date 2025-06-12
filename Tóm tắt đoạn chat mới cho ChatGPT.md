@@ -1,41 +1,58 @@
-🧠 TÓM TẮT DỰ ÁN KDBD – WEB QUẢN LÝ CỬA HÀNG QUẦN ÁO
+✅ TÓM TẮT DỰ ÁN BÁN HÀNG (Vue 3 + TailwindCSS + Node.js + MongoDB)
+🔧 Công nghệ sử dụng:
+Frontend: Vue 3 (Composition API), TailwindCSS, Pinia, Vue Router
 
-Frontend: Vue 3 (Composition API) + Vite + TailwindCSS + Pinia + Vue Router + Axios
+Backend: Node.js + Express
 
-Backend: Node.js + Express + MongoDB (Mongoose)
+Database: MongoDB
 
-Đã hoàn thành:
+Xác thực: JWT (JSON Web Token)
 
-CRUD sản phẩm + danh mục (controller riêng)
+Thông báo: SweetAlert2
 
-Phân trang danh sách sản phẩm
+✅ Chức năng đã hoàn thành:
+ Đăng ký / đăng nhập (JWT)
 
-Upload ảnh
+ Xem thông tin người dùng (trang /profile)
 
-Giỏ hàng (Pinia): thêm/sửa/xoá
+ Cập nhật thông tin cá nhân
 
-Đơn hàng: đã xong API (model, controller, routes)
+ Đổi mật khẩu cho user
 
-Toast notification (SweetAlert2)
+ Đổi mật khẩu cho user từ phía admin
 
-Giao diện tách biệt Admin/User
+ Quản lý người dùng từ admin: tạo, sửa, phân quyền
 
-Luồng mua hàng đang làm:
+ CRUD sản phẩm, danh mục
 
-"Mua ngay" → form thông tin nhận hàng
+ Phân trang, tìm kiếm, lọc sản phẩm
 
-Nếu đã login: tự động load user info
+✅ Chức năng sắp làm (theo yêu cầu hiện tại):
+🛒 1. Trang chi tiết sản phẩm
+Hiển thị thông tin chi tiết của 1 sản phẩm
 
-Nếu chưa login: yêu cầu đăng nhập
+Có nút: Thêm vào giỏ hàng và Mua ngay
 
-Gửi đơn → báo thành công + chuyển sang "Xem đơn hàng đã đặt"
+🧩 2. Chức năng giỏ hàng
+Khi bấm Thêm vào giỏ hàng:
 
-Mục tiêu hiện tại:
+Tạo bản ghi giỏ hàng (Cart) trong DB hoặc cập nhật lại nếu đã tồn tại.
 
-Tôi quên mật khẩu nên đang làm chức năng quản lý người dùng
+Gắn theo _id của user đang đăng nhập (phân biệt khách A / B).
 
-Đã xong: hiển thị + cập nhật người dùng
+Có thể thêm 1 field như isInCart: true để giúp hiển thị nhanh.
 
-Đang làm: giao diện tạo người dùng mới (admin tạo)
+Khi bấm Mua ngay:
 
-Sau đó sẽ làm: xoá người dùng → reset mật khẩu riêng
+Chuyển sang trang điền thông tin nhận hàng → Tạo đơn hàng (Order)
+
+Nếu chưa đăng nhập thì yêu cầu đăng nhập hoặc đăng ký.
+
+🔎 3. Quản lý giỏ hàng
+Xem danh sách sản phẩm đã thêm
+
+Xóa sản phẩm khỏi giỏ
+
+Sửa số lượng
+
+Đặt hàng từ giỏ hàng

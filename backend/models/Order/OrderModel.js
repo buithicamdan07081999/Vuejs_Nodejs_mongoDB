@@ -1,19 +1,27 @@
+// models/OrderModel.js
 const mongoose = require('mongoose');
 
-const OrderSchema = new mongoose.Schema({
-  userId: {
+const orderSchema = new mongoose.Schema({
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
   },
   items: [
     {
-      productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+      product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
       name: String,
       price: Number,
-      quantity: Number
+      quantity: { type: Number, required: true },
+      color: String,
+      size: String,
     }
   ],
+  shippingAddress: {
+    fullName: String,
+    phone: String,
+    address: String,
+  },
   totalPrice: { type: Number, required: true },
   status: {
     type: String,
@@ -24,6 +32,6 @@ const OrderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+}, { timestamps: true });
 
-module.exports = mongoose.model('Order', OrderSchema);
+module.exports = mongoose.model('Order', orderSchema);
