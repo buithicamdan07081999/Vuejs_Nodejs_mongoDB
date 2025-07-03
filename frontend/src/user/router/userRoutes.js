@@ -2,7 +2,7 @@ import HomeView from '@/user/views/HomeView.vue';
 import ProductsView from '@/user/views/ProductsView.vue';
 import ProductsDetailView from '@/user/views/ProductsDetailView.vue';
 import CartPage from '@/cart/views/CartView.vue';
-import CheckoutPage from '@/user/components/Cart/CheckoutPage.vue';
+// import CheckoutPage from '@/user/components/Cart/CheckoutPage.vue';
 import BestPrice from '@/user/components/Products/BestPriceProducts.vue';
 import NewArrivalProducts from '@/user/components/Products/NewArrivalProducts.vue';
 
@@ -13,7 +13,7 @@ const UserRoutes = [
   { path: '/product/bestprice', name: 'bestprice', component: BestPrice },
   { path: '/product/newest', name: 'NewArrivalProducts', component: NewArrivalProducts },
   { path: '/cart', name: 'CartPage', component: CartPage } ,
-  { path: '/checkout', name: 'CheckoutPage', component: CheckoutPage }
+  // { path: '/checkout', name: 'CheckoutPage', component: CheckoutPage }
 ]
 
 export default UserRoutes;
